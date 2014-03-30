@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace CountDownTests.Controllers
 {
     [TestFixture]
-    public class ToDoControllerTests
+    public class A_ToDoController_Object
     {
         private ToDoController _sut;
 
