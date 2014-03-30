@@ -152,5 +152,6 @@ $RECYCLE.BIN/
 
 CountDown/Content/bootstrap*
 CountDown/fonts/glyph*
-CountDown/Scripts/jquery-*
+CountDown/Scripts/jquery*
 CountDown/Scripts/bootstrap*
+CountDown/Scripts/modernizr*
