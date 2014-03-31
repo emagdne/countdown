@@ -7,6 +7,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
@@ -22,10 +23,10 @@
                 </div>
             </div>
         </nav>
-        @RenderBody()
 
-        @Scripts.Render("~/bundles/jquery")
+        @RenderBody()
         @RenderSection("scripts", required: false)
+
         <div id="footer">
             <div class="container">
                 <p class="text-muted">&copy; 2014 Jordan Brown</p>
