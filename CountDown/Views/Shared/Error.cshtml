@@ -1,6 +1,20 @@
 ﻿@{
     Layout = "_Layout.cshtml";
+    ViewBag.Title = "Error";
+    ViewBag.NavRight = "System Error!";
 }
 
-<h1>OOPS</h1>
-<h2>An unexpected error occurred while processing your request.</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <!-- Royalty-free image taken from: http://pixabay.com/en/device-error-device-defect-154484/ -->
+            <div class="top-buffer">
+                <img src="~/Images/system_error.png" />
+                <h2>OOPS!</h2>
+                <h3>An unexpected error occurred while processing your request.</h3>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>

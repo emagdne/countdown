@@ -21,8 +21,23 @@
                         <span id="brand-text">Count Down</span>
                     </a>
                 </div>
+                <div class="collapse navbar-collapse">
+                    <p class="navbar-text navbar-right">
+                        @if (ViewBag.NavRight != null)
+                        {
+                            @ViewBag.NavRight
+                        }
+                        else if (User != null) // todo: might have to fix this user conditional
+                        {
+                            @User.Identity.Name
+                        }
+                    </p>
+                </div>
             </div>
         </nav>
+        <div id="navigation">
+            @RenderSection("navigation", required: false)
+        </div>
 
         @RenderBody()
         @RenderSection("scripts", required: false)

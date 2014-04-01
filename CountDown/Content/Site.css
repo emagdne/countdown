@@ -1,6 +1,5 @@
 ﻿header, footer, nav, section { display: block; }
 
-
 /* Styles for basic forms
 -----------------------------------------------------------*/
 
@@ -71,21 +70,31 @@ body {
 
 /* Global */
 
-.navbar > .container-fluid { padding-bottom: 5px; }
+.navbar > .container-fluid {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 
-#brand-image { vertical-align: -6px; }
+#brand-image {
+    position: relative;
+    bottom: 3px;
+}
 
 #brand-text { padding-left: 7px; }
 
-h1 {
-    font-size: 24px;
-    margin: 16px auto;
+#navigation {
+    font-size: 11pt;
+    color: #777;
+    position: absolute;
+    left: 25px;
 }
+
+.top-buffer { margin-top: 30px; }
 
 .form-block-button { margin-bottom: 8px; }
 
 /* Login */
 
-#login-fields {
-    padding: 14px 0 16px 0;
-}
+#login-errors { margin-bottom: 30px; }
+
+#login-fields { padding-bottom: 16px; }

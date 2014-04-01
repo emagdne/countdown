@@ -2,15 +2,28 @@
 
 @{
     ViewBag.Title = "Login";
+    ViewBag.NavRight = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $("input[name=email]").focus();
+        });
+    </script>    
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <h1>Login</h1>
             <form action="" method="POST">
+                <div id="login-errors" class="top-buffer">
+                    @if (false) // todo: write condition to show validation errors
+                    {
+                    }
+                </div>
                 <div id="login-fields">
                     <div class="form-group">
                         <input type="email" class="form-control" name="email" placeholder="Email address" />
