@@ -1,4 +1,5 @@
-﻿@model dynamic
+﻿@using WebGrease.Css.Extensions
+@model dynamic
 
 @{
     ViewBag.Title = "Registration";
@@ -16,44 +17,50 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <form action="" method="POST" class="form-horizontal top-buffer">
+            <form action="@Url.Action("Register")" method="POST" class="form-horizontal top-buffer">
                 <div class="form-group">
                     <label for="reg-fn" class="col-sm-3 control-label">First name</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="reg-fn" name="firstName"/>
+                        @Html.ValidationMessage("FirstName")
+                        <input type="text" class="form-control" id="reg-fn" name="firstName" value="@Request["firstName"]"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="reg-ln" class="col-sm-3 control-label">Last name</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="reg-ln" name="lastName"/>
+                        @Html.ValidationMessage("LastName")
+                        <input type="text" class="form-control" id="reg-ln" name="lastName" value="@Request["lastName"]"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="reg-email" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="reg-email" name="email"/>
+                        @Html.ValidationMessage("Email")
+                        <input type="text" class="form-control" id="reg-email" name="email" value="@Request["email"]"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="reg-email-confirm" class="col-sm-3 control-label">Reenter email</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="reg-email-confirm" name="confirmEmail"/>
+                        @Html.ValidationMessage("ConfirmEmail")
+                        <input type="text" class="form-control" id="reg-email-confirm" name="confirmEmail" value="@Request["confirmEmail"]"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="reg-pw" class="col-sm-3 control-label">Password</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control" id="reg-pw" name="password"/>
+                        @Html.ValidationMessage("Password")
+                        <input type="password" class="form-control" id="reg-pw" name="password" value="@Request["password"]"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="reg-pw-confirm" class="col-sm-3 control-label">Reenter password</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control" id="reg-pw-confirm" name="confirmPassword"/>
+                        @Html.ValidationMessage("ConfirmPassword")
+                        <input type="password" class="form-control" id="reg-pw-confirm" name="confirmPassword" value="@Request["confirmPassword"]" />
                     </div>
                 </div>
-                <div class="pull-right">
+                <div id ="reg-buttons" class="pull-right">
                     <button class="btn btn-default">Clear</button>
                     <input type="submit" value="Submit" class="btn btn-primary" style="margin-left: 6px;"/>
                 </div>
