@@ -37,8 +37,7 @@ namespace CountDown.Models.Domain
         [NotMapped]
         public string ConfirmPassword { get; set; }
 
-        public string Salt { get; set; }
-
+        [StringLength(68, MinimumLength = 68)]
         public string Hash { get; set; }
     }
 }

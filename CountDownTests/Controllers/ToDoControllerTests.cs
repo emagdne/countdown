@@ -21,12 +21,5 @@ namespace CountDownTests.Controllers
             var result = _sut.Create() as ViewResult;
             Assert.That(result.ViewName, Is.EqualTo("Create"));
         }
-
-        [Test]
-        public void Should_Return_The_List_View_When_The_List_Action_Is_Fired()
-        {
-            var result = _sut.List() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("List"));
-        }
     }
 }

@@ -29,7 +29,6 @@ namespace CountDownTests.Controllers
                 Password = "12345",
                 ConfirmPassword = "12345",
                 Hash = "ABC123",
-                Salt = "123ABC"
             };
         }
 
