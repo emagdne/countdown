@@ -146,10 +146,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Domain\LoginAttempt.cs" />
     <Compile Include="Models\Domain\User.cs" />
-    <Compile Include="Models\Repository\IUserRepository.cs" />
     <Compile Include="Models\Repository\UserContext.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />
+    <Compile Include="Models\Security\CountDownIdentity.cs" />
+    <Compile Include="Models\Security\CountDownMembershipProvider.cs" />
+    <Compile Include="Models\Security\CountDownMembershipUser.cs" />
+    <Compile Include="Models\Security\CountDownPrincipal.cs" />
+    <Compile Include="Models\Service\AuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
