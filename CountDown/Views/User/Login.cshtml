@@ -18,18 +18,28 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <form action="" method="POST">
-                <div id="login-errors" class="top-buffer">
-                    @if (false) // todo: write condition to show validation errors
-                    {
-                    }
-                </div>
+            <form action="@Url.Action("Login")" method="POST">
+                <div class="top-buffer"></div>
+                @if (TempData["loginMessage"] != null)
+                {
+                    <div id="login-message">
+                        @TempData["loginMessage"]
+                    </div>
+                }
+                else if (TempData["loginError"] != null)
+                {
+                    <div id="login-error">
+                        @TempData["loginError"]
+                    </div>
+                }
                 <div id="login-fields">
                     <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Email address" />
+                        @Html.ValidationMessage("Email")
+                        <input type="email" class="form-control" name="email" placeholder="Email address" value="@Request["email"]"/>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password" />
+                        @Html.ValidationMessage("Password")
+                        <input type="password" class="form-control" name="password" placeholder="Password" value="@Request["password"]"/>
                     </div>
                 </div>
                 <div class="form-block-button">

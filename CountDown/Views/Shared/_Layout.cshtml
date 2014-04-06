@@ -27,7 +27,7 @@
                         {
                             @ViewBag.NavRight
                         }
-                        else if (User != null) // todo: might have to fix this user conditional
+                        else if (User.Identity.IsAuthenticated)
                         {
                             @User.Identity.Name
                         }

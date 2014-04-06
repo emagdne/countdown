@@ -8,6 +8,15 @@
             $(".col-sm-9 > input").val("");
             return false;
         });
+
+        // For some reason chrome clears the form when the enter key is pressed.
+        // This callback fixes the issue.
+        $(document).keypress(function(e) {
+            if (e.which == 13) {
+                $("input[type=submit]").click();
+                return false;
+            }
+        });
     };
 
     // Fixes issue with the label positions being offset by validation errors

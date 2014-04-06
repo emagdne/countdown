@@ -95,6 +95,23 @@ body {
 
 /* Login */
 
+#login-message {
+    margin-bottom: 28px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(245, 245, 245);
+    font-family: Georgia;
+    border-radius: 8px;
+}
+
+#login-error {
+    margin-bottom: 28px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(255, 239, 239);
+    border-radius: 8px;
+}
+
 #login-errors { margin-bottom: 30px; }
 
 #login-fields { padding-bottom: 16px; }
