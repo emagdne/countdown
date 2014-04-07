@@ -60,34 +60,48 @@ namespace CountDown.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                TempData["loginMessage"] = "You have signed out of the application successfully.";
-                FormsAuthentication.SignOut();
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    TempData["loginMessage"] = "You have signed out of the application successfully.";
+                    FormsAuthentication.SignOut();
+                }
+                return View("Login");
             }
-            return View("Login");
+            catch (Exception)
+            {
+                return View("SystemError");
+            }
         }
 
         [HttpPost]
         public ActionResult Login(LoginAttempt attempt)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (_authenticationService.ValidateUser(attempt.Email, attempt.Password))
+                if (ModelState.IsValid)
                 {
-                    _authenticationService.HandleLoginRedirect(attempt.Email, false);
+                    if (_authenticationService.ValidateUser(attempt.Email, attempt.Password))
+                    {
+                        _authenticationService.HandleLoginRedirect(attempt.Email, false);
+                    }
+                    else
+                    {
+                        TempData["loginError"] = "The email address or password could not be verified.\n" +
+                                                 "Please enter a registered email and password.";
+                    }
                 }
                 else
                 {
-                    TempData["loginError"] = "The email address or password could not be verified.\n" +
-                                             "Please enter a registered email and password.";
+                    TempData["loginError"] = "You must correct the errors below to login.";
                 }
+                return View("Login");
             }
-            else
+            catch (Exception)
             {
-                TempData["loginError"] = "You must correct the errors below to login.";
+                return View("SystemError");
             }
-            return View("Login");
         }
     }
 }

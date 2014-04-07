@@ -16,6 +16,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
+        [Category("Iteration 4")]
         public void Should_Return_The_Create_View_When_The_Create_Action_Is_Fired()
         {
             var result = _sut.Create() as ViewResult;
