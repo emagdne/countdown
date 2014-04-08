@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using CountDown.Models.Domain;
 using Microsoft.AspNet.Identity;
 
@@ -9,6 +12,7 @@ namespace CountDown.Models.Repository
         void InsertUser(User user);
         bool AuthenticateUser(string email, string password);
         User FindUserByEmail(string email);
+        IQueryable<User> AllUsers();
         void SaveChanges();
     }
 
@@ -45,7 +49,7 @@ namespace CountDown.Models.Repository
         public bool AuthenticateUser(string email, string password)
         {
             var user = _db.Users.FirstOrDefault(x => x.Email.Equals(email));
-            if(user == null) return false;
+            if (user == null) return false;
             var verification = _passwordHasher.VerifyHashedPassword(user.Hash, password);
             return verification == PasswordVerificationResult.Success
                    || verification == PasswordVerificationResult.SuccessRehashNeeded;
@@ -54,6 +58,11 @@ namespace CountDown.Models.Repository
         public User FindUserByEmail(string email)
         {
             return _db.Users.FirstOrDefault(x => x.Email.Equals(email));
+        }
+
+        public IQueryable<User> AllUsers()
+        {
+            return _db.Users;
         }
 
         public void SaveChanges()

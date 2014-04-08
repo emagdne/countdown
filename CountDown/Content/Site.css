@@ -91,6 +91,15 @@ body {
 
 .top-buffer { margin-top: 30px; }
 
+.datepicker, .timepicker {
+    width: 200px;
+    text-align: center;
+}
+
+textarea {
+    resize: vertical;
+}
+
 .form-block-button { margin-bottom: 8px; }
 
 /* Login */
@@ -119,3 +128,13 @@ body {
 /* Registration */
 
 #reg-buttons { margin-bottom: 15px; }
+
+/* To-Do Create*/
+
+#todo-create-assign {
+    width: 250px;
+}
+
+#todo-create-buttons {
+    margin: 12px auto 15px auto; 
+}

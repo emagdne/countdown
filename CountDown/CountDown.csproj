@@ -61,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -126,6 +127,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
@@ -137,9 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DatePickerHelperBundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bootstrap Html Helpers\DatePickerFor.cs" />
+    <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ToDoController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -147,7 +154,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Domain\LoginAttempt.cs" />
+    <Compile Include="Models\Domain\ToDoItem.cs" />
     <Compile Include="Models\Domain\User.cs" />
+    <Compile Include="Models\Repository\ToDoItemContext.cs" />
+    <Compile Include="Models\Repository\ToDoItemRepository.cs" />
     <Compile Include="Models\Repository\UserContext.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />
     <Compile Include="Models\Security\CountDownIdentity.cs" />
@@ -158,9 +168,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -173,7 +182,7 @@
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Images\countdown.png" />
     <Content Include="Images\system_error.png" />
-    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -186,6 +195,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ToDo\create.js" />
     <Content Include="Scripts\User\registration.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />

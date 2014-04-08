@@ -5,6 +5,7 @@ namespace CountDown.Models.Domain
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
 
         [Column("first_name", TypeName = "VARCHAR")]

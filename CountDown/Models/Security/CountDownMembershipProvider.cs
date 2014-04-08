@@ -20,6 +20,8 @@ namespace CountDown.Models.Security
             _userRepository = userRepository;
         }
 
+        #region Overrides
+
         public override MembershipUser GetUser(string email, bool userIsOnline)
         {
             var user = _userRepository.FindUserByEmail(email);
@@ -27,8 +29,6 @@ namespace CountDown.Models.Security
 
             return new CountDownMembershipUser(user);
         }
-
-        #region Overrides
 
         public override bool ValidateUser(string email, string password)
         {
