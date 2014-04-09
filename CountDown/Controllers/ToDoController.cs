@@ -56,8 +56,12 @@ namespace CountDown.Controllers
             {
                 if (ModelState.IsValid && User.Identity.IsAuthenticated)
                 {
+                    var identity = User.Identity as CountDownIdentity;
+                    item.OwnerId = identity != null ? identity.Id : 0;
+
                     _toDoItemRepository.InsertToDo(item);
                     _toDoItemRepository.SaveChanges();
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 ViewBag.assigneeid = GetAssigneeList();

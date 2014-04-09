@@ -1,18 +1,18 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>@ViewBag.Title</title>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/modernizr")
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    </head>
     <body>
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
@@ -25,15 +25,29 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <p class="navbar-text navbar-right">
-                        @if (ViewBag.NavRight != null)
-                        {
-                            @ViewBag.NavRight
-                        }
-                        else if (User.Identity.IsAuthenticated)
-                        {
-                            @User.Identity.Name
-                        }
+
                     </p>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="navbar-text">
+                            @if (ViewBag.NavRight != null)
+                            {
+                                @ViewBag.NavRight
+                            }
+                            else if (User.Identity.IsAuthenticated)
+                            {
+                                @User.Identity.Name
+                            }
+                        </li>
+                        @if (ViewBag.NavRight == null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options</a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="@Url.Action("Login", "User")">Sign out</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>

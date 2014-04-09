@@ -102,6 +102,77 @@ textarea {
 
 .form-block-button { margin-bottom: 8px; }
 
+/* Mvc Pager styles, taken from http://demo.taiga.nl/MvcPaging/SimplePaging */
+
+.mvc-pager {
+    text-align: center;
+    margin: 8px 3px;
+    padding: 3px;
+}
+
+.mvc-pager .disabled {
+    border: 1px solid #ddd;
+    color: #999;
+    margin-top: 4px;
+    padding: 3px;
+    text-align: center;
+}
+
+.mvc-pager .current {
+    background-color: #6ea9bf;
+    border: 1px solid #6e99aa;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 4px;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+.mvc-pager span, .mvc-pager a {
+    margin: 4px 3px;
+}
+
+.mvc-pager a {
+    border: 1px solid #aaa;
+    color: #000000;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.mvc-pager a:hover {
+    background-color: #c7d1d6;
+}
+
+/* Index */
+
+#index-options-pane {
+    border: 1px solid #ddd;
+}
+
+#index-options-pane-contents {
+    padding: 12px;
+    margin-left: 25px;
+
+}
+
+#index-filter-options {
+    margin-top: 20px;
+}
+
+#index-filter-options .form-group{
+    margin-bottom: 0;
+}
+
+#index-filter-options div.checkbox {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#index-filter-options input[type=submit] {
+    margin-left: 120px;
+}
+
 /* Login */
 
 #login-message {

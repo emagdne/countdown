@@ -57,12 +57,26 @@ namespace CountDown.Models.Domain
         [NotMapped]
         public DateTime DueTime { get; set; } // Used for model binding purposes only.
 
+        [NotMapped]
+        public TimeSpan TimeLeft
+        {
+            get { return Due - DateTime.Now; }
+        }
+
+        [Column("owner")]
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
+
+        public virtual User Owner { get; set; }
+
         [Required(ErrorMessage = "You must assign the to-do item to someone.")]
         [Column("assigned_to")]
         [ForeignKey("Assignee")]
         public int AssigneeId { get; set; }
 
         public virtual User Assignee { get; set; }
+
+        public bool Completed { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
