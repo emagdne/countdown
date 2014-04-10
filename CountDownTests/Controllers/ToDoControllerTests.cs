@@ -34,7 +34,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Return_The_Create_View_When_The_User_Is_Logged_In_And_The_Create_Action_Is_Fired()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -43,7 +43,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Redirect_To_The_Index_Action_When_The_User_Is_Not_Logged_In_And_The_Create_Action_Is_Fired()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -53,7 +53,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Save_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -62,7 +62,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Redirect_To_The_Index_Action_After_Saving_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -72,7 +72,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Not_Save_An_Invalid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -82,7 +82,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Stay_On_The_Create_Page_For_An_Invalid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -92,7 +92,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Create_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
@@ -101,7 +101,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 5")]
+        [Category("Feature 5")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Create_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();

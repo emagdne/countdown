@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Web.UI.WebControls;
-using CountDown.Models.Domain;
+﻿using CountDown.Models.Domain;
 using NUnit.Framework;
 
 namespace CountDownTests.Models
@@ -17,7 +15,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 4")]
+        [Category("Feature 4")]
         public void Should_Require_An_Email_Address()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -25,7 +23,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 4")]
+        [Category("Feature 4")]
         public void Should_Require_A_Password()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);

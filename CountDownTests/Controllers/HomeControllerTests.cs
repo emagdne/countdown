@@ -20,7 +20,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 4")]
+        [Category("Feature 4")]
         public void Should_Redirect_User_To_The_Login_Action_If_He_Is_Not_Logged_In()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -30,7 +30,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Iteration 4")]
+        [Category("Feature 4")]
         public void Should_Return_The_Index_View_If_User_Is_Logged_In()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);

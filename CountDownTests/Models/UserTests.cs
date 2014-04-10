@@ -15,7 +15,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Require_A_FirstName()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -23,7 +23,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_FirstName_Greater_Than_50_Characters()
         {
             _sut.FirstName = new string('x',51);
@@ -32,7 +32,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_LastName_Greater_Than_50_Characters()
         {
             _sut.LastName = new string('x',51);
@@ -41,7 +41,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Require_An_Email()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -49,7 +49,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_An_Invalid_Email()
         {
             _sut.Email = "InvalidEmail";
@@ -58,7 +58,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Require_An_Email_Confirmation()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -66,7 +66,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_An_Email_Confirmation_Not_Equal_To_The_Email()
         {
             _sut.Email = "tester@gmail.com";
@@ -76,7 +76,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Require_A_Password()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -84,7 +84,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_Password_Less_Than_4_Characters()
         {
             _sut.Password = new string('x',3);
@@ -93,7 +93,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_Password_Greater_Than_50_Characters()
         {
             _sut.Password = new string('x', 51);
@@ -102,7 +102,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Require_A_Password_Confirmation()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -110,7 +110,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_Password_Confirmation_Not_Equal_To_The_Password()
         {
             _sut.Password = "TestPassword";
@@ -120,7 +120,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_Hash_Greater_Than_68_Characters()
         {
             _sut.Hash = new string('x',67);
@@ -129,7 +129,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Iteration 1")]
+        [Category("Feature 1")]
         public void Should_Reject_A_Hash_Less_Than_68_Characters()
         {
             _sut.Hash = new string('x', 69);
