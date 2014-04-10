@@ -14,7 +14,6 @@ namespace CountDown.Models.Domain
         public string FirstName { get; set; }
 
         [Column("last_name", TypeName = "VARCHAR")]
-        [Required(ErrorMessage = "You must provide a last name.")]
         [StringLength(50, ErrorMessage = "The last name must be from 0 to 50 characters in length.")]
         public string LastName { get; set; }
 
@@ -37,7 +36,7 @@ namespace CountDown.Models.Domain
         [NotMapped]
         public string ConfirmPassword { get; set; }
 
-        [StringLength(68, MinimumLength = 68)]
+        [StringLength(68, MinimumLength = 68, ErrorMessage = "The hash must be 68 characters long.")]
         public string Hash { get; set; }
     }
 }
