@@ -4,9 +4,13 @@ using CountDown.Models.Security;
 
 namespace CountDown.Controllers
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public class HomeController : Controller
     {
-        private IToDoItemRepository _toDoItemRepository;
+        private readonly IToDoItemRepository _toDoItemRepository;
         private const int PageSize = 10;
 
         public HomeController()

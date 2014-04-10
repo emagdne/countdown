@@ -7,6 +7,10 @@ using CountDown.Models.Service;
 
 namespace CountDown.Controllers
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;

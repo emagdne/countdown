@@ -9,6 +9,9 @@ using Moq;
 
 namespace CountDownTests
 {
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// <para>Class containing a number of methods useful for conducting unit testing.</para>
     public static class UnitTestHelper
     {
         public static ControllerContext GetMockControllerContext(bool authenticated)

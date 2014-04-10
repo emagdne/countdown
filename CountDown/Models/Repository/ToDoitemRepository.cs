@@ -5,6 +5,10 @@ using MvcPaging;
 
 namespace CountDown.Models.Repository
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public interface IToDoItemRepository
     {
         void InsertToDo(ToDoItem item);
@@ -16,6 +20,10 @@ namespace CountDown.Models.Repository
         void SaveChanges();
     }
 
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public class ToDoItemRepository : IToDoItemRepository
     {
         private ToDoItemContext _db;

@@ -5,6 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CountDown.Models.Domain
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     [Table("todo_items")]
     public class ToDoItem : IValidatableObject
     {

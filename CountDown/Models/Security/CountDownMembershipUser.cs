@@ -5,7 +5,15 @@ using CountDown.Models.Domain;
 namespace CountDown.Models.Security
 {
     /// <summary>
-    /// http://codeutil.wordpress.com/2013/05/14/forms-authentication-in-asp-net-mvc-4/
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// <para>
+    ///     Module needed for the authentication system.
+    /// </para>
+    /// <para>
+    ///     Design taken from this article:
+    ///     http://codeutil.wordpress.com/2013/05/14/forms-authentication-in-asp-net-mvc-4/
+    /// </para>
     /// </summary>
     public class CountDownMembershipUser : MembershipUser
     {

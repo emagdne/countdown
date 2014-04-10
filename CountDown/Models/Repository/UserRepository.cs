@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq;
 using CountDown.Models.Domain;
 using Microsoft.AspNet.Identity;
 
 namespace CountDown.Models.Repository
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public interface IUserRepository
     {
         void InsertUser(User user);
@@ -16,6 +17,10 @@ namespace CountDown.Models.Repository
         void SaveChanges();
     }
 
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public class UserRepository : IUserRepository
     {
         private readonly IPasswordHasher _passwordHasher;

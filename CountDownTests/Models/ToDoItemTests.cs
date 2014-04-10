@@ -4,6 +4,8 @@ using NUnit.Framework;
 
 namespace CountDownTests.Models
 {
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
     [TestFixture]
     public class A_ToDoItem_Object
     {

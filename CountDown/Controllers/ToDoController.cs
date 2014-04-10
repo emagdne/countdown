@@ -8,6 +8,10 @@ using CountDown.Models.Security;
 
 namespace CountDown.Controllers
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 4/10/14</para>
+    /// </summary>
     public class ToDoController : Controller
     {
         private readonly IToDoItemRepository _toDoItemRepository;
