@@ -82,7 +82,7 @@ namespace CountDown.Controllers
             IEnumerable<SelectListItem> users = _userRepository.AllUsers()
                 .Select(x => new SelectListItem
                 {
-                    Text = x.LastName + ", " + x.FirstName,
+                    Text = x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName,
                     Value = x.Id.ToString(),
                     Selected = (x.Id == currentUserId)
                 })
