@@ -17,6 +17,7 @@ namespace CountDown
             routes.MapRoute("Login", "login", new {controller = "User", action = "Login"});
             routes.MapRoute("Register", "register", new {controller = "User", action = "Register"});
             routes.MapRoute("CreateToDo", "todo/create", new {controller = "ToDo", action = "Create"});
+            routes.MapRoute("CompleteToDo", "todo/complete", new { controller = "ToDo", action = "Complete" });
 //            routes.MapRoute(
 //                name: "Default",
 //                url: "{controller}/{action}/{id}",

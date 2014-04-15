@@ -6,6 +6,10 @@
 }
 @section scripts
 {
+    <script type="text/javascript">
+        // Global variables
+        var completeUrl = '@Url.RouteUrl("CompleteToDo")';
+    </script>
     <script src="~/Scripts/Home/index.js"></script>
 }
 
@@ -86,6 +90,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td class="index-id-cell hide">@item.Id</td>
                             <td>@item.Title</td>
                             <td class="index-timeleft-cell">@{
                                                                 var timeLeft = item.TimeLeft;
@@ -102,7 +107,7 @@
                                                             }</td>
                             <td class="index-owner-cell">@Html.Raw((item.OwnerId == (Int32) ViewData["UserId"]) ? "Me" : item.Owner.FirstName)</td>
                             <td class="index-assignee-cell">@Html.Raw((item.AssigneeId == (Int32) ViewData["UserId"]) ? "Me" : item.Assignee.FirstName)</td>
-                            <td class="index-completed-cell"><input type="checkbox"
+                            <td class="index-completed-cell"><input type="checkbox" class="index-completed-checkbox"
                                                                  @if (item.Completed || item.AssigneeId != (Int32) ViewData["UserId"])
                                                                  {
                                                                      @Html.Raw(" disabled=\"disabled\"")

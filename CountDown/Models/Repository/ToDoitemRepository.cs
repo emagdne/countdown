@@ -13,6 +13,7 @@ namespace CountDown.Models.Repository
     {
         void InsertToDo(ToDoItem item);
         IQueryable<ToDoItem> AllToDoItems();
+        ToDoItem FindById(int id);
         int ToDoItemsCount();
         int PendingToDoItemsCount(int userId);
         IPagedList<ToDoItem> GetPagedToDoItems(int page, int pageSize, int myId, bool ownedByMe, bool ownedByOthers,
@@ -46,6 +47,11 @@ namespace CountDown.Models.Repository
         public IQueryable<ToDoItem> AllToDoItems()
         {
             return _db.ToDoItems;
+        }
+
+        public ToDoItem FindById(int id)
+        {
+            return _db.ToDoItems.FirstOrDefault(x => x.Id == id);
         }
 
         public int ToDoItemsCount()

@@ -12,7 +12,7 @@ namespace CountDown.Controllers
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>
     /// </summary>
-    public class ToDoController : Controller
+    public class ToDoController : ApplicationController
     {
         private readonly IToDoItemRepository _toDoItemRepository;
         private readonly IUserRepository _userRepository;
@@ -74,6 +74,63 @@ namespace CountDown.Controllers
             catch (Exception)
             {
                 return View("SystemError");
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Complete(int? toDoItemId)
+        {
+            try
+            {
+                JsonResult response;
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (toDoItemId.HasValue)
+                    {
+                        int id = toDoItemId.Value;
+                        var todoItem = _toDoItemRepository.FindById(id);
+                        if (todoItem != null)
+                        {
+                            if (!todoItem.Completed)
+                            {
+                                todoItem.Completed = true;
+
+                                // Fill object with fake start/end dates/times to pass validation... it won't be persisted
+                                todoItem.StartDate = DateTime.Now;
+                                todoItem.StartTime = DateTime.Now;
+                                todoItem.DueDate = DateTime.Now.AddDays(1);
+                                todoItem.DueTime = DateTime.Now.AddDays(1);
+
+                                _toDoItemRepository.SaveChanges();
+                                response = JsonSuccessResponse();
+                            }
+                            else
+                            {
+                                response =
+                                    JsonErrorResponse(
+                                        "The To-Do item you specified has already been marked as completed.");
+                            }
+                        }
+                        else
+                        {
+                            response = JsonErrorResponse("The To-Do item you specified does not exist.");
+                        }
+                    }
+                    else
+                    {
+                        response = JsonErrorResponse("Missing argument: toDoItemId.");
+                    }
+                }
+                else
+                {
+                    response = JsonErrorResponse("You must be logged in to mark a To-Do item as completed.");
+                }
+                return response;
+            }
+            catch (Exception)
+            {
+                return JsonErrorResponse();
             }
         }
 

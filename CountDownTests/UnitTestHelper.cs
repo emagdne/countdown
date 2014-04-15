@@ -59,5 +59,17 @@ namespace CountDownTests
             Validator.TryValidateObject(model, ctx, validationResults, true);
             return validationResults.Select(x => x.ErrorMessage).ToList();
         }
+
+        public static string GetStandardJsonStatus(JsonResult result)
+        {
+            var property = result.Data.GetType().GetProperty("Status");
+            return (string) property.GetValue(result.Data);
+        }
+
+        public static string GetStandardJsonError(JsonResult result)
+        {
+            var property = result.Data.GetType().GetProperty("Error");
+            return (string) property.GetValue(result.Data);
+        }
     }
 }
