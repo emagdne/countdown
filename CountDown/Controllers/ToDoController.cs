@@ -77,6 +77,39 @@ namespace CountDown.Controllers
             }
         }
 
+        public ActionResult Edit(int? toDoItemId)
+        {
+            try
+            {
+                ActionResult response;
+
+                if (toDoItemId.HasValue && User.Identity.IsAuthenticated)
+                {
+                    var id = toDoItemId.Value;
+                    var toDoItem = _toDoItemRepository.FindById(id);
+                    if (toDoItem != null)
+                    {
+                        ViewBag.AssigneeList = GetAssigneeList((int)toDoItem.AssigneeId);
+                        response = View("Edit", toDoItem);
+                    }
+                    else
+                    {
+                        response = RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    response = RedirectToAction("Index", "Home");
+                }
+
+                return response;
+            }
+            catch (Exception)
+            {
+                return View("SystemError");
+            }
+        }
+
         [HttpPost]
         public JsonResult Complete(int? toDoItemId)
         {
@@ -126,6 +159,7 @@ namespace CountDown.Controllers
                 {
                     response = JsonErrorResponse("You must be logged in to mark a To-Do item as completed.");
                 }
+
                 return response;
             }
             catch (Exception)
@@ -137,17 +171,24 @@ namespace CountDown.Controllers
         private IEnumerable<SelectListItem> GetAssigneeList()
         {
             var identity = User.Identity as CountDownIdentity;
-            int currentUserId = identity != null 
+            int currentUserId = identity != null
                 ? (User.Identity as CountDownIdentity).Id
                 : 0;
+
+            return GetAssigneeList(currentUserId);
+        }
+
+        private IEnumerable<SelectListItem> GetAssigneeList(int selectedId)
+        {
             IEnumerable<SelectListItem> users = _userRepository.AllUsers()
                 .Select(x => new SelectListItem
                 {
                     Text = x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName,
                     Value = x.Id.ToString(),
-                    Selected = (x.Id == currentUserId)
+                    Selected = (x.Id == selectedId)
                 })
                 .OrderBy(x => x.Text);
+
             return users;
         }
     }

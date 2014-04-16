@@ -112,6 +112,67 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
+        [Category("Feature 10")]
+        public void Should_Return_The_Edit_View_When_The_User_Is_Logged_In_And_A_ToDo_Object_Is_Specified()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+
+            var result = _sut.Edit(_toDoItem.Id) as ViewResult;
+
+            Assert.That(result.ViewName, Is.EqualTo("Edit"));
+        }
+
+        [Test]
+        [Category("Feature 10")]
+        public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Attempts_To_Edit_A_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
+
+            var result = _sut.Edit(_toDoItem.Id) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 10")]
+        public void Should_Redirect_To_The_Index_Action_When_A_ToDo_Object_Id_Is_Not_Given_And_The_Edit_Action_Is_Fired()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+
+            var result = _sut.Edit(null) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 10")]
+        public void Should_Redirect_To_The_Index_Action_When_A_The_User_Attempts_To_Edit_A_Nonexistant_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
+
+            var result = _sut.Edit(_toDoItem.Id) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 10")]
+        public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_By_The_Edit_Action()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Throws(new Exception());
+
+            var result = _sut.Edit(_toDoItem.Id) as ViewResult;
+
+            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+        }
+
+        [Test]
         [Category("Feature 12")]
         public void Should_Mark_An_Existing_ToDo_Object_As_Completed_And_Save_Changes()
         {

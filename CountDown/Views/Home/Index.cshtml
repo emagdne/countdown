@@ -9,6 +9,7 @@
     <script type="text/javascript">
         // Global variables
         var completeUrl = '@Url.RouteUrl("CompleteToDo")';
+        var editUrl = '@Url.RouteUrl("EditToDo")';
     </script>
     <script src="~/Scripts/Home/index.js"></script>
 }
@@ -89,7 +90,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr class="index-table-row">
                             <td class="index-id-cell hide">@item.Id</td>
                             <td>@item.Title</td>
                             <td class="index-timeleft-cell">@{

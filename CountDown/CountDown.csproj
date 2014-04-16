@@ -201,6 +201,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ToDo\create.js" />
+    <Content Include="Scripts\ToDo\edit.js" />
     <Content Include="Scripts\User\registration.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -218,7 +219,7 @@
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\ToDo\Create.cshtml" />
-    <Content Include="Views\ToDo\List.cshtml" />
+    <Content Include="Views\ToDo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

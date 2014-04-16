@@ -15,6 +15,12 @@
                 checkbox.removeAttr("checked");
             }
         });
+
+        $(".index-table-row > td").click(function (e) {
+            var cell = $(e.target);
+            var id = cell.parent().find(".index-id-cell").text();
+            window.location = editUrl + "?toDoItemId=" + id;
+        });
     };
 
     function colorRowsOwnedByMe() {

@@ -63,9 +63,7 @@ body {
     background-color: #f5f5f5;
 }
 
-#footer > .container > .text-muted {
-    margin-top: 18px;
-}
+#footer > .container > .text-muted { margin-top: 18px; }
 
 /* Custom styles
 -----------------------------------------------------------*/
@@ -98,9 +96,7 @@ body {
     text-align: center;
 }
 
-textarea {
-    resize: vertical;
-}
+textarea { resize: vertical; }
 
 .form-block-button { margin-bottom: 8px; }
 
@@ -130,9 +126,7 @@ textarea {
     text-align: center;
 }
 
-.mvc-pager span, .mvc-pager a {
-    margin: 4px 3px;
-}
+.mvc-pager span, .mvc-pager a { margin: 4px 3px; }
 
 .mvc-pager a {
     border: 1px solid #aaa;
@@ -142,37 +136,42 @@ textarea {
     text-decoration: none;
 }
 
-.mvc-pager a:hover {
-    background-color: #c7d1d6;
-}
+.mvc-pager a:hover { background-color: #c7d1d6; }
 
 /* Index */
 
-#index-options-pane {
-    border: 1px solid #ddd;
-}
+#index-options-pane { border: 1px solid #ddd; }
 
 #index-options-pane-contents {
     padding: 12px;
     margin-left: 25px;
-
 }
 
-#index-filter-options {
-    margin-top: 20px;
-}
+#index-filter-options { margin-top: 20px; }
 
-#index-filter-options .form-group{
-    margin-bottom: 0;
-}
+#index-filter-options .form-group { margin-bottom: 0; }
 
 #index-filter-options div.checkbox {
     margin-top: 5px;
     margin-left: 10px;
 }
 
-#index-filter-options input[type=submit] {
-    margin-left: 120px;
+#index-filter-options input[type=submit] { margin-left: 120px; }
+
+.index-table-row > td {
+
+    /* disable text select */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+tr.index-table-row:hover > td {
+    background-color: #c7d1d6;
+    cursor: pointer;
 }
 
 /* Login */
@@ -204,10 +203,31 @@ textarea {
 
 /* To-Do Create*/
 
-#todo-create-assign {
-    width: 250px;
+#todo-create-assign { width: 250px; }
+
+#todo-create-buttons { margin: 12px auto 15px auto; }
+
+/* To-Do View */
+
+#todo-edit-owner {
+    font-weight: bold;
+    color: gray;
 }
 
-#todo-create-buttons {
-    margin: 12px auto 15px auto; 
+span.todo-edit-completed {
+    font-weight: bold;
+    color: gray;
 }
+
+span.todo-edit-not-completed {
+    font-weight: bold;
+    color: red;
+}
+
+#todo-edit-assign { width: 250px; }
+
+#todo-edit-buttons { margin: 12px auto 15px auto; }
+
+#todo-edit-buttons > button { margin-right: 6px; }
+
+.todo-edit-mod-button { display: none; }
