@@ -42,7 +42,7 @@ namespace CountDown.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    ViewBag.assigneeid = GetAssigneeList();
+                    ViewBag.AssigneeList = GetAssigneeList();
                     return View("Create");
                 }
                 return RedirectToAction("Index", "Home");

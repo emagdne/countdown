@@ -1,7 +1,11 @@
 ﻿$(function () {
+    initDatePickers();
     assignListeners();
     correctLabelPositions();
-    initElements();
+
+    function initDatePickers() {
+        $(".datepicker").datepicker();
+    }
     
     function assignListeners() {
         $("button:contains('Cancel')").click(function(e) {
@@ -29,10 +33,5 @@
                 });
             }
         });
-    }
-
-    function initElements() {
-        $("select").addClass("form-control").attr("id", "todo-create-assign");
-        $(".datepicker").datepicker();
     }
 });

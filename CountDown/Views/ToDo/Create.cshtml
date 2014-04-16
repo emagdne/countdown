@@ -29,7 +29,7 @@
                     <label for="todo-create-desc" class="col-sm-3 control-label">Description</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("Description")
-                        <textarea class="form-control" id="todo-create-desc" name="description" value="@Request["description"]" ></textarea>
+                        <textarea class="form-control" id="todo-create-desc" name="description">@Request["description"]</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -64,7 +64,7 @@
                     <label for="todo-create-assign" class="col-sm-3 control-label">Assign To</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("Assignee")
-                        @Html.DropDownList("assigneeid")
+                        @Html.DropDownList("assigneeid", (IEnumerable<SelectListItem>) ViewBag.AssigneeList, new {@id = "todo-create-assign", @class = "form-control"})
                     </div>
                 </div>
                 <div id="todo-create-buttons" class="pull-right">
