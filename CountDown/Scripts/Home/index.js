@@ -16,7 +16,7 @@
             }
         });
 
-        $(".index-table-row > td").click(function (e) {
+        $(".index-table-row > td").not(".index-completed-cell").click(function (e) {
             var cell = $(e.target);
             var id = cell.parent().find(".index-id-cell").text();
             window.location = editUrl + "?toDoItemId=" + id;
