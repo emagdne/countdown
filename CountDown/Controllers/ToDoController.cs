@@ -68,7 +68,7 @@ namespace CountDown.Controllers
                     
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.assigneeid = GetAssigneeList();
+                ViewBag.AssigneeList = GetAssigneeList();
                 return View("Create");
             }
             catch (Exception)

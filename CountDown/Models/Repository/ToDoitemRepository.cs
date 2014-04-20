@@ -51,7 +51,7 @@ namespace CountDown.Models.Repository
 
         public ToDoItem FindById(int id)
         {
-            return _db.ToDoItems.FirstOrDefault(x => x.Id == id);
+            return _db.ToDoItems.Find(id);
         }
 
         public int ToDoItemsCount()

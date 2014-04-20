@@ -179,14 +179,7 @@ tr.index-table-row:hover > td {
     text-align: center;
 }
 
-.index-completed-cell:hover {
-    cursor: default !important;
-}
-
-.index-completed-cell > input[type=checkbox] {
-    width: 50px;
-    height: 20px;
-}
+.index-completed-cell:hover { cursor: default !important; }
 
 /* Login */
 
