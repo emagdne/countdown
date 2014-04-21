@@ -9,7 +9,7 @@ namespace CountDown.Models.Repository
     /// </summary>
     public class ToDoItemContext : DbContext
     {
-        public ToDoItemContext() : base("MySql") { }
+        public ToDoItemContext() : base("SQLite") { }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
     }

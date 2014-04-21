@@ -120,10 +120,10 @@
                                                                     @Html.Raw("Time left unknown.")
                                                                 }
                                                             }</td>
-                            <td class="index-owner-cell">@Html.Raw((item.OwnerId == (Int32) ViewData["UserId"]) ? "Me" : item.Owner.FirstName)</td>
-                            <td class="index-assignee-cell">@Html.Raw((item.AssigneeId == (Int32) ViewData["UserId"]) ? "Me" : item.Assignee.FirstName)</td>
+                            <td class="index-owner-cell">@Html.Raw((item.OwnerId == (Int64) ViewData["UserId"]) ? "Me" : item.Owner.FirstName)</td>
+                            <td class="index-assignee-cell">@Html.Raw((item.AssigneeId == (Int64) ViewData["UserId"]) ? "Me" : item.Assignee.FirstName)</td>
                             <td class="index-completed-cell"><input type="checkbox" class="index-completed-checkbox"
-                                                                 @if (item.Completed || item.AssigneeId != (Int32) ViewData["UserId"])
+                                                                 @if (item.Completed || item.AssigneeId != (Int64) ViewData["UserId"])
                                                                  {
                                                                      @Html.Raw(" disabled=\"disabled\"")
                                                                      if (item.Completed)

@@ -15,8 +15,9 @@ namespace CountDown.Models.Domain
         private DateTime? _start;
         private DateTime? _due;
 
-        [Key]
-        public int Id { get; set; }
+        [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "You must provide a title.")]
         [StringLength(50, ErrorMessage = "The title must be from 1 to 50 characters in length.")]
@@ -92,14 +93,14 @@ namespace CountDown.Models.Domain
 
         [Column("owner")]
         [ForeignKey("Owner")]
-        public int? OwnerId { get; set; }
+        public long? OwnerId { get; set; }
 
         public virtual User Owner { get; set; }
 
         [Required(ErrorMessage = "You must assign the to-do item to someone.")]
         [Column("assigned_to")]
         [ForeignKey("Assignee")]
-        public int? AssigneeId { get; set; }
+        public long? AssigneeId { get; set; }
 
         public virtual User Assignee { get; set; }
 

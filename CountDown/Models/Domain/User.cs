@@ -9,8 +9,9 @@ namespace CountDown.Models.Domain
     /// </summary>
     public class User
     {
-        [Key]
-        public int Id { get; set; }
+        [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Column("first_name", TypeName = "VARCHAR")]
         [Required(ErrorMessage="You must provide a first name.")]

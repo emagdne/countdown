@@ -17,7 +17,7 @@ namespace CountDown.Models.Security
     /// </summary>
     public class CountDownMembershipUser : MembershipUser
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

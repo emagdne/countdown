@@ -9,7 +9,7 @@ namespace CountDown.Models.Repository
     /// </summary>
     public class UserContext : DbContext
     {
-        public UserContext() : base("MySql") { }
+        public UserContext() : base("SQLite") { }
 
         public DbSet<User> Users { get; set; }
     }

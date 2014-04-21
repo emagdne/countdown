@@ -78,7 +78,7 @@ namespace CountDown.Controllers
             }
         }
 
-        public ActionResult Edit(int? toDoItemId)
+        public ActionResult Edit(long? toDoItemId)
         {
             try
             {
@@ -176,7 +176,7 @@ namespace CountDown.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int? toDoItemId)
+        public ActionResult Delete(long? toDoItemId)
         {
             try
             {
@@ -184,7 +184,7 @@ namespace CountDown.Controllers
                 {
                     if (toDoItemId.HasValue)
                     {
-                        int id = toDoItemId.Value;
+                        long id = toDoItemId.Value;
                         var toDoItem = _toDoItemRepository.FindById(id);
 
                         if (toDoItem != null)
@@ -230,7 +230,7 @@ namespace CountDown.Controllers
         }
 
         [HttpPost]
-        public JsonResult Complete(int? toDoItemId)
+        public JsonResult Complete(long? toDoItemId)
         {
             try
             {
@@ -240,7 +240,7 @@ namespace CountDown.Controllers
                 {
                     if (toDoItemId.HasValue)
                     {
-                        int id = toDoItemId.Value;
+                        long id = toDoItemId.Value;
                         var todoItem = _toDoItemRepository.FindById(id);
                         if (todoItem != null)
                         {
@@ -290,16 +290,16 @@ namespace CountDown.Controllers
         private IEnumerable<SelectListItem> GetAssigneeList()
         {
             var identity = User.Identity as CountDownIdentity;
-            int currentUserId = identity != null
+            long currentUserId = identity != null
                 ? (User.Identity as CountDownIdentity).Id
                 : 0;
 
             return GetAssigneeList(currentUserId);
         }
 
-        private IEnumerable<SelectListItem> GetAssigneeList(int selectedId)
+        private IEnumerable<SelectListItem> GetAssigneeList(long selectedId)
         {
-            IEnumerable<SelectListItem> users = _userRepository.AllUsers()
+            IEnumerable<SelectListItem> users = _userRepository.AllUsers().ToList()
                 .Select(x => new SelectListItem
                 {
                     Text = x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName,

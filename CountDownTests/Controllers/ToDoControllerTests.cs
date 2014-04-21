@@ -165,7 +165,7 @@ namespace CountDownTests.Controllers
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_By_The_Edit_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Throws(new Exception());
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
             var result = _sut.Edit(_toDoItem.Id) as ViewResult;
 
@@ -269,7 +269,7 @@ namespace CountDownTests.Controllers
         public void Should_Return_Error_If_An_Unexpected_Exception_Is_Thrown_While_Marking_A_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Throws(new Exception());
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
             var result = _sut.Complete(_toDoItem.Id);
 
@@ -433,7 +433,7 @@ namespace CountDownTests.Controllers
         public void Should_Return_The_Edit_View_If_The_Updated_ToDo_Object_Is_Invalid()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
             _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
 
             var result = _sut.Update(_toDoItem) as ViewResult;
@@ -446,7 +446,7 @@ namespace CountDownTests.Controllers
         public void Should_Update_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
 
             _sut.Update(_toDoItem);
 
@@ -458,7 +458,7 @@ namespace CountDownTests.Controllers
         public void Should_Redirect_To_The_Index_Action_After_Successfully_Updating_A_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
 
             var result = _sut.Update(_toDoItem) as RedirectToRouteResult;
 
@@ -471,7 +471,7 @@ namespace CountDownTests.Controllers
         public void Should_Return_A_Message_After_Successfully_Updating_A_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
 
             _sut.Update(_toDoItem);
 
@@ -484,7 +484,7 @@ namespace CountDownTests.Controllers
             ()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Throws(new Exception());
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
             var result = _sut.Update(_toDoItem) as ViewResult;
 

@@ -16,10 +16,10 @@ namespace CountDown.Models.Repository
         void UpdateToDo(ToDoItem originalItem, ToDoItem updatedItem);
         void DeleteToDo(ToDoItem item);
         IQueryable<ToDoItem> AllToDoItems();
-        ToDoItem FindById(int id);
+        ToDoItem FindById(long id);
         int ToDoItemsCount();
-        int PendingToDoItemsCount(int userId);
-        IPagedList<ToDoItem> GetPagedToDoItems(int page, int pageSize, int myId, bool ownedByMe, bool ownedByOthers,
+        int PendingToDoItemsCount(long userId);
+        IPagedList<ToDoItem> GetPagedToDoItems(int page, int pageSize, long myId, bool ownedByMe, bool ownedByOthers,
             bool assignedToOthers, bool completed);
         void SaveChanges();
     }
@@ -86,7 +86,7 @@ namespace CountDown.Models.Repository
             return _db.ToDoItems;
         }
 
-        public ToDoItem FindById(int id)
+        public ToDoItem FindById(long id)
         {
             return _db.ToDoItems.Find(id);
         }
@@ -96,12 +96,12 @@ namespace CountDown.Models.Repository
             return _db.ToDoItems.Count();
         }
 
-        public int PendingToDoItemsCount(int userId)
+        public int PendingToDoItemsCount(long userId)
         {
             return 0;
         }
 
-        public IPagedList<ToDoItem> GetPagedToDoItems(int page, int pageSize, int myId, bool ownedByMe, bool ownedByOthers,
+        public IPagedList<ToDoItem> GetPagedToDoItems(int page, int pageSize, long myId, bool ownedByMe, bool ownedByOthers,
             bool assignedToOthers, bool completed)
         {
             var items = _db.ToDoItems as IEnumerable<ToDoItem>;
