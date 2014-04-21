@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using CountDown.Models.Domain;
 using MvcPaging;
@@ -12,6 +13,7 @@ namespace CountDown.Models.Repository
     public interface IToDoItemRepository
     {
         void InsertToDo(ToDoItem item);
+        void UpdateToDo(ToDoItem originalItem, ToDoItem updatedItem);
         IQueryable<ToDoItem> AllToDoItems();
         ToDoItem FindById(int id);
         int ToDoItemsCount();
@@ -42,6 +44,35 @@ namespace CountDown.Models.Repository
         public void InsertToDo(ToDoItem item)
         {
             _db.ToDoItems.Add(item);
+        }
+
+        /// <summary>
+        /// <para>Precondition: The original item has a value for Id and exists in the database.</para>
+        /// <para>
+        ///     Postcondition: The properties Title, Description, StartDate, StartTime,
+        ///     DueDate, DueTime, and AssigneeId in the original item are reassigned to the
+        ///     values within the updated item.
+        /// </para>
+        /// </summary>
+        public void UpdateToDo(ToDoItem originalItem, ToDoItem updatedItem)
+        {
+            originalItem.Title = updatedItem.Title;
+            originalItem.Description = updatedItem.Description;
+            originalItem.StartDate = updatedItem.StartDate;
+            originalItem.StartTime = updatedItem.StartTime;
+            originalItem.DueDate = updatedItem.DueDate;
+            originalItem.DueTime = updatedItem.DueTime;
+            originalItem.AssigneeId = updatedItem.AssigneeId;
+
+            // Start and Due should only be updated if their dependencies are available.
+            if (updatedItem.StartDate.HasValue && updatedItem.StartTime.HasValue)
+            {
+                originalItem.Start = updatedItem.StartDate.Value.Date + updatedItem.StartDate.Value.TimeOfDay;
+            }
+            if (updatedItem.DueDate.HasValue && updatedItem.DueTime.HasValue)
+            {
+                originalItem.Due = updatedItem.DueDate.Value.Date + updatedItem.DueTime.Value.TimeOfDay;
+            }
         }
 
         public IQueryable<ToDoItem> AllToDoItems()
@@ -86,7 +117,11 @@ namespace CountDown.Models.Repository
                 items = items.Where(x => !x.Completed);
             }
 
-            var sorted = items.OrderByDescending(x => x.TimeLeft.TotalSeconds).ToList();
+            // Every to-do item should have a value for TimeLeft. If for some unknown reason an item is missing TimeLeft,
+            // sort it by Id.
+            var sorted = items
+                .OrderByDescending(x => x.TimeLeft.HasValue ? x.TimeLeft.Value.TotalSeconds : x.Id)
+                .ToList();
 
             return sorted.ToPagedList(page, pageSize, sorted.Count);
         }

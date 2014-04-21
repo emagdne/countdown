@@ -49,7 +49,7 @@ namespace CountDown.Controllers
             }
             catch (Exception)
             {
-                return View("SystemError");   
+                return View("SystemError");
             }
         }
 
@@ -65,7 +65,8 @@ namespace CountDown.Controllers
 
                     _toDoItemRepository.InsertToDo(item);
                     _toDoItemRepository.SaveChanges();
-                    
+
+                    TempData["indexMessage"] = "Item created.";
                     return RedirectToAction("Index", "Home");
                 }
                 ViewBag.AssigneeList = GetAssigneeList();
@@ -89,7 +90,7 @@ namespace CountDown.Controllers
                     var toDoItem = _toDoItemRepository.FindById(id);
                     if (toDoItem != null)
                     {
-                        ViewBag.AssigneeList = GetAssigneeList((int)toDoItem.AssigneeId);
+                        ViewBag.AssigneeList = GetAssigneeList((int) toDoItem.AssigneeId);
                         response = View("Edit", toDoItem);
                     }
                     else
@@ -103,6 +104,70 @@ namespace CountDown.Controllers
                 }
 
                 return response;
+            }
+            catch (Exception)
+            {
+                return View("SystemError");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Update(ToDoItem updatedItem)
+        {
+            try
+            {
+                ActionResult response;
+                var originalItem = _toDoItemRepository.FindById(updatedItem.Id);
+
+                if (User.Identity.IsAuthenticated && originalItem != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        _toDoItemRepository.UpdateToDo(originalItem, updatedItem);
+                        _toDoItemRepository.SaveChanges();
+                        TempData["indexMessage"] = "Item updated.";
+                        response = RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        // Manually give the updated item a reference to its owner -- it won't
+                        // have it since the object was not pulled from the database
+                        updatedItem.Owner = originalItem.Owner;
+
+                        ViewBag.AssigneeList =
+                            GetAssigneeList(updatedItem.AssigneeId.HasValue ? updatedItem.AssigneeId.Value : 0);
+
+                        // Open editing to allow user to correct changes
+                        ViewData["OpenEditing"] = true;
+                        response = View("Edit", updatedItem);
+                    }
+                }
+                else
+                {
+                    if (originalItem == null)
+                    {
+                        TempData["indexMessage"] = "Update item failed.";
+                    }
+                    response = RedirectToAction("Index", "Home");
+                }
+
+                return response;
+            }
+            catch (Exception)
+            {
+                return View("SystemError");
+            }
+        }
+
+        public ActionResult CancelEdit()
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    TempData["indexMessage"] = "No item was updated.";                    
+                }
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception)
             {

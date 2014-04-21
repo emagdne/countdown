@@ -19,6 +19,8 @@ namespace CountDown
             routes.MapRoute("CreateToDo", "todo/create", new {controller = "ToDo", action = "Create"});
             routes.MapRoute("CompleteToDo", "todo/complete", new { controller = "ToDo", action = "Complete" });
             routes.MapRoute("EditToDo", "todo/edit", new { controller = "ToDo", action = "Edit" });
+            routes.MapRoute("UpdateToDo", "todo/update", new { controller = "ToDo", action = "Update" });
+            routes.MapRoute("EditToDoCancel", "todo/edit/cancel", new {controller = "ToDo", action = "CancelEdit"});
         }
     }
 }

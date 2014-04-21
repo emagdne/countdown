@@ -290,5 +290,163 @@ namespace CountDownTests.Controllers
             Assert.That(UnitTestHelper.GetStandardJsonError(result),
                 Is.EqualTo("You must be logged in to mark a To-Do item as completed."));
         }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Attempts_To_Update_A_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
+
+            var result = _sut.Update(_toDoItem) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Redirect_To_The_Index_Action_If_The_Updated_ToDo_Object_Does_Not_Exist()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
+
+            var result = _sut.Update(_toDoItem) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Return_An_Error_Message_If_The_Updated_ToDo_Object_Does_Not_Exist()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
+
+            _sut.Update(_toDoItem);
+
+            Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("Update item failed."));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Not_Update_An_Invalid_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
+
+            _sut.Update(_toDoItem);
+
+            _mockToDoItemRepository.Verify(x => x.UpdateToDo(It.IsAny<ToDoItem>(), It.IsAny<ToDoItem>()), Times.Never);
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Return_The_Edit_View_If_The_Updated_ToDo_Object_Is_Invalid()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+            _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
+
+            var result = _sut.Update(_toDoItem) as ViewResult;
+
+            Assert.That(result.ViewName, Is.EqualTo("Edit"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Update_A_Valid_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+
+            _sut.Update(_toDoItem);
+
+            _mockToDoItemRepository.Verify(x => x.SaveChanges());
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Redirect_To_The_Index_Action_After_Successfully_Updating_A_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+
+            var result = _sut.Update(_toDoItem) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Return_A_Message_After_Successfully_Updating_A_ToDo_Object()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns(_toDoItem);
+
+            _sut.Update(_toDoItem);
+
+            Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("Item updated."));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Updating_A_ToDo_Object
+            ()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Throws(new Exception());
+
+            var result = _sut.Update(_toDoItem) as ViewResult;
+
+            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Cancels_An_Edit()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
+
+            var result = _sut.CancelEdit() as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Redirect_To_The_Index_Action_When_The_User_Cancels_An_Edit()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+
+            var result = _sut.CancelEdit() as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Return_A_Message_When_The_User_Cancels_An_Edit()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+
+            _sut.CancelEdit();
+
+            Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("No item was updated."));
+        }
+
+        [Test]
+        [Category("Feature 14")]
+        public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Canceling_An_Edit()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
+
+            var result = _sut.CancelEdit() as ViewResult;
+
+            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+        }
     }
 }

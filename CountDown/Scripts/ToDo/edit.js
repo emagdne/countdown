@@ -1,6 +1,7 @@
 ﻿$(function() {
     initDatePickers();
     if (allowModification) unlockModificationElements();
+    if (allowModification && openEditing) unlockForm();
     assignListeners();
     correctLabelPositions();
 
@@ -8,16 +9,19 @@
         $(".datepicker").datepicker();
     }
 
-    // See comment above the "allowModification" variable.
+    // Shows Delete and Edit buttons.
     function unlockModificationElements() {
-        $('#todo-edit-assign').removeAttr("disabled", "disabled");
         $('.todo-edit-mod-button').show();
     }
 
     function assignListeners() {
-        $("button:contains('Cancel')").click(function (e) {
-            window.alert("No item was updated.");
-            window.location.href = $("#todo-edit-home").attr("href");
+        $("button:contains('Cancel')").click(function(e) {
+            window.location = cancelEditUrl;
+            return false;
+        });
+
+        $("button:contains('Edit')").click(function(e) {
+            unlockForm();
             return false;
         });
 
@@ -41,4 +45,11 @@
             }
         });
     }
+
+    // Opens the to-do item for editing
+    function unlockForm() {
+        $("button:contains('Delete')").add("button:contains('Edit')").hide();
+        $("input[type=submit]").show();
+        $("input").add("textarea").add("select").removeAttr("disabled");
+    };
 });

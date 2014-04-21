@@ -26,16 +26,19 @@ namespace CountDown.Models.Domain
         public string Description { get; set; }
 
         [Column("start_date")]
-        public DateTime Start
+        public DateTime? Start
         {
             get
             {
-                // In English: If this property has ever been set (ie. pulled from the db), return that value.
-                // Else, look for values in StartDate and StartTime and combine them. This will work if
-                // the model was bound by a controller action.
-                // Else, return garbage... the data does not exist and its better to have something than null.
-                return _start ?? (StartDate.HasValue ? ((DateTime) StartDate).Date : new DateTime().Date)
-                       + (StartTime.HasValue ? ((DateTime) StartTime).TimeOfDay : new DateTime().TimeOfDay);
+                if (_start != null)
+                {
+                    return _start;
+                }
+                if (StartDate.HasValue && StartTime.HasValue)
+                {
+                    return StartDate.Value.Date + StartTime.Value.TimeOfDay;
+                }
+                return null;
             }
             set { _start = value; }
         }
@@ -49,16 +52,19 @@ namespace CountDown.Models.Domain
         public DateTime? StartTime { get; set; } // Used for model binding purposes only.
 
         [Column("due_date")]
-        public DateTime Due
+        public DateTime? Due
         {
             get
             {
-                // In English: If this property has ever been set (ie. pulled from the db), return that value.
-                // Else, look for values in DueDate and DueTime and combine them. This will work if
-                // the model was bound by a controller action.
-                // Else, return garbage... the data does not exist and its better to have something than null.
-                return _due ?? (DueDate.HasValue ? ((DateTime) DueDate).Date : new DateTime().Date)
-                       + (DueTime.HasValue ? ((DateTime) DueTime).TimeOfDay : new DateTime().TimeOfDay);
+                if (_due != null)
+                {
+                    return _due;
+                }
+                if (DueDate.HasValue && DueTime.HasValue)
+                {
+                    return DueDate.Value.Date + DueTime.Value.TimeOfDay;
+                }
+                return null;
             }
             set { _due = value; }
         }
@@ -72,9 +78,16 @@ namespace CountDown.Models.Domain
         public DateTime? DueTime { get; set; } // Used for model binding purposes only.
 
         [NotMapped]
-        public TimeSpan TimeLeft
+        public TimeSpan? TimeLeft
         {
-            get { return Due - DateTime.Now; }
+            get
+            {
+                if (Due.HasValue)
+                {
+                    return Due - DateTime.Now;                    
+                }
+                return null;
+            }
         }
 
         [Column("owner")]

@@ -76,6 +76,12 @@
         </div>
         <div class="col-md-9">
             <h3>To-Do Items</h3>
+            @if (TempData["indexMessage"] != null)
+            {
+                <div id="index-message-wrapper">
+                    <div id="index-message">@TempData["indexMessage"]</div>
+                </div>
+            }
             <hr/>
             <table class="table table-bordered">
                 <thead>
@@ -94,16 +100,24 @@
                             <td class="index-id-cell hide">@item.Id</td>
                             <td>@item.Title</td>
                             <td class="index-timeleft-cell">@{
-                                                                var timeLeft = item.TimeLeft;
-                                                                if (timeLeft.TotalSeconds > 0)
+                                                                if (item.TimeLeft.HasValue)
                                                                 {
-                                                                    var days = (timeLeft.Days > 0) ? timeLeft.Days + " day(s), " : "";
-                                                                    var hours = (timeLeft.Hours > 0) ? timeLeft.Hours + " hour(s), " : "";
-                                                                    @Html.Raw(days + hours + timeLeft.Minutes + " minute(s).")
+                                                                    TimeSpan timeLeft = item.TimeLeft.Value;
+                                                                    
+                                                                    if (timeLeft.TotalSeconds > 0)
+                                                                    {
+                                                                        var days = (timeLeft.Days > 0) ? timeLeft.Days + " day(s), " : "";
+                                                                        var hours = (timeLeft.Hours > 0) ? timeLeft.Hours + " hour(s), " : "";
+                                                                        @Html.Raw(days + hours + timeLeft.Minutes + " minute(s).")
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @Html.Raw("Passed due date.")
+                                                                    }
                                                                 }
                                                                 else
                                                                 {
-                                                                    @Html.Raw("Passed due date.")
+                                                                    @Html.Raw("Time left unknown.")
                                                                 }
                                                             }</td>
                             <td class="index-owner-cell">@Html.Raw((item.OwnerId == (Int32) ViewData["UserId"]) ? "Me" : item.Owner.FirstName)</td>

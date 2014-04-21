@@ -140,6 +140,20 @@ textarea { resize: vertical; }
 
 /* Index */
 
+#index-message-wrapper {
+    float: right;
+    position: relative;
+    width: 900px;
+    bottom: 25px;
+}
+
+#index-message {
+    position: absolute;
+    right: 30px;
+    color: #777;
+    font-weight: bold;
+}
+
 #index-options-pane { border: 1px solid #ddd; }
 
 #index-options-pane-contents {
@@ -237,4 +251,4 @@ span.todo-edit-not-completed {
 
 #todo-edit-buttons > button { margin-right: 6px; }
 
-.todo-edit-mod-button { display: none; }
+button.todo-edit-mod-button, #todo-edit-buttons > input[type=submit] { display: none; }

@@ -11,23 +11,31 @@
     <script src="~/Scripts/ToDo/edit.js"></script>
     <script type="text/javascript">
         
-        // If true, the delete, edit, and submit buttons are shown and the Assign To dropdown is unlocked.
-        // Else, the default form is displayed where all buttons are hidden except the cancel button, and all fields are disabled.
+        // If true, the delete and edit buttons are shown.
+        // Else, all buttons are hidden except the cancel button, and all fields are disabled.
         var allowModification = @Html.Raw(!Model.Completed && Model.OwnerId == (User.Identity as CountDownIdentity).Id ? "true" : "false");
+
+        // If allowModification and openEditing are both true, the form will be automatically opened for editing. This is
+        // useful if an invalid edit was submitted and the user needs to make some changes.
+        var openEditing = @Html.Raw(ViewData["OpenEditing"] != null && (bool) ViewData["OpenEditing"] ? "true" : "false");
+
+        // Stores the URL to the Cancel controller action
+        var cancelEditUrl = '@Url.RouteUrl("EditToDoCancel")';
     </script>
 }
 
-@* todo: enable/disable fields conditionally... fix javascript... implement buttons and server functionality... fill fields with old request values *@
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <form action="" method="POST" class="form-horizontal top-buffer">
+            <form action="@Url.Action("Update")" method="POST" class="form-horizontal top-buffer">
                 <span id="todo-edit-owner">Owned by: @Model.Owner.LastName, @Model.Owner.FirstName (@Model.Owner.Email)</span>
                 <span class="pull-right @Html.Raw((Model.Completed) ? "todo-edit-completed" : "todo-edit-not-completed")">
                     @Html.Raw((Model.Completed) ? "Completed!" : "Not Completed.")
                 </span>
                 <hr />
+                <input type="hidden" name="id" value="@Model.Id"/>
+                <input type="hidden" name="ownerid" value="@Model.OwnerId"/>
                 <div class="form-group">
                     <label for="todo-edit-title" class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-9">
@@ -46,28 +54,28 @@
                     <label for="todo-edit-start-date" class="col-sm-3 control-label">Start Date</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("StartDate")
-                        <input type="text" class="form-control datepicker" id="todo-edit-start-date" name="startDate" value="@String.Format("{0:yyyy/MM/dd}", Model.Start)" data-date-format="yyyy/mm/dd" disabled="disabled" />
+                        <input type="text" class="form-control datepicker" id="todo-edit-start-date" name="startDate" value="@String.Format("{0:yyyy/MM/dd}", Model.StartDate ?? Model.Start)" data-date-format="yyyy/mm/dd" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="todo-edit-start-time" class="col-sm-3 control-label">Start Time</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("StartTime")
-                        <input type="text" class="form-control timepicker" id="todo-edit-start-time" name="startTime" value="@String.Format("{0:h:mm tt}", Model.Start)" disabled="disabled" />
+                        <input type="text" class="form-control timepicker" id="todo-edit-start-time" name="startTime" value="@String.Format("{0:h:mm tt}", Model.StartTime ?? Model.Start)" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="todo-edit-due-date" class="col-sm-3 control-label">Due Date</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("DueDate")
-                        <input type="text" class="form-control datepicker" id="todo-edit-due-date" name="dueDate" value="@String.Format("{0:yyyy/MM/dd}", Model.Due)" data-date-format="yyyy/mm/dd" disabled="disabled" />
+                        <input type="text" class="form-control datepicker" id="todo-edit-due-date" name="dueDate" value="@String.Format("{0:yyyy/MM/dd}", Model.DueDate ?? Model.Due)" data-date-format="yyyy/mm/dd" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="todo-edit-due-time" class="col-sm-3 control-label">Due Time</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("DueTime")
-                        <input type="text" class="form-control timepicker" id="todo-edit-due-time" name="dueTime" value="@String.Format("{0:h:mm tt}", Model.Due)" disabled="disabled" />
+                        <input type="text" class="form-control timepicker" id="todo-edit-due-time" name="dueTime" value="@String.Format("{0:h:mm tt}", Model.DueTime ?? Model.Due)" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -81,7 +89,7 @@
                     <button class="btn btn-default">Cancel</button>
                     <button class="btn btn-danger todo-edit-mod-button">Delete</button>
                     <button class="btn btn-default todo-edit-mod-button">Edit</button>
-                    <input type="submit" value="Submit" class="btn btn-primary todo-edit-mod-button" />
+                    <input type="submit" value="Submit" class="btn btn-primary" />
                 </div>
             </form>
         </div>
