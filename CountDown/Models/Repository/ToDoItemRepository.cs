@@ -14,6 +14,7 @@ namespace CountDown.Models.Repository
     {
         void InsertToDo(ToDoItem item);
         void UpdateToDo(ToDoItem originalItem, ToDoItem updatedItem);
+        void DeleteToDo(ToDoItem item);
         IQueryable<ToDoItem> AllToDoItems();
         ToDoItem FindById(int id);
         int ToDoItemsCount();
@@ -73,6 +74,11 @@ namespace CountDown.Models.Repository
             {
                 originalItem.Due = updatedItem.DueDate.Value.Date + updatedItem.DueTime.Value.TimeOfDay;
             }
+        }
+
+        public void DeleteToDo(ToDoItem item)
+        {
+            _db.ToDoItems.Remove(item);
         }
 
         public IQueryable<ToDoItem> AllToDoItems()

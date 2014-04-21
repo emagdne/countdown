@@ -176,6 +176,60 @@ namespace CountDown.Controllers
         }
 
         [HttpPost]
+        public ActionResult Delete(int? toDoItemId)
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (toDoItemId.HasValue)
+                    {
+                        int id = toDoItemId.Value;
+                        var toDoItem = _toDoItemRepository.FindById(id);
+
+                        if (toDoItem != null)
+                        {
+
+                            if (!toDoItem.Completed)
+                            {
+                                var identity = User.Identity as CountDownIdentity;
+
+                                if (identity.Id == toDoItem.OwnerId)
+                                {
+                                    TempData["indexMessage"] = "Item deleted.";
+                                    _toDoItemRepository.DeleteToDo(toDoItem);
+                                    _toDoItemRepository.SaveChanges();
+                                }
+                                else
+                                {
+                                    TempData["indexMessage"] = "You cannot delete an item belonging to another user.";
+                                }
+                            }
+                            else
+                            {
+                                TempData["indexMessage"] = "You cannot delete a completed item.";
+                            }
+                        }
+                        else
+                        {
+                            TempData["indexMessage"] = "Delete item failed.";
+                        }
+                    }
+                    else
+                    {
+                        TempData["indexMessage"] = "You must specify a To-Do item to delete.";
+                    }
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                return View("SystemError");
+            }
+        }
+
+        [HttpPost]
         public JsonResult Complete(int? toDoItemId)
         {
             try

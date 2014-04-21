@@ -19,6 +19,9 @@
         // useful if an invalid edit was submitted and the user needs to make some changes.
         var openEditing = @Html.Raw(ViewData["OpenEditing"] != null && (bool) ViewData["OpenEditing"] ? "true" : "false");
 
+        // Stores the URL to the Delete controller action
+        var deleteUrl = '@Url.RouteUrl("DeleteToDo")';
+
         // Stores the URL to the Cancel controller action
         var cancelEditUrl = '@Url.RouteUrl("EditToDoCancel")';
     </script>
