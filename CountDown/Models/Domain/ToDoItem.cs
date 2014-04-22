@@ -17,17 +17,17 @@ namespace CountDown.Models.Domain
 
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public virtual long Id { get; set; }
 
         [Required(ErrorMessage = "You must provide a title.")]
         [StringLength(50, ErrorMessage = "The title must be from 1 to 50 characters in length.")]
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
 
         [StringLength(500, ErrorMessage = "The description must be from 0 to 500 characters in length.")]
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
 
         [Column("start_date")]
-        public DateTime? Start
+        public virtual DateTime? Start
         {
             get
             {
@@ -46,14 +46,14 @@ namespace CountDown.Models.Domain
 
         [Required(ErrorMessage = "You must provide a start date.")]
         [NotMapped]
-        public DateTime? StartDate { get; set; } // Used for model binding purposes only.
+        public virtual DateTime? StartDate { get; set; } // Used for model binding purposes only.
 
         [Required(ErrorMessage = "You must provide a start time.")]
         [NotMapped]
-        public DateTime? StartTime { get; set; } // Used for model binding purposes only.
+        public virtual DateTime? StartTime { get; set; } // Used for model binding purposes only.
 
         [Column("due_date")]
-        public DateTime? Due
+        public virtual DateTime? Due
         {
             get
             {
@@ -72,14 +72,14 @@ namespace CountDown.Models.Domain
 
         [Required(ErrorMessage = "You must provide a due date.")]
         [NotMapped]
-        public DateTime? DueDate { get; set; } // Used for model binding purposes only.
+        public virtual DateTime? DueDate { get; set; } // Used for model binding purposes only.
 
         [Required(ErrorMessage = "You must provide a due time.")]
         [NotMapped]
-        public DateTime? DueTime { get; set; } // Used for model binding purposes only.
+        public virtual DateTime? DueTime { get; set; } // Used for model binding purposes only.
 
         [NotMapped]
-        public TimeSpan? TimeLeft
+        public virtual TimeSpan? TimeLeft
         {
             get
             {
@@ -93,18 +93,18 @@ namespace CountDown.Models.Domain
 
         [Column("owner")]
         [ForeignKey("Owner")]
-        public long? OwnerId { get; set; }
+        public virtual long? OwnerId { get; set; }
 
         public virtual User Owner { get; set; }
 
         [Required(ErrorMessage = "You must assign the to-do item to someone.")]
         [Column("assigned_to")]
         [ForeignKey("Assignee")]
-        public long? AssigneeId { get; set; }
+        public virtual long? AssigneeId { get; set; }
 
         public virtual User Assignee { get; set; }
 
-        public bool Completed { get; set; }
+        public virtual bool Completed { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

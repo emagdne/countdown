@@ -16,6 +16,7 @@ namespace CountDownUnitTests.Controllers
         private ToDoController _sut;
         private Mock<IUserRepository> _mockUserRepository;
         private Mock<IToDoItemRepository> _mockToDoItemRepository;
+        private Mock<ToDoItem> _mockToDoItem;
         private ToDoItem _toDoItem;
 
         [SetUp]
@@ -24,15 +25,9 @@ namespace CountDownUnitTests.Controllers
             _mockUserRepository = new Mock<IUserRepository>();
             _mockToDoItemRepository = new Mock<IToDoItemRepository>();
             _sut = new ToDoController(_mockUserRepository.Object, _mockToDoItemRepository.Object);
-            _toDoItem = new ToDoItem
-            {
-                Title = "Test Title",
-                StartDate = DateTime.Now,
-                StartTime = DateTime.Now,
-                DueDate = DateTime.Now.AddDays(1),
-                DueTime = DateTime.Now.AddDays(1),
-                AssigneeId = 1
-            };
+
+            _mockToDoItem = new Mock<ToDoItem>();
+            _toDoItem = _mockToDoItem.Object;
         }
 
         [Test]
@@ -117,6 +112,7 @@ namespace CountDownUnitTests.Controllers
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+            _mockToDoItem.Setup(x => x.AssigneeId).Returns(0);
 
             var result = _sut.Edit(_toDoItem.Id) as ViewResult;
 
@@ -178,11 +174,12 @@ namespace CountDownUnitTests.Controllers
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+            _mockToDoItem.SetupSet(x => x.Completed = true).Verifiable();
 
             _sut.Complete(_toDoItem.Id);
 
             _mockToDoItemRepository.Verify(x => x.SaveChanges());
-            Assert.That(_toDoItem.Completed, Is.True);
+            _mockToDoItem.VerifySet(x => x.Completed = true);
         }
 
         [Test]
@@ -202,8 +199,8 @@ namespace CountDownUnitTests.Controllers
         public void Should_Not_Mark_A_Completed_ToDo_Object_As_Completed_And_Save_Changes()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _toDoItem.Completed = true;
             _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+            _mockToDoItem.Setup(x => x.Completed).Returns(true);
 
             _sut.Complete(_toDoItem.Id);
 
@@ -241,8 +238,8 @@ namespace CountDownUnitTests.Controllers
         public void Should_Return_Error_When_Marking_A_Completed_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _toDoItem.Completed = true;
             _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+            _mockToDoItem.Setup(x => x.Completed).Returns(true);
 
             var result = _sut.Complete(_toDoItem.Id);
 
@@ -332,8 +329,8 @@ namespace CountDownUnitTests.Controllers
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+            _mockToDoItem.Setup(x => x.Completed).Returns(true);
 
-            _toDoItem.Completed = true;
             _sut.Delete(_toDoItem.Id);
 
             Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("You cannot delete a completed item."));
