@@ -6,7 +6,7 @@ using CountDown.Models.Repository;
 using Moq;
 using NUnit.Framework;
 
-namespace CountDownTests.Controllers
+namespace CountDownUnitTests.Controllers
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>
@@ -36,7 +36,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Return_The_Create_View_When_The_User_Is_Logged_In_And_The_Create_Action_Is_Fired()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -45,7 +45,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Redirect_To_The_Index_Action_When_The_User_Is_Not_Logged_In_And_The_Create_Action_Is_Fired()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -55,7 +55,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Save_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -64,7 +64,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Redirect_To_The_Index_Action_After_Saving_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -74,7 +74,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Not_Save_An_Invalid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -84,7 +84,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Stay_On_The_Create_Page_For_An_Invalid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -94,7 +94,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Create_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
@@ -103,7 +103,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Create_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
@@ -112,7 +112,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 10")]
+        [Category("Unit Tests: Feature 10")]
         public void Should_Return_The_Edit_View_When_The_User_Is_Logged_In_And_A_ToDo_Object_Is_Specified()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -124,7 +124,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 10")]
+        [Category("Unit Tests: Feature 10")]
         public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Attempts_To_Edit_A_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -136,7 +136,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 10")]
+        [Category("Unit Tests: Feature 10")]
         public void Should_Redirect_To_The_Index_Action_When_A_ToDo_Object_Id_Is_Not_Given_And_The_Edit_Action_Is_Fired()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -148,7 +148,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 10")]
+        [Category("Unit Tests: Feature 10")]
         public void Should_Redirect_To_The_Index_Action_When_A_The_User_Attempts_To_Edit_A_Nonexistant_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -161,7 +161,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 10")]
+        [Category("Unit Tests: Feature 10")]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_By_The_Edit_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -173,7 +173,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Mark_An_Existing_ToDo_Object_As_Completed_And_Save_Changes()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -186,7 +186,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Not_Mark_A_NonExistant_ToDo_Object_As_Completed_And_Save_Changes()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -198,7 +198,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Not_Mark_A_Completed_ToDo_Object_As_Completed_And_Save_Changes()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -211,7 +211,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Success_When_Marking_An_Existing_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -223,7 +223,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_When_Marking_A_NonExistant_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -237,7 +237,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_When_Marking_A_Completed_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -252,7 +252,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_If_A_ToDo_Object_Id_Is_Not_Given_While_Marking_A_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -265,7 +265,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_If_An_Unexpected_Exception_Is_Thrown_While_Marking_A_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -279,7 +279,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 12")]
+        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_If_An_Unauthenticated_User_Attempts_To_Mark_A_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -292,7 +292,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 13")]
+        [Category("Unit Tests: Feature 13")]
         public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Attempts_To_Delete_A_ToDo_Item()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -304,7 +304,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 13")]
+        [Category("Unit Tests: Feature 13")]
         public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_Without_Providing_An_Id()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -315,7 +315,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 13")]
+        [Category("Unit Tests: Feature 13")]
         public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_That_Does_Not_Exist()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -327,7 +327,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 13")]
+        [Category("Unit Tests: Feature 13")]
         public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_That_Is_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -340,7 +340,7 @@ namespace CountDownTests.Controllers
         }
 
 //        [TestCase(1, 2)]
-//        [Category("Feature 13")]
+//        [Category("Unit Tests: Feature 13")]
 //        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
 //        public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_That_He_Does_Not_Own(int userId,
 //            int ownerId)
@@ -348,28 +348,28 @@ namespace CountDownTests.Controllers
 //        }
 //
 //        [Test]
-//        [Category("Feature 13")]
+//        [Category("Unit Tests: Feature 13")]
 //        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
 //        public void Should_Delete_A_Valid_ToDo_Item()
 //        {
 //        }
 //
 //        [Test]
-//        [Category("Feature 13")]
+//        [Category("Unit Tests: Feature 13")]
 //        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
 //        public void Should_A_Message_After_Deleting_A_Valid_ToDo_Item()
 //        {
 //        }
 //
 //        [Test]
-//        [Category("Feature 13")]
+//        [Category("Unit Tests: Feature 13")]
 //        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
 //        public void Should_Redirect_To_The_Index_Action_After_Deleting_A_ToDo_Item()
 //        {
 //        }
 
         [Test]
-        [Category("Feature 13")]
+        [Category("Unit Tests: Feature 13")]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Deleting_A_ToDo_Item()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
@@ -380,7 +380,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Attempts_To_Update_A_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -392,7 +392,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Redirect_To_The_Index_Action_If_The_Updated_ToDo_Object_Does_Not_Exist()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -405,7 +405,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Return_An_Error_Message_If_The_Updated_ToDo_Object_Does_Not_Exist()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -417,7 +417,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Not_Update_An_Invalid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -429,7 +429,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Return_The_Edit_View_If_The_Updated_ToDo_Object_Is_Invalid()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -442,7 +442,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Update_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -454,7 +454,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Redirect_To_The_Index_Action_After_Successfully_Updating_A_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -467,7 +467,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Return_A_Message_After_Successfully_Updating_A_ToDo_Object()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -479,7 +479,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Updating_A_ToDo_Object
             ()
         {
@@ -492,7 +492,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Cancels_An_Edit()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -504,7 +504,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Redirect_To_The_Index_Action_When_The_User_Cancels_An_Edit()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -516,7 +516,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Return_A_Message_When_The_User_Cancels_An_Edit()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -527,7 +527,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 14")]
+        [Category("Unit Tests: Feature 14")]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Canceling_An_Edit()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();

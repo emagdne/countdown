@@ -1,7 +1,7 @@
 ﻿using CountDown.Models.Domain;
 using NUnit.Framework;
 
-namespace CountDownTests.Models
+namespace CountDownUnitTests.Models
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>
@@ -17,7 +17,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Require_An_Email_Address()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -25,7 +25,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Require_A_Password()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);

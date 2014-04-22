@@ -2,7 +2,7 @@
 using CountDown.Models.Domain;
 using NUnit.Framework;
 
-namespace CountDownTests.Models
+namespace CountDownUnitTests.Models
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>
@@ -18,7 +18,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Require_A_Title()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -26,7 +26,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Reject_A_Title_Greater_Than_50_Characters()
         {
             _sut.Title = new string('x', 51);
@@ -35,7 +35,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Reject_A_Description_Greater_Than_500_Characters()
         {
             _sut.Description = new string('x', 501);
@@ -44,7 +44,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Require_A_StartDate()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -52,7 +52,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Require_A_StartTime()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -60,7 +60,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Require_A_DueDate()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -68,7 +68,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Require_A_DueTime()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);
@@ -76,7 +76,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Not_Allow_A_StartDate_And_Time_To_Occur_After_A_DueDate_And_Time()
         {
             // These attributes must be assigned... all attributes must pass validation before the
@@ -95,7 +95,7 @@ namespace CountDownTests.Models
         }
 
         [Test]
-        [Category("Feature 5")]
+        [Category("Unit Tests: Feature 5")]
         public void Should_Require_An_AssigneeId()
         {
             var errors = UnitTestHelper.GetValidationErrors(_sut);

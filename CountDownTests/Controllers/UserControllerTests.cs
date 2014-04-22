@@ -7,7 +7,7 @@ using CountDown.Models.Service;
 using Moq;
 using NUnit.Framework;
 
-namespace CountDownTests.Controllers
+namespace CountDownUnitTests.Controllers
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>
@@ -38,7 +38,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 1")]
+        [Category("Unit Tests: Feature 1")]
         public void Should_Return_The_Registration_Page_When_The_Register_Action_Is_Fired()
         {
             var result = _sut.Register() as ViewResult;
@@ -46,7 +46,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 1")]
+        [Category("Unit Tests: Feature 1")]
         public void Should_Save_A_Valid_User_Object()
         {
             _sut.Register(_user);
@@ -54,7 +54,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 1")]
+        [Category("Unit Tests: Feature 1")]
         public void Should_Return_To_Login_Page_After_Saving_A_Valid_Registration_Object()
         {
             var result = _sut.Register(_user) as RedirectToRouteResult;
@@ -62,7 +62,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 1")]
+        [Category("Unit Tests: Feature 1")]
         public void Should_Not_Save_An_Invalid_Registration_Object()
         {
             _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
@@ -71,7 +71,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 1")]
+        [Category("Unit Tests: Feature 1")]
         public void Should_Stay_On_The_Registration_Page_For_An_Invalid_Registration_Object()
         {
             _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
@@ -80,7 +80,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 1")]
+        [Category("Unit Tests: Feature 1")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_Register_Action()
         {
             _mockRepository.Setup(r => r.InsertUser(It.IsAny<User>())).Throws<Exception>();
@@ -89,7 +89,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Return_The_Login_Page_When_The_Login_Action_Is_Fired()
         {
             var result = _sut.Login() as ViewResult;
@@ -97,7 +97,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Redirect_User_To_The_Index_Action_If_Authentication_Is_Successful()
         {
             _mockAuthenticationService.Setup(x => x.ValidateUser(_user.Email, _user.Password)).Returns(true);
@@ -106,7 +106,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Return_The_Login_View_If_Authentication_Is_Not_Successful()
         {
             _mockAuthenticationService.Setup(x => x.ValidateUser(_user.Email, _user.Password)).Returns(true);
@@ -115,7 +115,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Stay_On_The_Login_Page_For_An_Invalid_LoginAttempt_Object()
         {
             _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
@@ -124,7 +124,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Login_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
@@ -133,7 +133,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Login_Action()
         {
             _mockAuthenticationService.Setup(x => x.ValidateUser(It.IsAny<string>(), It.IsAny<string>()))

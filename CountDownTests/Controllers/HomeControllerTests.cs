@@ -4,7 +4,7 @@ using CountDown.Models.Repository;
 using Moq;
 using NUnit.Framework;
 
-namespace CountDownTests.Controllers
+namespace CountDownUnitTests.Controllers
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>
@@ -22,7 +22,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Redirect_User_To_The_Login_Action_If_He_Is_Not_Logged_In()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -32,7 +32,7 @@ namespace CountDownTests.Controllers
         }
 
         [Test]
-        [Category("Feature 4")]
+        [Category("Unit Tests: Feature 4")]
         public void Should_Return_The_Index_View_If_User_Is_Logged_In()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
