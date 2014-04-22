@@ -23,25 +23,13 @@ namespace CountDown.Models.Repository
     /// </summary>
     public class UserRepository : IUserRepository
     {
-        private readonly IPasswordHasher _passwordHasher;
+        private readonly PasswordHasher _passwordHasher;
         private readonly UserContext _db;
 
         public UserRepository()
         {
             _db = new UserContext();
             _passwordHasher = new PasswordHasher();
-        }
-
-        public UserRepository(UserContext context)
-        {
-            _db = context;
-            _passwordHasher = new PasswordHasher();
-        }
-
-        public UserRepository(UserContext context, IPasswordHasher hasher)
-        {
-            _db = context;
-            _passwordHasher = hasher;
         }
 
         public void InsertUser(User user)

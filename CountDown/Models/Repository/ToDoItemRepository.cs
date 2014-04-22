@@ -37,11 +37,6 @@ namespace CountDown.Models.Repository
             _db = new ToDoItemContext();
         }
 
-        public ToDoItemRepository(ToDoItemContext context)
-        {
-            _db = context;
-        }
-
         public void InsertToDo(ToDoItem item)
         {
             _db.ToDoItems.Add(item);

@@ -29,6 +29,12 @@ namespace CountDown.Controllers
             _toDoItemRepository = new ToDoItemRepository();
         }
 
+        public ToDoController(IToDoItemRepository toDoItemRepository)
+        {
+            _userRepository = new UserRepository();
+            _toDoItemRepository = toDoItemRepository;
+        }
+
         public ToDoController(IUserRepository userRepository, IToDoItemRepository toDoItemRepository)
         {
             _userRepository = userRepository;
@@ -88,9 +94,9 @@ namespace CountDown.Controllers
                 {
                     var id = toDoItemId.Value;
                     var toDoItem = _toDoItemRepository.FindById(id);
-                    if (toDoItem != null)
+                    if (toDoItem != null && toDoItem.AssigneeId.HasValue)
                     {
-                        ViewBag.AssigneeList = GetAssigneeList((int) toDoItem.AssigneeId);
+                        ViewBag.AssigneeList = GetAssigneeList(toDoItem.AssigneeId.Value);
                         response = View("Edit", toDoItem);
                     }
                     else
