@@ -32,14 +32,6 @@ namespace CountDownIntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 1")]
-        public void Should_Return_The_Registration_Page_When_The_Register_Action_Is_Fired()
-        {
-            var result = _sut.Register() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("Registration"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 1")]
         public void Should_Save_A_Valid_User_Object()
         {
             _sut.Register(_user);
@@ -83,14 +75,6 @@ namespace CountDownIntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 4")]
-        public void Should_Return_The_Login_Page_When_The_Login_Action_Is_Fired()
-        {
-            var result = _sut.Login() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("Login"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 4")]
         public void Should_Redirect_User_To_The_Index_Action_If_Authentication_Is_Successful()
         {
             _mockAuthenticationService.Setup(x => x.ValidateUser(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
@@ -118,15 +102,6 @@ namespace CountDownIntegrationTests.Controllers
             _mockAuthenticationService.Verify(x => x.HandleLoginRedirect(It.IsAny<string>(), It.IsAny<bool>()),
                 Times.Never);
             Assert.That(result.ViewName, Is.EqualTo("Login"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 4")]
-        public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Login_Action()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContextWithException();
-            var result = _sut.Login() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
         }
 
         [Test]

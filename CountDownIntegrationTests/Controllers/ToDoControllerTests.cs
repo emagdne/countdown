@@ -29,25 +29,6 @@ namespace CountDownIntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 5")]
-        public void Should_Return_The_Create_View_When_The_User_Is_Logged_In_And_The_Create_Action_Is_Fired()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            var result = _sut.Create() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("Create"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 5")]
-        public void Should_Redirect_To_The_Index_Action_When_The_User_Is_Not_Logged_In_And_The_Create_Action_Is_Fired()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(false);
-            var result = _sut.Create() as RedirectToRouteResult;
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 5")]
         public void Should_Save_A_Valid_ToDo_Object()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
@@ -87,15 +68,6 @@ namespace CountDownIntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 5")]
-        public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Create_Action()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContextWithException();
-            var result = _sut.Create() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 5")]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Create_Action()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContextWithException();
@@ -130,22 +102,10 @@ namespace CountDownIntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 10")]
-        public void Should_Redirect_To_The_Index_Action_When_A_ToDo_Object_Id_Is_Not_Given_And_The_Edit_Action_Is_Fired()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-
-            var result = _sut.Edit(null) as RedirectToRouteResult;
-
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 10")]
         public void Should_Redirect_To_The_Index_Action_When_A_The_User_Attempts_To_Edit_A_Nonexistant_ToDo_Object()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem)null);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
 
             var result = _sut.Edit(_toDoItem.Id) as RedirectToRouteResult;
 
@@ -183,7 +143,7 @@ namespace CountDownIntegrationTests.Controllers
         public void Should_Not_Mark_A_NonExistant_ToDo_Object_As_Completed_And_Save_Changes()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem)null);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
 
             _sut.Complete(_toDoItem.Id);
 
@@ -220,7 +180,7 @@ namespace CountDownIntegrationTests.Controllers
         public void Should_Return_Error_When_Marking_A_NonExistant_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem)null);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
 
             var result = _sut.Complete(_toDoItem.Id);
 
@@ -242,19 +202,6 @@ namespace CountDownIntegrationTests.Controllers
             Assert.That(IntegrationTestHelper.GetStandardJsonStatus(result), Is.EqualTo("Error"));
             Assert.That(IntegrationTestHelper.GetStandardJsonError(result),
                 Is.EqualTo("The To-Do item you specified has already been marked as completed."));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 12")]
-        public void Should_Return_Error_If_A_ToDo_Object_Id_Is_Not_Given_While_Marking_A_ToDo_Object_As_Completed()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-
-            var result = _sut.Complete(null);
-            Assert.That(IntegrationTestHelper.GetStandardJsonStatus(result), Is.EqualTo("Error"));
-
-            Assert.That(IntegrationTestHelper.GetStandardJsonError(result),
-                Is.EqualTo("Missing argument: toDoItemId."));
         }
 
         [Test]
@@ -298,21 +245,10 @@ namespace CountDownIntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 13")]
-        public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_Without_Providing_An_Id()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-
-            _sut.Delete(null);
-
-            Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("You must specify a To-Do item to delete."));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 13")]
         public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_That_Does_Not_Exist()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns((ToDoItem)null);
+            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns((ToDoItem) null);
 
             _sut.Delete(_toDoItem.Id);
 
@@ -360,7 +296,7 @@ namespace CountDownIntegrationTests.Controllers
         public void Should_Redirect_To_The_Index_Action_If_The_Updated_ToDo_Object_Does_Not_Exist()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem)null);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
 
             var result = _sut.Update(_toDoItem) as RedirectToRouteResult;
 
@@ -373,7 +309,7 @@ namespace CountDownIntegrationTests.Controllers
         public void Should_Return_An_Error_Message_If_The_Updated_ToDo_Object_Does_Not_Exist()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem)null);
+            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<int>())).Returns((ToDoItem) null);
 
             _sut.Update(_toDoItem);
 
@@ -451,52 +387,6 @@ namespace CountDownIntegrationTests.Controllers
             _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
             var result = _sut.Update(_toDoItem) as ViewResult;
-
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 14")]
-        public void Should_Redirect_To_The_Index_Action_When_An_Unauthenticated_User_Cancels_An_Edit()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(false);
-
-            var result = _sut.CancelEdit() as RedirectToRouteResult;
-
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 14")]
-        public void Should_Redirect_To_The_Index_Action_When_The_User_Cancels_An_Edit()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-
-            var result = _sut.CancelEdit() as RedirectToRouteResult;
-
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 14")]
-        public void Should_Return_A_Message_When_The_User_Cancels_An_Edit()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
-
-            _sut.CancelEdit();
-
-            Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("No item was updated."));
-        }
-
-        [Test]
-        [Category("Integration Tests: Feature 14")]
-        public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Canceling_An_Edit()
-        {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContextWithException();
-
-            var result = _sut.CancelEdit() as ViewResult;
 
             Assert.That(result.ViewName, Is.EqualTo("SystemError"));
         }
