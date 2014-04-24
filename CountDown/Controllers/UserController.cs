@@ -50,6 +50,7 @@ namespace CountDown.Controllers
                     _userRepository.SaveChanges();
                     TempData["loginMessage"] = "You have successfully registered for the application.\n" +
                                                "Use the form below to login.";
+                    TempData["registeredEmail"] = user.Email;
                     return RedirectToAction("Login");
                 }
                 catch (Exception)
