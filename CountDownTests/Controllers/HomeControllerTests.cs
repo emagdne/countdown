@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
 using CountDown.Controllers;
+using CountDown.Models.Domain;
 using CountDown.Models.Repository;
 using Moq;
+using MvcPaging;
 using NUnit.Framework;
 
 namespace CountDownUnitTests.Controllers
@@ -12,13 +14,13 @@ namespace CountDownUnitTests.Controllers
     public class A_HomeController_Object
     {
         private HomeController _sut;
-        private Mock<IToDoItemRepository> _toDoItemRepository;
+        private Mock<IToDoItemRepository> _mockToDoItemRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _toDoItemRepository = new Mock<IToDoItemRepository>();
-            _sut = new HomeController(_toDoItemRepository.Object);
+            _mockToDoItemRepository = new Mock<IToDoItemRepository>();
+            _sut = new HomeController(_mockToDoItemRepository.Object);
         }
 
         [Test]
@@ -38,6 +40,58 @@ namespace CountDownUnitTests.Controllers
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             var result = _sut.Index(null, null, null, null, null) as ViewResult;
             Assert.That(result.ViewName, Is.EqualTo("Index"));
+        }
+
+        [Test]
+        [Category("Unit Tests: Feature 6")]
+        public void Should_Return_A_List_Of_ToDo_Items_That_Does_Not_Exceed_The_Max_Per_Page()
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _sut.Index(null, null, null, null, null);
+
+            // Verify that the function is called with the correct parameters
+            _mockToDoItemRepository.Verify(x =>
+                x.GetPagedToDoItems(It.IsAny<int>(), HomeController.PageSize, It.IsAny<long>(), It.IsAny<bool>(),
+                    It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()));
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [Category("Unit Tests: Feature 6")]
+        public void Should_Return_The_Correct_List_Of_ToDo_Items_For_The_Current_Page(int page)
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            var mockList = new Mock<IPagedList<ToDoItem>>().Object;
+            _mockToDoItemRepository.Setup(x =>
+                x.GetPagedToDoItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<long>(), It.IsAny<bool>(),
+                    It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>())).Returns(mockList);
+
+            var result = _sut.Index(page, null, null, null, null) as ViewResult;
+            var resultList = result.Model as IPagedList;
+
+            // Verify that the function is called with the correct parameters
+            _mockToDoItemRepository.Verify(x =>
+                x.GetPagedToDoItems(page - 1, HomeController.PageSize, It.IsAny<long>(), It.IsAny<bool>(),
+                    It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<bool>()));
+
+            // Assert that the list is correctly given to the view
+            Assert.That(resultList, Is.EqualTo(mockList));
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(5)]
+        [TestCase(8)]
+        [Category("Unit Tests: Feature 6")]
+        public void Should_Return_The_Correct_Number_Of_Total_ToDoItems(int numItems)
+        {
+            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
+            _mockToDoItemRepository.Setup(x => x.ToDoItemsCount()).Returns(numItems);
+
+            var result = _sut.Index(null, null, null, null, null) as ViewResult;
+
+            Assert.That(result.ViewData["TotalToDoItems"], Is.EqualTo(numItems));
         }
     }
 }

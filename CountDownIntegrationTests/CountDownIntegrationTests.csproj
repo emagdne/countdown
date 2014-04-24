@@ -37,6 +37,10 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="MvcPaging, Version=2.1.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvcPaging.2.1.0\lib\net40\MvcPaging.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -79,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ControllerTestsSetUp.cs" />
+    <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Controllers\ToDoControllerTests.cs" />
     <Compile Include="Controllers\UserControllerTests.cs" />
     <Compile Include="IntegrationTestHelper.cs" />

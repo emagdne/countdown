@@ -10,8 +10,8 @@ namespace CountDown.Controllers
     /// </summary>
     public class HomeController : Controller
     {
+        public const int PageSize = 10;
         private readonly IToDoItemRepository _toDoItemRepository;
-        private const int PageSize = 10;
 
         public HomeController()
         {
