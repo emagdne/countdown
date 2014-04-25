@@ -50,13 +50,13 @@
     <Compile Include="Tests\RegistrationPageTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CountDownWebTestingFramework\CountDown.WebTestingFramework.csproj">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CountDown.WebTestingFramework\CountDown.WebTestingFramework.csproj">
       <Project>{ffed0ff4-df08-4393-9791-fbc341af97b4}</Project>
       <Name>CountDown.WebTestingFramework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
