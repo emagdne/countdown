@@ -9,7 +9,7 @@ using MvcPaging;
 using Ninject;
 using NUnit.Framework;
 
-namespace CountDownIntegrationTests.Controllers
+namespace CountDown.IntegrationTests.Controllers
 {
     [TestFixture]
     public class A_HomeController_Object

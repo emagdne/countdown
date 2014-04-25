@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Moq;
 
-namespace CountDownUnitTests
+namespace CountDown.UnitTests
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>

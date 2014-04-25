@@ -7,8 +7,8 @@
     <ProjectGuid>{468A6923-84DE-4A92-BBF4-F6731ED597F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CountDownFunctionalTests</RootNamespace>
-    <AssemblyName>CountDownFunctionalTests</AssemblyName>
+    <RootNamespace>CountDown.FunctionalTests</RootNamespace>
+    <AssemblyName>CountDown.FunctionalTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,9 +48,9 @@
     <Compile Include="RegistrationPageTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CountDownWebTestingFramework\CountDownWebTestingFramework.csproj">
+    <ProjectReference Include="..\CountDownWebTestingFramework\CountDown.WebTestingFramework.csproj">
       <Project>{ffed0ff4-df08-4393-9791-fbc341af97b4}</Project>
-      <Name>CountDownWebTestingFramework</Name>
+      <Name>CountDown.WebTestingFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

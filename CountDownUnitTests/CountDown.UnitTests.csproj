@@ -7,8 +7,8 @@
     <ProjectGuid>{77C15653-35F2-49B1-8BAC-51C1E9D895E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CountDownUnitTests</RootNamespace>
-    <AssemblyName>CountDownUnitTests</AssemblyName>
+    <RootNamespace>CountDown.UnitTests</RootNamespace>
+    <AssemblyName>CountDown.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

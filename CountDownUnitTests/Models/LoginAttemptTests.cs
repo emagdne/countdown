@@ -1,7 +1,7 @@
 ﻿using CountDown.Models.Domain;
 using NUnit.Framework;
 
-namespace CountDownUnitTests.Models
+namespace CountDown.UnitTests.Models
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>

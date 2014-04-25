@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using Moq;
 
-namespace CountDownIntegrationTests
+namespace CountDown.IntegrationTests
 {
     public static class IntegrationTestHelper
     {

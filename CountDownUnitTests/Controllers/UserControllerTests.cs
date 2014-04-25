@@ -7,7 +7,7 @@ using CountDown.Models.Service;
 using Moq;
 using NUnit.Framework;
 
-namespace CountDownUnitTests.Controllers
+namespace CountDown.UnitTests.Controllers
 {
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 4/10/14</para>

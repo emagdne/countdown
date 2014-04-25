@@ -1,8 +1,7 @@
-﻿using System.IO;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace CountDownWebTestingFramework
+namespace CountDown.WebTestingFramework
 {
     public static class Browser
     {

@@ -5,13 +5,13 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDown", "CountDown\CountDown.csproj", "{98A6F59C-48D3-40FC-B640-A7A854365F9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDownIntegrationTests", "CountDownIntegrationTests\CountDownIntegrationTests.csproj", "{8EDF0446-ABE1-4394-9486-755A827D4BFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDown.IntegrationTests", "CountDownIntegrationTests\CountDown.IntegrationTests.csproj", "{8EDF0446-ABE1-4394-9486-755A827D4BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDownFunctionalTests", "CountDownFunctionalTests\CountDownFunctionalTests.csproj", "{468A6923-84DE-4A92-BBF4-F6731ED597F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDown.FunctionalTests", "CountDownFunctionalTests\CountDown.FunctionalTests.csproj", "{468A6923-84DE-4A92-BBF4-F6731ED597F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDownWebTestingFramework", "CountDownWebTestingFramework\CountDownWebTestingFramework.csproj", "{FFED0FF4-DF08-4393-9791-FBC341AF97B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDown.WebTestingFramework", "CountDownWebTestingFramework\CountDown.WebTestingFramework.csproj", "{FFED0FF4-DF08-4393-9791-FBC341AF97B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDownUnitTests", "CountDownUnitTests\CountDownUnitTests.csproj", "{77C15653-35F2-49B1-8BAC-51C1E9D895E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountDown.UnitTests", "CountDownUnitTests\CountDown.UnitTests.csproj", "{77C15653-35F2-49B1-8BAC-51C1E9D895E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

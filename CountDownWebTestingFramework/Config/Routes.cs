@@ -1,4 +1,4 @@
-﻿namespace CountDownWebTestingFramework.Config
+﻿namespace CountDown.WebTestingFramework.Config
 {
     internal static class Routes
     {

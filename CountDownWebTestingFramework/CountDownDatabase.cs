@@ -2,7 +2,7 @@
 using System.Data.SQLite;
 using System.IO;
 
-namespace CountDownWebTestingFramework
+namespace CountDown.WebTestingFramework
 {
     public static class CountDownDatabase
     {

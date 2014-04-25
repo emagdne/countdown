@@ -7,8 +7,8 @@
     <ProjectGuid>{8EDF0446-ABE1-4394-9486-755A827D4BFB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CountDownIntegrationTests</RootNamespace>
-    <AssemblyName>CountDownIntegrationTests</AssemblyName>
+    <RootNamespace>CountDown.IntegrationTests</RootNamespace>
+    <AssemblyName>CountDown.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

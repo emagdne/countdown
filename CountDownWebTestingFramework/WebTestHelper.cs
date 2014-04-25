@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace CountDownWebTestingFramework
+namespace CountDown.WebTestingFramework
 {
     public static class WebTestHelper
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CountDownWebTestingFramework
+namespace CountDown.WebTestingFramework
 {
-    public static partial class CountDown
+    public static partial class CountDownApp
     {
         public static class RegistrationPage
         {

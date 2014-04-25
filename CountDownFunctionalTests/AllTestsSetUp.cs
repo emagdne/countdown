@@ -1,7 +1,7 @@
-﻿using CountDownWebTestingFramework;
+﻿using CountDown.WebTestingFramework;
 using NUnit.Framework;
 
-namespace CountDownFunctionalTests
+namespace CountDown.FunctionalTests
 {
     [SetUpFixture]
     public class AllTestsSetUp
@@ -9,14 +9,14 @@ namespace CountDownFunctionalTests
         [SetUp]
         public void RunOnceBeforeAllTests()
         {
-            CountDown.Init();
+            CountDownApp.Init();
             CountDownDatabase.OpenConnection();
         }
 
         [TearDown]
         public void RunOnceAfterAllTests()
         {
-            CountDown.Quit();
+            CountDownApp.Quit();
             CountDownDatabase.CloseConnection();
         }
     }

@@ -2,7 +2,7 @@
 using Ninject;
 using NUnit.Framework;
 
-namespace CountDownIntegrationTests.Controllers
+namespace CountDown.IntegrationTests.Controllers
 {
     [SetUpFixture]
     public class ControllerTestsSetUp
