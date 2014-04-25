@@ -27,21 +27,6 @@ namespace CountDown.WebTestingFramework
             _chromePage.Navigate().GoToUrl(url);
         }
 
-        public static bool Logout()
-        {
-            bool success = true;
-            try
-            {
-                var anchor = _chromePage.FindElement(By.Id("signout"));
-                anchor.Click();
-            }
-            catch (NoSuchElementException)
-            {
-                success = false;
-            }
-            return success;
-        }
-
         public static bool HasElement(string cssSelector)
         {
             bool success = true;

@@ -1,16 +1,21 @@
 ﻿using CountDown.WebTestingFramework;
 using NUnit.Framework;
 
-namespace CountDown.FunctionalTests
+namespace CountDown.FunctionalTests.Tests
 {
     [TestFixture]
     public class The_Registration_Page
     {
+        [SetUp]
+        public void SetUp()
+        {
+            CountDownApp.GoToRegistrationPage();            
+        }
+
         [Test]
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Display_The_Login_Page_When_The_Login_Link_Is_Clicked_From_The_Register_Page()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.LoginLink.Click();
             Assert.That(CountDownApp.IsOnLoginPage, Is.True);
         }
@@ -19,7 +24,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Use_Password_Field_On_The_Register_Page_For_Password()
         {
-            CountDownApp.GoToRegistrationPage();
             Assert.That(CountDownApp.RegistrationPage.PasswordField.IsPasswordField, Is.True);
         }
 
@@ -27,7 +31,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Use_Password_Field_On_The_Register_Page_For_ReenterPassword()
         {
-            CountDownApp.GoToRegistrationPage();
             Assert.That(CountDownApp.RegistrationPage.PasswordConfirmField.IsPasswordField, Is.True);
         }
 
@@ -35,7 +38,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Clear_All_Fields_When_Clear_Is_Clicked()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.FillFieldsWithRandomValues();
             CountDownApp.RegistrationPage.ClickClear();
             Assert.That(CountDownApp.RegistrationPage.AreFieldsBlank(), Is.True);
@@ -45,7 +47,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Missing_FirstName()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.FirstNameField.ErrorMessage,
                 Is.EqualTo("You must provide a first name."));
@@ -55,7 +56,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Long_FirstName()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.FirstNameField.Fill(WebTestHelper.RandomString(51));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.FirstNameField.ErrorMessage,
@@ -66,7 +66,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Long_LastName()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.LastNameField.Fill(WebTestHelper.RandomString(51));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.LastNameField.ErrorMessage,
@@ -77,7 +76,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Missing_Email()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.EmailField.ErrorMessage,
                 Is.EqualTo("You must provide an email address."));
@@ -87,7 +85,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Badly_Formatted_Email()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.EmailField.Fill(WebTestHelper.RandomString());
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.EmailField.ErrorMessage,
@@ -98,7 +95,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Missing_Email_Confirm()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.EmailConfirmField.ErrorMessage,
                 Is.EqualTo("You must confirm your email address."));
@@ -109,7 +105,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Bad_Email_Confirm()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.EmailField.Fill("xy@email.com");
             CountDownApp.RegistrationPage.EmailConfirmField.Fill("xyz@email.com");
             CountDownApp.RegistrationPage.ClickSubmit();
@@ -121,7 +116,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Missing_Password()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.PasswordField.ErrorMessage,
                 Is.EqualTo("You must provide a password."));
@@ -133,7 +127,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Short_Password(int length)
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.PasswordField.Fill(WebTestHelper.RandomString(length));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.PasswordField.ErrorMessage,
@@ -144,7 +137,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Long_Password()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.PasswordField.Fill(WebTestHelper.RandomString(51));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.PasswordField.ErrorMessage,
@@ -155,7 +147,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Missing_Password_Confirm()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.PasswordConfirmField.ErrorMessage,
                 Is.EqualTo("You must confirm your password."));
@@ -167,7 +158,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Unconfirmed_Password(string confirm)
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.PasswordField.Fill("12345");
             CountDownApp.RegistrationPage.PasswordConfirmField.Fill(confirm);
             CountDownApp.RegistrationPage.ClickSubmit();
@@ -179,7 +169,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Return_To_Login_Page_After_Valid_Registration()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.FirstNameField.Fill(WebTestHelper.RandomString());
             CountDownApp.RegistrationPage.LastNameField.Fill(WebTestHelper.RandomString());
             CountDownApp.RegistrationPage.EmailField.Fill("xyz@gmail.com");
@@ -195,7 +184,6 @@ namespace CountDown.FunctionalTests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Have_Email_In_Email_Field_And_Registration_successful_On_Login_Page_After_Valid_Registration()
         {
-            CountDownApp.GoToRegistrationPage();
             CountDownApp.RegistrationPage.FirstNameField.Fill(WebTestHelper.RandomString());
             CountDownApp.RegistrationPage.LastNameField.Fill(WebTestHelper.RandomString());
             CountDownApp.RegistrationPage.EmailField.Fill("xyz@gmail.com");

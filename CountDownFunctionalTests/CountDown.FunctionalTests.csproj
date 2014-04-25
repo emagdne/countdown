@@ -43,9 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllTestsSetUp.cs" />
-    <Compile Include="LoginPageTests.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="FunctionalTestHelper.cs" />
+    <Compile Include="Tests\LoginPageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationPageTests.cs" />
+    <Compile Include="Tests\RegistrationPageTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CountDownWebTestingFramework\CountDown.WebTestingFramework.csproj">

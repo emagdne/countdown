@@ -23,6 +23,17 @@ namespace CountDown.WebTestingFramework
             _connection.Close();
         }
 
+        public static void CreateUser(string firstName, string lastName, string email, string hash)
+        {
+            var query =
+                String.Format(
+                    "INSERT INTO users (first_name, last_name, email, hash) VALUES ('{0}', '{1}', '{2}', '{3}')",
+                    firstName,
+                    lastName, email, hash);
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            command.ExecuteReader();
+        }
+
         public static void DeleteUser(string email)
         {
             var query = String.Format("SELECT id FROM users WHERE email = '{0}'", email);

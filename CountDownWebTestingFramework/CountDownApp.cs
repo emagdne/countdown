@@ -14,6 +14,11 @@ namespace CountDown.WebTestingFramework
             get { return Browser.Title.Equals("Registration"); }
         }
 
+        public static bool IsOnIndexPage
+        {
+            get { return Browser.Title.Equals("Home"); }
+        }
+
         public static void Init()
         {
             Browser.Init();
@@ -29,9 +34,9 @@ namespace CountDown.WebTestingFramework
             Browser.GoToUrl(Routes.Login);
         }
 
-        public static bool Logout()
+        public static void Logout()
         {
-            return Browser.Logout();
+            GoToLoginPage();
         }
 
         public static void GoToIndexPage()
