@@ -15,9 +15,7 @@ namespace CountDownWebTestingFramework
 
         public static void Init()
         {
-            string directory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName +
-                               @"\Drivers\";
-            _chromePage = new ChromeDriver(directory);
+            _chromePage = new ChromeDriver();
         }
 
         public static void Quit()
