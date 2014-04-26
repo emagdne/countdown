@@ -38,7 +38,12 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Clear_All_Fields_When_Clear_Is_Clicked()
         {
-            CountDownApp.RegistrationPage.FillFieldsWithRandomValues();
+            CountDownApp.RegistrationPage.FirstNameField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.LastNameField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.EmailField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.EmailConfirmField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.PasswordField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.PasswordConfirmField.Fill(FunctionalTestHelper.RandomString());
             CountDownApp.RegistrationPage.ClickClear();
             Assert.That(CountDownApp.RegistrationPage.AreFieldsBlank(), Is.True);
         }
@@ -56,7 +61,7 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Long_FirstName()
         {
-            CountDownApp.RegistrationPage.FirstNameField.Fill(WebTestHelper.RandomString(51));
+            CountDownApp.RegistrationPage.FirstNameField.Fill(FunctionalTestHelper.RandomString(51));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.FirstNameField.ErrorMessage,
                 Is.EqualTo("The first name must be from 1 to 50 characters in length."));
@@ -66,7 +71,7 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Long_LastName()
         {
-            CountDownApp.RegistrationPage.LastNameField.Fill(WebTestHelper.RandomString(51));
+            CountDownApp.RegistrationPage.LastNameField.Fill(FunctionalTestHelper.RandomString(51));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.LastNameField.ErrorMessage,
                 Is.EqualTo("The last name must be from 0 to 50 characters in length."));
@@ -85,7 +90,7 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Badly_Formatted_Email()
         {
-            CountDownApp.RegistrationPage.EmailField.Fill(WebTestHelper.RandomString());
+            CountDownApp.RegistrationPage.EmailField.Fill(FunctionalTestHelper.RandomString());
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.EmailField.ErrorMessage,
                 Is.EqualTo("Please enter a valid email address."));
@@ -127,7 +132,7 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Short_Password(int length)
         {
-            CountDownApp.RegistrationPage.PasswordField.Fill(WebTestHelper.RandomString(length));
+            CountDownApp.RegistrationPage.PasswordField.Fill(FunctionalTestHelper.RandomString(length));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.PasswordField.ErrorMessage,
                 Is.EqualTo("The password must be from 4 to 50 characters in length."));
@@ -137,7 +142,7 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Report_Error_Message_For_Long_Password()
         {
-            CountDownApp.RegistrationPage.PasswordField.Fill(WebTestHelper.RandomString(51));
+            CountDownApp.RegistrationPage.PasswordField.Fill(FunctionalTestHelper.RandomString(51));
             CountDownApp.RegistrationPage.ClickSubmit();
             Assert.That(CountDownApp.RegistrationPage.PasswordField.ErrorMessage,
                 Is.EqualTo("The password must be from 4 to 50 characters in length."));
@@ -169,8 +174,8 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Return_To_Login_Page_After_Valid_Registration()
         {
-            CountDownApp.RegistrationPage.FirstNameField.Fill(WebTestHelper.RandomString());
-            CountDownApp.RegistrationPage.LastNameField.Fill(WebTestHelper.RandomString());
+            CountDownApp.RegistrationPage.FirstNameField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.LastNameField.Fill(FunctionalTestHelper.RandomString());
             CountDownApp.RegistrationPage.EmailField.Fill("xyz@gmail.com");
             CountDownApp.RegistrationPage.EmailConfirmField.Fill("xyz@gmail.com");
             CountDownApp.RegistrationPage.PasswordField.Fill("12345");
@@ -184,8 +189,8 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Have_Email_In_Email_Field_And_Registration_successful_On_Login_Page_After_Valid_Registration()
         {
-            CountDownApp.RegistrationPage.FirstNameField.Fill(WebTestHelper.RandomString());
-            CountDownApp.RegistrationPage.LastNameField.Fill(WebTestHelper.RandomString());
+            CountDownApp.RegistrationPage.FirstNameField.Fill(FunctionalTestHelper.RandomString());
+            CountDownApp.RegistrationPage.LastNameField.Fill(FunctionalTestHelper.RandomString());
             CountDownApp.RegistrationPage.EmailField.Fill("xyz@gmail.com");
             CountDownApp.RegistrationPage.EmailConfirmField.Fill("xyz@gmail.com");
             CountDownApp.RegistrationPage.PasswordField.Fill("12345");

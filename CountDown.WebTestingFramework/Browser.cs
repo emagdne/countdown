@@ -1,5 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace CountDown.WebTestingFramework
 {
@@ -69,7 +72,7 @@ namespace CountDown.WebTestingFramework
             }
         }
 
-        public static bool FillField(string cssSelector, string value)
+        public static bool FillInputField(string cssSelector, string value)
         {
             bool success = true;
             try
@@ -82,6 +85,49 @@ namespace CountDown.WebTestingFramework
                 success = false;
             }
             return success;
+        }
+
+        public static bool ClearInputField(string cssSelector)
+        {
+            bool success = true;
+            try
+            {
+                var field = _chromePage.FindElement(By.CssSelector(cssSelector));
+                field.Clear();
+            }
+            catch (NoSuchElementException)
+            {
+                success = false;
+            }
+            return success;
+        } 
+
+        public static string GetSelectedDropdownOption(string cssSelector)
+        {
+            return new SelectElement(_chromePage.FindElement(By.CssSelector(cssSelector))).SelectedOption.Text;
+        }
+
+        public static bool SelectDropdownOption(string cssSelector, string text)
+        {
+            bool success = true;
+            try
+            {
+                var select = _chromePage.FindElement(By.CssSelector(cssSelector));
+                var selectElement = new SelectElement(select);
+                selectElement.SelectByText(text);
+            }
+            catch (NoSuchElementException)
+            {
+                success = false;
+            }
+            return success;
+        }
+
+        public static List<string> GetDropdownOptions(string cssSelector)
+        {
+            return
+                new SelectElement(_chromePage.FindElement(By.CssSelector(cssSelector))).Options.Select(x => x.Text)
+                    .ToList();
         }
 
         public static string GetInputValue(string cssSelector)

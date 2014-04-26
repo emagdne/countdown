@@ -54,5 +54,26 @@ namespace CountDown.WebTestingFramework
             reader = command.ExecuteReader();
             reader.Close();
         }
+
+        public static void DeleteToDoItem(string title)
+        {
+            var query = String.Format("SELECT id FROM todo_items WHERE title = '{0}'", title);
+
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            long id = 0;
+            if (reader.Read())
+            {
+                id = reader.GetInt64(0);
+            }
+            reader.Close();
+
+            query = String.Format("DELETE FROM todo_items WHERE id = {0}", id);
+            command = new SQLiteCommand(query, _connection);
+            reader = command.ExecuteReader();
+            reader.Close();
+        }
     }
 }

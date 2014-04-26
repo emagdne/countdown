@@ -33,7 +33,7 @@
 
                 public static void Fill(string email)
                 {
-                    Browser.FillField("input[name=email]", email);
+                    Browser.FillInputField("input[name=email]", email);
                 }
             }
 
@@ -61,7 +61,7 @@
 
                 public static void Fill(string email)
                 {
-                    Browser.FillField("input[name=password]", email);
+                    Browser.FillInputField("input[name=password]", email);
                 }
             }
 

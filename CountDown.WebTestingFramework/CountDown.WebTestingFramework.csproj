@@ -51,12 +51,13 @@
   <ItemGroup>
     <Compile Include="Browser.cs" />
     <Compile Include="CountDownDatabase.cs" />
+    <Compile Include="Pages\CreateToDo.cs" />
+    <Compile Include="Pages\Home.cs" />
     <Compile Include="Pages\Login.cs" />
     <Compile Include="Pages\Registration.cs" />
     <Compile Include="Config\Routes.cs" />
     <Compile Include="CountDownApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

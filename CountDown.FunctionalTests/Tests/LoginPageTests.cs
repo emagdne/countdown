@@ -90,7 +90,7 @@ namespace CountDown.FunctionalTests.Tests
         public void Should_Redirect_To_The_Home_Page_After_A_Successful_Authentication()
         {
             FunctionalTestHelper.SignInAsTestUser();
-            Assert.That(CountDownApp.IsOnIndexPage, Is.True);
+            Assert.That(CountDownApp.IsOnHomePage, Is.True);
         }
     }
 }

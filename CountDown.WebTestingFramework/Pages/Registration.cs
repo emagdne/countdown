@@ -23,7 +23,7 @@ namespace CountDown.WebTestingFramework
 
                 public static void Fill(string value)
                 {
-                    Browser.FillField("#reg-fn", value);
+                    Browser.FillInputField("#reg-fn", value);
                 }
             }
 
@@ -31,7 +31,7 @@ namespace CountDown.WebTestingFramework
             {
                 public static void Fill(string value)
                 {
-                    Browser.FillField("#reg-ln", value);
+                    Browser.FillInputField("#reg-ln", value);
                 }
 
                 public static string ErrorMessage
@@ -44,7 +44,7 @@ namespace CountDown.WebTestingFramework
             {
                 public static void Fill(string value)
                 {
-                    Browser.FillField("#reg-email", value);
+                    Browser.FillInputField("#reg-email", value);
                 }
 
                 public static string ErrorMessage
@@ -57,7 +57,7 @@ namespace CountDown.WebTestingFramework
             {
                 public static void Fill(string value)
                 {
-                    Browser.FillField("#reg-email-confirm", value);
+                    Browser.FillInputField("#reg-email-confirm", value);
                 }
 
                 public static string ErrorMessage
@@ -80,7 +80,7 @@ namespace CountDown.WebTestingFramework
 
                 public static void Fill(string value)
                 {
-                    Browser.FillField("#reg-pw", value);
+                    Browser.FillInputField("#reg-pw", value);
                 }
             }
 
@@ -98,18 +98,8 @@ namespace CountDown.WebTestingFramework
 
                 public static void Fill(string value)
                 {
-                    Browser.FillField("#reg-pw-confirm", value);
+                    Browser.FillInputField("#reg-pw-confirm", value);
                 }
-            }
-
-            public static void FillFieldsWithRandomValues()
-            {
-                Browser.FillField("#reg-fn", WebTestHelper.RandomString());
-                Browser.FillField("#reg-ln", WebTestHelper.RandomString());
-                Browser.FillField("#reg-email", WebTestHelper.RandomString());
-                Browser.FillField("#reg-email-confirm", WebTestHelper.RandomString());
-                Browser.FillField("#reg-pw", WebTestHelper.RandomString());
-                Browser.FillField("#reg-pw-confirm", WebTestHelper.RandomString());
             }
 
             public static void ClickClear()
