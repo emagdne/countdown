@@ -171,7 +171,7 @@ namespace CountDown.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    TempData["indexMessage"] = "No item was updated.";                    
+                    TempData["indexMessage"] = "No item was updated.";
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -195,7 +195,6 @@ namespace CountDown.Controllers
 
                         if (toDoItem != null)
                         {
-
                             if (!toDoItem.Completed)
                             {
                                 var identity = User.Identity as CountDownIdentity;
@@ -308,11 +307,23 @@ namespace CountDown.Controllers
             IEnumerable<SelectListItem> users = _userRepository.AllUsers().ToList()
                 .Select(x => new SelectListItem
                 {
-                    Text = x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName,
+                    Text =
+                        (x.Id == selectedId)
+                            ? "Self"
+                            : (x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName),
                     Value = x.Id.ToString(),
                     Selected = (x.Id == selectedId)
                 })
-                .OrderBy(x => x.Text);
+
+                // Sort by last, first name, but Self should appear first in the list.
+                .OrderBy(x => x.Text, Comparer<string>.Create((x, y) =>
+                {
+                    if (x.Equals("Self"))
+                        return -1;
+                    if (y.Equals("Self"))
+                        return 1;
+                    return String.Compare(x, y, StringComparison.Ordinal);
+                }));
 
             return users;
         }

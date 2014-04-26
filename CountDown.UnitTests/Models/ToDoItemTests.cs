@@ -36,11 +36,11 @@ namespace CountDown.UnitTests.Models
 
         [Test]
         [Category("Unit Tests: Feature 5")]
-        public void Should_Reject_A_Description_Greater_Than_500_Characters()
+        public void Should_Reject_A_Description_Greater_Than_200_Characters()
         {
-            _sut.Description = new string('x', 501);
+            _sut.Description = new string('x', 201);
             var errors = UnitTestHelper.GetValidationErrors(_sut);
-            Assert.That(errors, Has.Member("The description must be from 0 to 500 characters in length."));
+            Assert.That(errors, Has.Member("The description must be from 0 to 200 characters in length."));
         }
 
         [Test]

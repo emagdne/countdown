@@ -23,7 +23,7 @@ namespace CountDown.Models.Domain
         [StringLength(50, ErrorMessage = "The title must be from 1 to 50 characters in length.")]
         public virtual string Title { get; set; }
 
-        [StringLength(500, ErrorMessage = "The description must be from 0 to 500 characters in length.")]
+        [StringLength(200, ErrorMessage = "The description must be from 0 to 200 characters in length.")]
         public virtual string Description { get; set; }
 
         [Column("start_date")]

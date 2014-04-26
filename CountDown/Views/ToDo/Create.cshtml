@@ -36,14 +36,14 @@
                     <label for="todo-create-start-date" class="col-sm-3 control-label">Start Date</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("StartDate")
-                        <input class="form-control datepicker" id="todo-create-start-date" name="startDate" value="@Request["startDate"]" data-date-format="yyyy/mm/dd"/>
+                        <input class="form-control datepicker" id="todo-create-start-date" name="startDate" value="@Html.Raw(Request["startDate"] ?? String.Format("{0:yyyy/MM/dd}", DateTime.Now))" data-date-format="yyyy/mm/dd"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="todo-create-start-time" class="col-sm-3 control-label">Start Time</label>
                     <div class="col-sm-9">
                         @Html.ValidationMessage("StartTime")
-                        <input type="text"class="form-control timepicker" id="todo-create-start-time" name="startTime" value="@Request["startTime"]" />
+                        <input type="text"class="form-control timepicker" id="todo-create-start-time" name="startTime" value="@Html.Raw(Request["startTime"] ?? String.Format("{0:h:mm tt}", DateTime.Now))" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div id="todo-create-buttons" class="pull-right">
-                    <button class="btn btn-default">Cancel</button>
+                    <button id="todo-create-cancel" class="btn btn-default">Cancel</button>
                     <input type="submit" value="Submit" class="btn btn-primary" style="margin-left: 6px;" />
                 </div>
             </form>
