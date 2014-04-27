@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CountDown.Models.Domain;
 using Microsoft.AspNet.Identity;
 
@@ -13,7 +14,7 @@ namespace CountDown.Models.Repository
         void InsertUser(User user);
         bool AuthenticateUser(string email, string password);
         User FindUserByEmail(string email);
-        IQueryable<User> AllUsers();
+        IEnumerable<User> AllUsers();
         void SaveChanges();
     }
 
@@ -53,9 +54,9 @@ namespace CountDown.Models.Repository
             return _db.Users.FirstOrDefault(x => x.Email.Equals(email));
         }
 
-        public IQueryable<User> AllUsers()
+        public IEnumerable<User> AllUsers()
         {
-            return _db.Users;
+            return _db.Users.ToList();
         }
 
         public void SaveChanges()

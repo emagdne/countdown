@@ -15,7 +15,7 @@ namespace CountDown.Models.Repository
         void InsertToDo(ToDoItem item);
         void UpdateToDo(ToDoItem originalItem, ToDoItem updatedItem);
         void DeleteToDo(ToDoItem item);
-        IQueryable<ToDoItem> AllToDoItems();
+        IEnumerable<ToDoItem> AllToDoItems();
         ToDoItem FindById(long id);
         int ToDoItemsCount();
         int PendingToDoItemsCount(long userId);
@@ -76,9 +76,9 @@ namespace CountDown.Models.Repository
             _db.ToDoItems.Remove(item);
         }
 
-        public IQueryable<ToDoItem> AllToDoItems()
+        public IEnumerable<ToDoItem> AllToDoItems()
         {
-            return _db.ToDoItems;
+            return _db.ToDoItems.ToList();
         }
 
         public ToDoItem FindById(long id)
@@ -99,7 +99,7 @@ namespace CountDown.Models.Repository
         public IPagedList<ToDoItem> GetPagedToDoItems(int page, int pageSize, long myId, bool ownedByMe, bool ownedByOthers,
             bool assignedToOthers, bool completed)
         {
-            var items = _db.ToDoItems as IEnumerable<ToDoItem>;
+            var items = _db.ToDoItems.AsEnumerable();
 
             if (!ownedByMe)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using CountDown.Models.Domain;
@@ -304,26 +305,27 @@ namespace CountDown.Controllers
 
         private IEnumerable<SelectListItem> GetAssigneeList(long selectedId)
         {
-            IEnumerable<SelectListItem> users = _userRepository.AllUsers().ToList()
+            List<SelectListItem> users = _userRepository.AllUsers()
                 .Select(x => new SelectListItem
                 {
                     Text =
                         (x.Id == selectedId)
                             ? "Self"
                             : (x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName),
-                    Value = x.Id.ToString(),
+                    Value = x.Id.ToString(CultureInfo.InvariantCulture),
                     Selected = (x.Id == selectedId)
                 })
+                .ToList();
 
-                // Sort by last, first name, but Self should appear first in the list.
-                .OrderBy(x => x.Text, Comparer<string>.Create((x, y) =>
-                {
-                    if (x.Equals("Self"))
-                        return -1;
-                    if (y.Equals("Self"))
-                        return 1;
-                    return String.Compare(x, y, StringComparison.Ordinal);
-                }));
+            // Sort by last, first name, but Self should appear first in the list.
+            users.Sort(Comparer<SelectListItem>.Create((x, y) =>
+            {
+                if (x.Text.Equals("Self"))
+                    return -1;
+                if (y.Text.Equals("Self"))
+                    return 1;
+                return String.Compare(x.Text, y.Text, StringComparison.InvariantCulture);
+            }));
 
             return users;
         }
