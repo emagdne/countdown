@@ -23,7 +23,7 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Display_The_Login_Page_For_Url_countdown()
         {
-            CountDownApp.GoToIndexPage();
+            CountDownApp.GoToHomePage();
             Assert.That(CountDownApp.IsOnLoginPage, Is.True);
         }
 

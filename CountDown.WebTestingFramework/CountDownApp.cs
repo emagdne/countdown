@@ -44,7 +44,7 @@ namespace CountDown.WebTestingFramework
             GoToLoginPage();
         }
 
-        public static void GoToIndexPage()
+        public static void GoToHomePage()
         {
             Browser.GoToUrl(Routes.Home);
         }

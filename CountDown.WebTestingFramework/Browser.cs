@@ -64,12 +64,16 @@ namespace CountDown.WebTestingFramework
             try
             {
                 var element = _chromePage.FindElement(By.CssSelector(cssSelector));
-                return element.GetAttribute(attr).Equals(value);
+                var attribute = element.GetAttribute(attr);
+                if (attribute != null)
+                {
+                    return attribute.Equals(value);
+                }
             }
             catch (NoSuchElementException)
             {
-                return false;
             }
+            return false;
         }
 
         public static bool FillInputField(string cssSelector, string value)
@@ -100,7 +104,7 @@ namespace CountDown.WebTestingFramework
                 success = false;
             }
             return success;
-        } 
+        }
 
         public static string GetSelectedDropdownOption(string cssSelector)
         {
@@ -140,6 +144,109 @@ namespace CountDown.WebTestingFramework
         {
             var element = _chromePage.FindElement(By.CssSelector(cssSelector));
             return element.Text;
+        }
+
+        public static int ElementCount(string cssSelector)
+        {
+            return _chromePage.FindElements(By.CssSelector(cssSelector)).Count;
+        }
+
+        public static void CheckInputCheckbox(string cssSelector)
+        {
+            if (!ElementHasAttributeWithValue(cssSelector, "checked", "true"))
+            {
+                ClickElement(cssSelector);
+            }
+        }
+
+        public static void UnCheckInputCheckbox(string cssSelector)
+        {
+            if (ElementHasAttributeWithValue(cssSelector, "checked", "true"))
+            {
+                ClickElement(cssSelector);
+            }
+        }
+
+        public static bool ElementsHaveCssByXpath(string xpath, string cssPropertyName, string cssPropertyValue)
+        {
+            var elements = _chromePage.FindElements(By.XPath(xpath));
+            foreach (var element in elements)
+            {
+                if (!element.GetCssValue(cssPropertyName).Equals(cssPropertyValue))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool ElementsHaveText(string cssSelector, string text)
+        {
+            bool result = true;
+
+            var elements = _chromePage.FindElements(By.CssSelector(cssSelector));
+            foreach (var element in elements)
+            {
+                if (!element.Text.Equals(text))
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public static bool ElementsHaveAttributeWithValueByXpath(string xpath, string attr, string value)
+        {
+            bool result = true;
+
+            var elements = _chromePage.FindElements(By.XPath(xpath));
+            foreach (var element in elements)
+            {
+                var attribute = element.GetAttribute(attr);
+                if (attribute == null || !attribute.Equals(value))
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public static bool ElementsDoNotHaveAttributeByXpath(string xpath, string attr)
+        {
+            bool result = true;
+
+            var elements = _chromePage.FindElements(By.XPath(xpath));
+            foreach (var element in elements)
+            {
+                var attribute = element.GetAttribute(attr);
+                if (attribute != null)
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public static bool ClickElementByXpath(string xpath)
+        {
+            bool success = true;
+            try
+            {
+                var button = _chromePage.FindElement(By.XPath(xpath));
+                button.Click();
+            }
+            catch (NoSuchElementException)
+            {
+                success = false;
+            }
+            return success;
         }
     }
 }
