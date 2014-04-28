@@ -1,4 +1,4 @@
-﻿using CountDown.FunctionalTests.Config;
+﻿using CountDown.FunctionalTests.Data;
 using CountDown.WebTestingFramework;
 using NUnit.Framework;
 
@@ -12,15 +12,14 @@ namespace CountDown.FunctionalTests
         {
             CountDownApp.Init();
             CountDownDatabase.OpenConnection();
-            CountDownDatabase.CreateUser(Configuration.TestUser.FirstName, Configuration.TestUser.LastName,
-                Configuration.TestUser.Email, Configuration.TestUser.Hash);
+            TestDataManager.GenerateTestData();
         }
 
         [TearDown]
         public void RunOnceAfterAllTests()
         {
             CountDownApp.Quit();
-            CountDownDatabase.DeleteUser(Configuration.TestUser.Email);
+            TestDataManager.DestroyTestData();
             CountDownDatabase.CloseConnection();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using CountDown.FunctionalTests.Config;
+using CountDown.FunctionalTests.Data.TestData;
 using CountDown.WebTestingFramework;
 
 namespace CountDown.FunctionalTests
@@ -25,8 +25,8 @@ namespace CountDown.FunctionalTests
         public static void SignInAsTestUser()
         {
             CountDownApp.GoToLoginPage();
-            CountDownApp.LoginPage.EmailField.Fill(Configuration.TestUser.Email);
-            CountDownApp.LoginPage.PasswordField.Fill(Configuration.TestUser.Password);
+            CountDownApp.LoginPage.EmailField.Fill(TestUsers.PrimaryUser.Email);
+            CountDownApp.LoginPage.PasswordField.Fill(TestUsers.PrimaryUser.Password);
             CountDownApp.LoginPage.ClickLogin();
         }
     }
