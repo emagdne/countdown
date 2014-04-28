@@ -21,14 +21,14 @@
             <div id="index-options-pane">
                 <div id="index-options-pane-contents">
                     <div>@Html.ActionLink("Create To-Do Item", "Create", "ToDo", null, new {@id = "index-create-link"})</div>
-                    <div><a href="#" onclick=" return false; ">@ViewData["TotalItemsPending"] Items Pending</a></div>
+                    <div><a id="index-items-pending-link" href="#" onclick=" return false; ">@ViewData["TotalItemsPending"] Items Pending</a></div>
                     <div id="index-filter-options">
                         <strong>Show</strong>
                         <form action="@Url.Action("Index")" role="form">
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="ownedByMe" value="true"
+                                        <input id="index-owned-by-me-checkbox" type="checkbox" name="ownedByMe" value="true"
                                             @if (Request["ownedByMe"] == null || Request["ownedByMe"].Equals("true") || Request["ownedByMe"].Equals("true,false"))
                                             {
                                                 @Html.Raw("checked=\"checked\"")
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="ownedByOthers" value="true"
+                                        <input id="index-owned-by-others-checkbox" type="checkbox" name="ownedByOthers" value="true"
                                             @if (Request["ownedByOthers"] == null || Request["ownedByOthers"].Equals("true") || Request["ownedByOthers"].Equals("true,false"))
                                             {
                                                 @Html.Raw("checked=\"checked\"")
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="assignedToOthers" value="true"
+                                        <input id="index-assigned-to-others-checkbox" type="checkbox" name="assignedToOthers" value="true"
                                             @if (Request["assignedToOthers"] != null && (Request["assignedToOthers"].Equals("true") || Request["assignedToOthers"].Equals("true,false")))
                                             {
                                                 @Html.Raw("checked=\"checked\"")
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="completed" value="true"
+                                        <input id="index-filter-completed-checkbox" type="checkbox" name="completed" value="true"
                                             @if (Request["completed"] != null && (Request["completed"].Equals("true") || Request["completed"].Equals("true,false")))
                                             {
                                                 @Html.Raw("checked=\"checked\"")

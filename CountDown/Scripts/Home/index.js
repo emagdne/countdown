@@ -2,7 +2,6 @@
     assignListeners();
     colorRowsOwnedByMe();
     colorRowsAssignedToMe();
-    colorOverdueItems();
     colorCompletedItems();
 
     function assignListeners() {
@@ -40,15 +39,6 @@
             });
         });
     };
-
-    function colorOverdueItems() {
-        $(".index-timeleft-cell:contains('Passed due date.')").each(function(index, element) {
-            var row = $(element).parent();
-            row.css({
-                backgroundColor: "rgb(255, 203, 203)"
-            });
-        });
-    }
 
     function colorCompletedItems() {
         $(".index-completed-cell > input[checked=checked]").each(function(index, element) {
