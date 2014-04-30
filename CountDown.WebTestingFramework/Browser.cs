@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 
 namespace CountDown.WebTestingFramework
@@ -64,6 +66,23 @@ namespace CountDown.WebTestingFramework
             try
             {
                 var element = _chromePage.FindElement(By.CssSelector(cssSelector));
+                var attribute = element.GetAttribute(attr);
+                if (attribute != null)
+                {
+                    return attribute.Equals(value);
+                }
+            }
+            catch (NoSuchElementException)
+            {
+            }
+            return false;
+        }
+
+        public static bool ElementHasAttributeWithValueByXpath(string xpath, string attr, string value)
+        {
+            try
+            {
+                var element = _chromePage.FindElement(By.XPath(xpath));
                 var attribute = element.GetAttribute(attr);
                 if (attribute != null)
                 {
@@ -247,6 +266,44 @@ namespace CountDown.WebTestingFramework
                 success = false;
             }
             return success;
+        }
+
+        public static bool HasAlert()
+        {
+            var alert = _chromePage.SwitchTo().Alert();
+            return alert != null;
+        }
+
+        public static void ClickOkInAlert()
+        {
+            var alert = _chromePage.SwitchTo().Alert();
+            if (alert != null)
+            {
+                alert.Accept();
+            }
+        }
+
+        public static void ClickCancelInAlert()
+        {
+            var alert = _chromePage.SwitchTo().Alert();
+            if (alert != null)
+            {
+                alert.Dismiss();
+            }
+        }
+
+        public static void WaitForElementText(string cssSelector, string text, TimeSpan timeout)
+        {
+            var wait = new WebDriverWait(_chromePage, timeout);
+            wait.Until(x =>
+            {
+                try
+                {
+                    var element = x.FindElement(By.CssSelector(cssSelector));
+                    return element.Text.Equals(text);
+                } catch (NoSuchElementException) { }
+                return false;
+            });
         }
     }
 }

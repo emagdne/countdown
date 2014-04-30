@@ -130,5 +130,30 @@ namespace CountDown.WebTestingFramework
                 _connection);
             command.ExecuteReader();
         }
+
+        public static bool IsToDoItemComplete(long id)
+        {
+            var query = String.Format("SELECT completed FROM todo_items WHERE id = {0}", id);
+
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            int completed = 0;
+            if (reader.Read())
+            {
+                completed = reader.GetInt32(0);
+            }
+            reader.Close();
+
+            return completed == 1;
+        }
+
+        public static void UpdateToDoItem(long id, bool completed)
+        {
+            var query = String.Format("UPDATE todo_items SET completed = {0} WHERE id = {1}", completed ? 1 : 0, id);
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            command.ExecuteReader();
+        }
     }
 }

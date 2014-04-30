@@ -1,4 +1,6 @@
-﻿namespace CountDown.WebTestingFramework
+﻿using System;
+
+namespace CountDown.WebTestingFramework
 {
     public static partial class CountDownApp
     {
@@ -12,6 +14,11 @@
             public static bool HasItemsPendingLink()
             {
                 return Browser.HasElement("#index-items-pending-link");
+            }
+
+            public static bool HasConfirmationMessageBoxOpen()
+            {
+                return Browser.HasAlert();
             }
 
             public static bool ColorsItemsOwnedByAndAssignedToOtherUsersWhite()
@@ -254,7 +261,9 @@
                 do
                 {
                     // If there exists one checked checkbox in the completed column, return true
-                    if (!Browser.ElementsDoNotHaveAttributeByXpath("//input[@class = 'index-completed-checkbox']", "checked"))
+                    if (
+                        !Browser.ElementsDoNotHaveAttributeByXpath("//input[@class = 'index-completed-checkbox']",
+                            "checked"))
                     {
                         return true;
                     }
@@ -266,6 +275,40 @@
             public static void ClickCreateToDoLink()
             {
                 Browser.ClickElement("#index-create-link");
+            }
+
+            public static void MarkUncompletedToDoItemAsComplete(long id)
+            {
+                Filters.OwnedByMe.Check();
+                Filters.OwnedByOthers.Check();
+                Filters.AssignedToOthers.Check();
+                Filters.Completed.UnCheck();
+                ApplyFilters();
+
+                do
+                {
+                    if (
+                        Browser.ClickElementByXpath(
+                            String.Format(
+                                "//tr[@class = 'index-table-row' and td[@class='index-id-cell hide' and contains(text(), '{0}')] and " +
+                                "td[@class = 'index-assignee-cell' and contains(text(), 'Me')]]" +
+                                "/td[@class = 'index-completed-cell']" +
+                                "/input[@class = 'index-completed-checkbox' and @type = 'checkbox' and not(@checked)]", id)))
+                    {
+                        break;
+                    }
+                } while (PaginationControl.TryNextPage());
+            }
+
+            public static bool CompleteCheckboxIsChecked(long id)
+            {
+                return
+                    Browser.ElementHasAttributeWithValueByXpath(
+                        String.Format(
+                            "//tr[@class = 'index-table-row' and td[@class = 'index-id-cell hide' and contains(text(), '{0}')]]" +
+                            "/td[@class = 'index-completed-cell']" +
+                            "/input[@class = 'index-completed-checkbox' and @type='checkbox']",
+                            id), "checked", "true");
             }
 
             public static class PaginationControl
@@ -382,6 +425,24 @@
             public static void ApplyFilters()
             {
                 Browser.ClickElement("input[value=Apply]");
+            }
+
+            public static class ConfirmMessageBox
+            {
+                public static void ClickOk()
+                {
+                    Browser.ClickOkInAlert();
+                }
+
+                public static void ClickCancel()
+                {
+                    Browser.ClickCancelInAlert();
+                }
+            }
+
+            public static void WaitForItemCompletion()
+            {
+                Browser.WaitForElementText("#index-message", "Item completed.", TimeSpan.FromSeconds(20));
             }
         }
     }

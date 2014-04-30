@@ -1,4 +1,5 @@
-﻿using CountDown.WebTestingFramework;
+﻿using CountDown.FunctionalTests.Data.TestData;
+using CountDown.WebTestingFramework;
 using NUnit.Framework;
 
 namespace CountDown.FunctionalTests.Tests
@@ -175,6 +176,46 @@ namespace CountDown.FunctionalTests.Tests
         public void Should_Show_Completed_Items_When_The_Completed_Filter_Is_Applied()
         {
             Assert.That(CountDownApp.HomePage.ShowsCompletedItemsWhenTheCompletedFilterIsApplied(), Is.True);
+        }
+
+        [Test]
+        [Category("Functional UI Tests: Feature 12")]
+        public void Should_Display_A_Confirmation_Message_Box_When_Marking_An_Item_As_Complete()
+        {
+            CountDownApp.HomePage.MarkUncompletedToDoItemAsComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id);
+            var open = CountDownApp.HomePage.HasConfirmationMessageBoxOpen();
+            CountDownApp.HomePage.ConfirmMessageBox.ClickCancel();
+            Assert.That(open, Is.True);
+        }
+
+        [Test]
+        [Category("Functional UI Tests: Feature 12")]
+        public void Should_Uncheck_The_Checkbox_When_Answering_No_To_Marking_An_Item_Complete()
+        {
+            CountDownApp.HomePage.MarkUncompletedToDoItemAsComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id);
+            CountDownApp.HomePage.ConfirmMessageBox.ClickCancel();
+            Assert.That(CountDownApp.HomePage.CompleteCheckboxIsChecked(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id), Is.False);
+        }
+
+        [Test]
+        [Category("Functional UI Tests: Feature 12")]
+        public void Should_Not_Mark_An_Item_As_Complete_When_Answering_No_To_Marking_An_Item_Complete()
+        {
+            CountDownApp.HomePage.MarkUncompletedToDoItemAsComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id);
+            CountDownApp.HomePage.ConfirmMessageBox.ClickCancel();
+            Assert.That(CountDownDatabase.IsToDoItemComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id), Is.False);
+        }
+
+        [Test]
+        [Category("Functional UI Tests: Feature 12")]
+        public void Should_Change_The_Item_To_Completed_When_Answering_Yes_To_Marking_An_Item_Complete()
+        {
+            CountDownApp.HomePage.MarkUncompletedToDoItemAsComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id);
+            CountDownApp.HomePage.ConfirmMessageBox.ClickOk();
+            CountDownApp.HomePage.WaitForItemCompletion();
+            bool completed = CountDownDatabase.IsToDoItemComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id);
+            CountDownDatabase.UpdateToDoItem(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id, false);
+            Assert.That(completed, Is.True);
         }
     }
 }
