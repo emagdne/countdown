@@ -202,9 +202,9 @@ namespace CountDown.Controllers
 
                                 if (identity.Id == toDoItem.OwnerId)
                                 {
-                                    TempData["indexMessage"] = "Item deleted.";
                                     _toDoItemRepository.DeleteToDo(toDoItem);
                                     _toDoItemRepository.SaveChanges();
+                                    TempData["indexMessage"] = "Item deleted.";
                                 }
                                 else
                                 {
@@ -262,6 +262,7 @@ namespace CountDown.Controllers
 
                                 _toDoItemRepository.SaveChanges();
                                 response = JsonSuccessResponse();
+                                TempData["indexMessage"] = "Item completed.";
                             }
                             else
                             {
