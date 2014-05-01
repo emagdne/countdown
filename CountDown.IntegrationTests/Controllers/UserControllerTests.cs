@@ -10,6 +10,10 @@ using NUnit.Framework;
 
 namespace CountDown.IntegrationTests.Controllers
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     [TestFixture]
     public class A_UserController_Object
     {

@@ -7,7 +7,7 @@ namespace CountDown.Models.Domain
 {
     /// <summary>
     /// <para>Author: Jordan Brown</para>
-    /// <para>Version: 4/10/14</para>
+    /// <para>Version: 5/1/14</para>
     /// </summary>
     [Table("todo_items")]
     public class ToDoItem : IValidatableObject

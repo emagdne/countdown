@@ -5,6 +5,10 @@ using CountDown.WebTestingFramework;
 
 namespace CountDown.FunctionalTests
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public static class FunctionalTestHelper
     {
         private static readonly Random Random = new Random();

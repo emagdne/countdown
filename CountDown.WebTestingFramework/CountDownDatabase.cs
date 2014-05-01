@@ -4,6 +4,10 @@ using System.IO;
 
 namespace CountDown.WebTestingFramework
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public static class CountDownDatabase
     {
         private static string _connectionString;

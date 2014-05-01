@@ -2,6 +2,10 @@
 
 namespace CountDown.Controllers
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public class ApplicationController : Controller
     {
         private const string DefaultErrorMessage = "An unexpected error occurred while processing your request.";

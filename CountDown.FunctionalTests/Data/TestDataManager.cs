@@ -3,6 +3,10 @@ using CountDown.FunctionalTests.Data.TestData;
 
 namespace CountDown.FunctionalTests.Data
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public static class TestDataManager
     {
         public static void GenerateTestData()

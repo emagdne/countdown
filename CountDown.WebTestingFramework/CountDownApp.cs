@@ -2,6 +2,10 @@
 
 namespace CountDown.WebTestingFramework
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public static partial class CountDownApp
     {
         public static void Init()

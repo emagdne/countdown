@@ -6,6 +6,10 @@ using Moq;
 
 namespace CountDown.IntegrationTests
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public static class IntegrationTestHelper
     {
         public static ControllerContext GetMockControllerContext(bool authenticated)

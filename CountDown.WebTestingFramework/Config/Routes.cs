@@ -1,5 +1,9 @@
 ﻿namespace CountDown.WebTestingFramework.Config
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     internal static class Routes
     {
         private const string Server = "http://localhost";

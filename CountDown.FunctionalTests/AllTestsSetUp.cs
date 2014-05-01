@@ -4,6 +4,10 @@ using NUnit.Framework;
 
 namespace CountDown.FunctionalTests
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     [SetUpFixture]
     public class AllTestsSetUp
     {

@@ -3,6 +3,10 @@ using CountDown.WebTestingFramework;
 
 namespace CountDown.FunctionalTests.Data.TestData
 {
+    /// <summary>
+    /// <para>Author: Jordan Brown</para>
+    /// <para>Version: 5/1/14</para>
+    /// </summary>
     public static class TestUsers
     {
         public static TestUser PrimaryUser { get; private set; }

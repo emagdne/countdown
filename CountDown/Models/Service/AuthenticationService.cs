@@ -3,7 +3,7 @@
 namespace CountDown.Models.Service
 {
     /// <para>Author: Jordan Brown</para>
-    /// <para>Version: 4/10/14</para>
+    /// <para>Version: 5/1/14</para>
     /// <para>Enables unit testing of the authentication system.</para>
     public interface IAuthenticationService
     {
@@ -12,7 +12,7 @@ namespace CountDown.Models.Service
     }
 
     /// <para>Author: Jordan Brown</para>
-    /// <para>Version: 4/10/14</para>
+    /// <para>Version: 5/1/14</para>
     public class AuthenticationService : IAuthenticationService
     {
         public bool ValidateUser(string username, string password)
