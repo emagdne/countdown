@@ -128,7 +128,7 @@ namespace CountDown.FunctionalTests.Tests
             {
                 CountDownApp.HomePage.ClickToDoItem(toDoItem.Id);
                 CountDownApp.EditToDoPage.ClickCancelButton();
-                Assert.That(CountDownApp.IsOnHomePage, Is.True);
+                Assert.That(CountDownApp.IsOnHomePage(), Is.True);
             }
         }
     }

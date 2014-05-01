@@ -32,12 +32,12 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsHaveCssByXpath(
+                        !Browser.ElementsHaveCss(
                             "//tr[@class='index-table-row' and " +
                             "td[@class='index-owner-cell' and not(contains(text(), 'Me'))] and " +
                             "td[@class='index-assignee-cell' and not(contains(text(), 'Me'))]]",
                             "background-color",
-                            "rgba(0, 0, 0, 0)"))
+                            "rgba(0, 0, 0, 0)", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -57,12 +57,12 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsHaveCssByXpath(
+                        !Browser.ElementsHaveCss(
                             "//tr[@class='index-table-row' and " +
                             "td[@class='index-owner-cell' and contains(text(), 'Me')] and " +
                             "td[@class='index-assignee-cell' and contains(text(), 'Me')]]",
                             "background-color",
-                            "rgba(255, 226, 174, 1)"))
+                            "rgba(255, 226, 174, 1)", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -82,12 +82,12 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsHaveCssByXpath(
+                        !Browser.ElementsHaveCss(
                             "//tr[@class='index-table-row' and " +
                             "td[@class='index-owner-cell' and contains(text(), 'Me')] and " +
                             "td[@class='index-assignee-cell' and not(contains(text(), 'Me'))]]",
                             "background-color",
-                            "rgba(255, 255, 187, 1)"))
+                            "rgba(255, 255, 187, 1)", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -107,11 +107,11 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsHaveCssByXpath(
+                        !Browser.ElementsHaveCss(
                             "//tr[@class='index-table-row' and " +
                             "td[@class='index-completed-cell' and input[@checked='checked']]]",
                             "background-color",
-                            "rgba(223, 223, 223, 1)"))
+                            "rgba(223, 223, 223, 1)", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -131,11 +131,11 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsDoNotHaveAttributeByXpath(
+                        !Browser.ElementsDoNotHaveAttribute(
                             "//tr[@class='index-table-row' and td[@class='index-assignee-cell' and contains(text(), 'Me')]]" +
                             "/td[@class='index-completed-cell']" +
                             "/input[@type='checkbox']",
-                            "disabled"))
+                            "disabled", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -155,11 +155,11 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsHaveAttributeWithValueByXpath(
+                        !Browser.ElementsHaveAttributeWithValue(
                             "//tr[@class='index-table-row' and td[@class='index-assignee-cell' and not(contains(text(), 'Me'))]]" +
                             "/td[@class='index-completed-cell']" +
                             "/input[@type='checkbox']",
-                            "disabled", "true"))
+                            "disabled", "true", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -179,11 +179,11 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        !Browser.ElementsHaveAttributeWithValueByXpath(
+                        !Browser.ElementsHaveAttributeWithValue(
                             "//tr[@class='index-table-row']" +
                             "/td[@class='index-completed-cell']" +
                             "/input[@type='checkbox' and @checked='checked']",
-                            "disabled", "true"))
+                            "disabled", "true", QueryMethod.Xpath))
                     {
                         return false;
                     }
@@ -262,8 +262,8 @@ namespace CountDown.WebTestingFramework
                 {
                     // If there exists one checked checkbox in the completed column, return true
                     if (
-                        !Browser.ElementsDoNotHaveAttributeByXpath("//input[@class = 'index-completed-checkbox']",
-                            "checked"))
+                        !Browser.ElementsDoNotHaveAttribute("//input[@class = 'index-completed-checkbox']",
+                            "checked", QueryMethod.Xpath))
                     {
                         return true;
                     }
@@ -285,7 +285,7 @@ namespace CountDown.WebTestingFramework
                 Filters.Completed.Check();
                 ApplyFilters();
 
-                return Browser.ClickElementByXpath("//tr[@class = 'index-table-row']");
+                return Browser.ClickElement("//tr[@class = 'index-table-row']", QueryMethod.Xpath);
             }
 
             public static bool ClickToDoItem(long id)
@@ -298,11 +298,11 @@ namespace CountDown.WebTestingFramework
 
                 do
                 {
-                    if (Browser.ClickElementByXpath(String.Format(
+                    if (Browser.ClickElement(String.Format(
                         "//tr[@class = 'index-table-row' and " +
                         "td[@class = 'index-id-cell hide' and " +
                         "contains(text(), '{0}')]]",
-                        id)))
+                        id), QueryMethod.Xpath))
                     {
                         return true;
                     }
@@ -322,13 +322,13 @@ namespace CountDown.WebTestingFramework
                 do
                 {
                     if (
-                        Browser.ClickElementByXpath(
+                        Browser.ClickElement(
                             String.Format(
                                 "//tr[@class = 'index-table-row' and td[@class='index-id-cell hide' and contains(text(), '{0}')] and " +
                                 "td[@class = 'index-assignee-cell' and contains(text(), 'Me')]]" +
                                 "/td[@class = 'index-completed-cell']" +
                                 "/input[@class = 'index-completed-checkbox' and @type = 'checkbox' and not(@checked)]",
-                                id)))
+                                id), QueryMethod.Xpath))
                     {
                         break;
                     }
@@ -338,12 +338,12 @@ namespace CountDown.WebTestingFramework
             public static bool CompleteCheckboxIsChecked(long id)
             {
                 return
-                    Browser.ElementHasAttributeWithValueByXpath(
+                    Browser.ElementHasAttributeWithValue(
                         String.Format(
                             "//tr[@class = 'index-table-row' and td[@class = 'index-id-cell hide' and contains(text(), '{0}')]]" +
                             "/td[@class = 'index-completed-cell']" +
                             "/input[@class = 'index-completed-checkbox' and @type='checkbox']",
-                            id), "checked", "true");
+                            id), "checked", "true", QueryMethod.Xpath);
             }
 
             public static class PaginationControl
@@ -355,7 +355,7 @@ namespace CountDown.WebTestingFramework
 
                 public static bool TryNextPage()
                 {
-                    return Browser.ClickElementByXpath("/html/body/div[2]/div/div[2]/div/a[contains(text(), '»')]");
+                    return Browser.ClickElement("/html/body/div[2]/div/div[2]/div/a[contains(text(), '»')]", QueryMethod.Xpath);
                 }
             }
 

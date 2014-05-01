@@ -13,26 +13,26 @@
 
                 public static bool IsCompleted
                 {
-                    get { return Browser.GetTextByXpath("//span[@id = 'todo-edit-owner']/following-sibling::span[1]").Equals("Completed!"); }
+                    get { return Browser.GetText("//span[@id = 'todo-edit-owner']/following-sibling::span[1]", QueryMethod.Xpath).Equals("Completed!"); }
                 }
             }
 
             public static bool AllFieldsAreDisabled()
             {
-                return Browser.ElementsHaveAttributeWithValueByXpath("//input[@type = 'text'] | //textarea | //select",
-                    "disabled", "true");
+                return Browser.ElementsHaveAttributeWithValue("//input[@type = 'text'] | //textarea | //select",
+                    "disabled", "true", QueryMethod.Xpath);
             }
 
             public static void ClickCancelButton()
             {
-                Browser.ClickElementByXpath("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Cancel')]");
+                Browser.ClickElement("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Cancel')]", QueryMethod.Xpath);
             }
 
             public static class CancelButton
             {
                 public static bool IsVisible
                 {
-                    get { return !Browser.ElementsHaveCssByXpath("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Cancel')]", "display", "none"); }
+                    get { return !Browser.ElementsHaveCss("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Cancel')]", "display", "none", QueryMethod.Xpath); }
                 }
             }
 
@@ -40,7 +40,7 @@
             {
                 public static bool IsVisible
                 {
-                    get { return !Browser.ElementsHaveCssByXpath("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Delete')]", "display", "none"); }
+                    get { return !Browser.ElementsHaveCss("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Delete')]", "display", "none", QueryMethod.Xpath); }
                 }
             }
 
@@ -48,7 +48,7 @@
             {
                 public static bool IsVisible
                 {
-                    get { return !Browser.ElementsHaveCssByXpath("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Edit')]", "display", "none"); }
+                    get { return !Browser.ElementsHaveCss("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Edit')]", "display", "none", QueryMethod.Xpath); }
                 }
             }
 
@@ -56,7 +56,7 @@
             {
                 public static bool IsVisible
                 {
-                    get { return !Browser.ElementsHaveCssByXpath("//div[@id = 'todo-edit-buttons']/input[@value = 'Submit']", "display", "none"); }
+                    get { return !Browser.ElementsHaveCss("//div[@id = 'todo-edit-buttons']/input[@value = 'Submit']", "display", "none", QueryMethod.Xpath); }
                 }
             }
         }

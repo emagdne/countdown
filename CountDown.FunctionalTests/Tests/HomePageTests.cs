@@ -31,7 +31,7 @@ namespace CountDown.FunctionalTests.Tests
         public void Should_Display_The_Create_ToDo_Page_When_The_Create_ToDo_Item_Link_Is_Clicked()
         {
             CountDownApp.HomePage.ClickCreateToDoLink();
-            Assert.That(CountDownApp.IsOnCreateToDoPage, Is.True);
+            Assert.That(CountDownApp.IsOnCreateToDoPage(), Is.True);
         }
 
         [Test]
@@ -224,7 +224,7 @@ namespace CountDown.FunctionalTests.Tests
         public void Should_Display_The_Edit_ToDo_Item_Page_After_Clicking_On_A_ToDo_Item()
         {
             CountDownApp.HomePage.ClickToDoItem();
-            Assert.That(CountDownApp.IsOnEditToDoPage, Is.True);
+            Assert.That(CountDownApp.IsOnEditToDoPage(), Is.True);
         }
     }
 }

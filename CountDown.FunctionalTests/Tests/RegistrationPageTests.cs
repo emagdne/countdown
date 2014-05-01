@@ -16,8 +16,8 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 1")]
         public void Should_Display_The_Login_Page_When_The_Login_Link_Is_Clicked_From_The_Register_Page()
         {
-            CountDownApp.RegistrationPage.LoginLink.Click();
-            Assert.That(CountDownApp.IsOnLoginPage, Is.True);
+            CountDownApp.RegistrationPage.ClickLoginLink();
+            Assert.That(CountDownApp.IsOnLoginPage(), Is.True);
         }
 
         [Test]
@@ -182,7 +182,7 @@ namespace CountDown.FunctionalTests.Tests
             CountDownApp.RegistrationPage.PasswordConfirmField.Fill("12345");
             CountDownApp.RegistrationPage.ClickSubmit();
             CountDownDatabase.DeleteUser("xyz@gmail.com");
-            Assert.That(CountDownApp.IsOnLoginPage, Is.True);
+            Assert.That(CountDownApp.IsOnLoginPage(), Is.True);
         }
 
         [Test]

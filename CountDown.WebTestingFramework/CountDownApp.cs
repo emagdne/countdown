@@ -4,31 +4,6 @@ namespace CountDown.WebTestingFramework
 {
     public static partial class CountDownApp
     {
-        public static bool IsOnLoginPage
-        {
-            get { return Browser.Title.Equals("Login"); }
-        }
-
-        public static bool IsOnRegistrationPage
-        {
-            get { return Browser.Title.Equals("Registration"); }
-        }
-
-        public static bool IsOnHomePage
-        {
-            get { return Browser.Title.Equals("Home"); }
-        }
-
-        public static bool IsOnCreateToDoPage
-        {
-            get { return Browser.Title.Equals("Create To-Do Item"); }
-        }
-
-        public static bool IsOnEditToDoPage
-        {
-            get { return Browser.Title.Equals("Edit To-Do Item"); }
-        }
-
         public static void Init()
         {
             Browser.Init();
@@ -44,9 +19,29 @@ namespace CountDown.WebTestingFramework
             Browser.GoToUrl(Routes.Login);
         }
 
-        public static void Logout()
+        public static bool IsOnLoginPage()
         {
-            GoToLoginPage();
+            return Browser.Title.Equals("Login");
+        }
+
+        public static bool IsOnRegistrationPage()
+        {
+            return Browser.Title.Equals("Registration");
+        }
+
+        public static bool IsOnHomePage()
+        {
+            return Browser.Title.Equals("Home");
+        }
+
+        public static bool IsOnCreateToDoPage()
+        {
+            return Browser.Title.Equals("Create To-Do Item");
+        }
+
+        public static bool IsOnEditToDoPage()
+        {
+            return Browser.Title.Equals("Edit To-Do Item");
         }
 
         public static void GoToHomePage()

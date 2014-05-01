@@ -151,7 +151,7 @@ namespace CountDown.FunctionalTests.Tests
         public void Should_Return_To_The_Home_Page_When_The_Cancel_Button_Is_Clicked()
         {
             CountDownApp.CreateToDoPage.ClickCancel();
-            Assert.That(CountDownApp.IsOnHomePage, Is.True);
+            Assert.That(CountDownApp.IsOnHomePage(), Is.True);
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace CountDown.FunctionalTests.Tests
             CountDownApp.CreateToDoPage.ClickSubmit();
             CountDownDatabase.DeleteToDoItem(title);
 
-            Assert.That(CountDownApp.IsOnHomePage, Is.True);
+            Assert.That(CountDownApp.IsOnHomePage(), Is.True);
         }
     }
 }

@@ -6,14 +6,6 @@ namespace CountDown.WebTestingFramework
     {
         public static class RegistrationPage
         {
-            public static class LoginLink
-            {
-                public static bool Click()
-                {
-                    return Browser.ClickElement("#navigation > a");
-                }
-            }
-
             public static class FirstNameField
             {
                 public static string ErrorMessage
@@ -102,11 +94,6 @@ namespace CountDown.WebTestingFramework
                 }
             }
 
-            public static void ClickClear()
-            {
-                Browser.ClickElement("#reg-clear");
-            }
-
             public static bool AreFieldsBlank()
             {
                 var value1 = Browser.GetInputValue("#reg-fn");
@@ -116,6 +103,16 @@ namespace CountDown.WebTestingFramework
                 var value5 = Browser.GetInputValue("#reg-pw");
                 var value6 = Browser.GetInputValue("#reg-pw-confirm");
                 return String.IsNullOrEmpty(value1 + value2 + value3 + value4 + value5 + value6);
+            }
+
+            public static void ClickLoginLink()
+            {
+                Browser.ClickElement("#navigation > a");
+            }
+            
+            public static void ClickClear()
+            {
+                Browser.ClickElement("#reg-clear");
             }
 
             public static void ClickSubmit()
