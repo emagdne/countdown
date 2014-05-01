@@ -46,6 +46,20 @@ namespace CountDown.WebTestingFramework
             return success;
         }
 
+        public static bool HasElementByXpath(string xpath)
+        {
+            bool success = true;
+            try
+            {
+                _chromePage.FindElement(By.XPath(xpath));
+            }
+            catch (NoSuchElementException)
+            {
+                success = false;
+            }
+            return success;
+        }
+
         public static bool ClickElement(string cssSelector)
         {
             bool success = true;
@@ -162,6 +176,12 @@ namespace CountDown.WebTestingFramework
         public static string GetText(string cssSelector)
         {
             var element = _chromePage.FindElement(By.CssSelector(cssSelector));
+            return element.Text;
+        }
+
+        public static string GetTextByXpath(string xpath)
+        {
+            var element = _chromePage.FindElement(By.XPath(xpath));
             return element.Text;
         }
 

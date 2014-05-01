@@ -10,7 +10,9 @@ namespace CountDown.FunctionalTests.Data
         public DateTime Start { get; set; }
         public DateTime Due { get; set; }
         public long AssigneeId { get; set; }
+        public TestUser Assignee { get; set; }
         public long OwnerId { get; set; }
+        public TestUser Owner { get; set; }
         public bool Completed { get; set; }
     }
 

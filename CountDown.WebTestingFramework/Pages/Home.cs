@@ -277,6 +277,40 @@ namespace CountDown.WebTestingFramework
                 Browser.ClickElement("#index-create-link");
             }
 
+            public static bool ClickToDoItem()
+            {
+                Filters.OwnedByMe.Check();
+                Filters.OwnedByOthers.Check();
+                Filters.AssignedToOthers.Check();
+                Filters.Completed.Check();
+                ApplyFilters();
+
+                return Browser.ClickElementByXpath("//tr[@class = 'index-table-row']");
+            }
+
+            public static bool ClickToDoItem(long id)
+            {
+                Filters.OwnedByMe.Check();
+                Filters.OwnedByOthers.Check();
+                Filters.AssignedToOthers.Check();
+                Filters.Completed.Check();
+                ApplyFilters();
+
+                do
+                {
+                    if (Browser.ClickElementByXpath(String.Format(
+                        "//tr[@class = 'index-table-row' and " +
+                        "td[@class = 'index-id-cell hide' and " +
+                        "contains(text(), '{0}')]]",
+                        id)))
+                    {
+                        return true;
+                    }
+                } while (PaginationControl.TryNextPage());
+
+                return false;
+            }
+
             public static void MarkUncompletedToDoItemAsComplete(long id)
             {
                 Filters.OwnedByMe.Check();
@@ -293,7 +327,8 @@ namespace CountDown.WebTestingFramework
                                 "//tr[@class = 'index-table-row' and td[@class='index-id-cell hide' and contains(text(), '{0}')] and " +
                                 "td[@class = 'index-assignee-cell' and contains(text(), 'Me')]]" +
                                 "/td[@class = 'index-completed-cell']" +
-                                "/input[@class = 'index-completed-checkbox' and @type = 'checkbox' and not(@checked)]", id)))
+                                "/input[@class = 'index-completed-checkbox' and @type = 'checkbox' and not(@checked)]",
+                                id)))
                     {
                         break;
                     }

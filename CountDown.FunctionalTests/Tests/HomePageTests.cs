@@ -217,5 +217,14 @@ namespace CountDown.FunctionalTests.Tests
             CountDownDatabase.UpdateToDoItem(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id, false);
             Assert.That(completed, Is.True);
         }
+
+
+        [Test]
+        [Category("Functional UI Tests: Feature 10")]
+        public void Should_Display_The_Edit_ToDo_Item_Page_After_Clicking_On_A_ToDo_Item()
+        {
+            CountDownApp.HomePage.ClickToDoItem();
+            Assert.That(CountDownApp.IsOnEditToDoPage, Is.True);
+        }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Data\TestModels.cs" />
     <Compile Include="Data\TestDataManager.cs" />
     <Compile Include="Tests\CreateToDoPageTests.cs" />
+    <Compile Include="Tests\EditToDoPageTests.cs" />
     <Compile Include="Tests\HomePageTests.cs" />
     <Compile Include="Tests\LoginPageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -52,6 +52,7 @@
     <Compile Include="Browser.cs" />
     <Compile Include="CountDownDatabase.cs" />
     <Compile Include="Pages\CreateToDo.cs" />
+    <Compile Include="Pages\EditToDo.cs" />
     <Compile Include="Pages\Home.cs" />
     <Compile Include="Pages\Login.cs" />
     <Compile Include="Pages\Registration.cs" />

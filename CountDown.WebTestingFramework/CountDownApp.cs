@@ -24,6 +24,11 @@ namespace CountDown.WebTestingFramework
             get { return Browser.Title.Equals("Create To-Do Item"); }
         }
 
+        public static bool IsOnEditToDoPage
+        {
+            get { return Browser.Title.Equals("Edit To-Do Item"); }
+        }
+
         public static void Init()
         {
             Browser.Init();
