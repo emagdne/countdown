@@ -23,6 +23,7 @@ namespace CountDown.WebTestingFramework
     /// </summary>
     public static class Browser
     {
+        private static readonly TimeSpan PageLoadTimeout = TimeSpan.FromSeconds(30);
         private static IWebDriver _chromePage;
 
         public static string Title
@@ -43,6 +44,14 @@ namespace CountDown.WebTestingFramework
         public static void GoToUrl(string url)
         {
             _chromePage.Navigate().GoToUrl(url);
+        }
+
+        public static void WaitForPageLoad()
+        {
+            var wait = new WebDriverWait(_chromePage, PageLoadTimeout);
+            wait.Until(
+                driver =>
+                    ((IJavaScriptExecutor) _chromePage).ExecuteScript("return document.readyState").Equals("complete"));
         }
 
         public static bool HasElement(string query, QueryMethod method = QueryMethod.CssSelector)
@@ -331,10 +340,9 @@ namespace CountDown.WebTestingFramework
             }
         }
 
-        public static void WaitForElementText(string query, string text, TimeSpan timeout,
-            QueryMethod method = QueryMethod.CssSelector)
+        public static void WaitForElementText(string query, string text, QueryMethod method = QueryMethod.CssSelector)
         {
-            var wait = new WebDriverWait(_chromePage, timeout);
+            var wait = new WebDriverWait(_chromePage, PageLoadTimeout);
             wait.Until(x =>
             {
                 try

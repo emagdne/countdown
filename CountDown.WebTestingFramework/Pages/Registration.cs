@@ -108,6 +108,7 @@ namespace CountDown.WebTestingFramework
             public static void ClickLoginLink()
             {
                 Browser.ClickElement("#navigation > a");
+                Browser.WaitForPageLoad();
             }
             
             public static void ClickClear()
@@ -118,6 +119,7 @@ namespace CountDown.WebTestingFramework
             public static void ClickSubmit()
             {
                 Browser.ClickElement("input[type=submit]");
+                Browser.WaitForPageLoad();
             }
         }
     }

@@ -275,9 +275,10 @@ namespace CountDown.WebTestingFramework
             public static void ClickCreateToDoLink()
             {
                 Browser.ClickElement("#index-create-link");
+                Browser.WaitForPageLoad();
             }
 
-            public static bool ClickToDoItem()
+            public static void ClickToDoItem()
             {
                 Filters.OwnedByMe.Check();
                 Filters.OwnedByOthers.Check();
@@ -285,10 +286,11 @@ namespace CountDown.WebTestingFramework
                 Filters.Completed.Check();
                 ApplyFilters();
 
-                return Browser.ClickElement("//tr[@class = 'index-table-row']", QueryMethod.Xpath);
+                Browser.ClickElement("//tr[@class = 'index-table-row']", QueryMethod.Xpath);
+                Browser.WaitForPageLoad();
             }
 
-            public static bool ClickToDoItem(long id)
+            public static void ClickToDoItem(long id)
             {
                 Filters.OwnedByMe.Check();
                 Filters.OwnedByOthers.Check();
@@ -304,11 +306,10 @@ namespace CountDown.WebTestingFramework
                         "contains(text(), '{0}')]]",
                         id), QueryMethod.Xpath))
                     {
-                        return true;
+                        Browser.WaitForPageLoad();
+                        return;
                     }
                 } while (PaginationControl.TryNextPage());
-
-                return false;
             }
 
             public static void MarkUncompletedToDoItemAsComplete(long id)
@@ -330,6 +331,7 @@ namespace CountDown.WebTestingFramework
                                 "/input[@class = 'index-completed-checkbox' and @type = 'checkbox' and not(@checked)]",
                                 id), QueryMethod.Xpath))
                     {
+                        Browser.WaitForPageLoad();
                         break;
                     }
                 } while (PaginationControl.TryNextPage());
@@ -355,7 +357,10 @@ namespace CountDown.WebTestingFramework
 
                 public static bool TryNextPage()
                 {
-                    return Browser.ClickElement("/html/body/div[2]/div/div[2]/div/a[contains(text(), '»')]", QueryMethod.Xpath);
+                    var found = Browser.ClickElement("/html/body/div[2]/div/div[2]/div/a[contains(text(), '»')]",
+                        QueryMethod.Xpath);
+                    if (found) Browser.WaitForPageLoad();
+                    return found;
                 }
             }
 
@@ -460,6 +465,7 @@ namespace CountDown.WebTestingFramework
             public static void ApplyFilters()
             {
                 Browser.ClickElement("input[value=Apply]");
+                Browser.WaitForPageLoad();
             }
 
             public static class ConfirmMessageBox
@@ -467,6 +473,7 @@ namespace CountDown.WebTestingFramework
                 public static void ClickOk()
                 {
                     Browser.ClickOkInAlert();
+                    Browser.WaitForPageLoad();
                 }
 
                 public static void ClickCancel()
@@ -477,7 +484,7 @@ namespace CountDown.WebTestingFramework
 
             public static void WaitForItemCompletion()
             {
-                Browser.WaitForElementText("#index-message", "Item completed.", TimeSpan.FromSeconds(20));
+                Browser.WaitForElementText("#index-message", "Item completed.");
             }
         }
     }

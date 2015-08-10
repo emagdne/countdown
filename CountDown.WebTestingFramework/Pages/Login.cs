@@ -16,9 +16,10 @@
 
             public static class RegisterButton
             {
-                public static bool Click()
+                public static void Click()
                 {
-                    return Browser.ClickElement("input[value=Register]");
+                    Browser.ClickElement("input[value=Register]");
+                    Browser.WaitForPageLoad();
                 }
             }
 
@@ -68,6 +69,7 @@
             public static void ClickLogin()
             {
                 Browser.ClickElement("input[value=Login]");
+                Browser.WaitForPageLoad();
             }
         }
     }

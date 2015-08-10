@@ -125,11 +125,13 @@ namespace CountDown.WebTestingFramework
             public static void ClickCancel()
             {
                 Browser.ClickElement("#todo-create-cancel");
+                Browser.WaitForPageLoad();
             }
 
             public static void ClickSubmit()
             {
                 Browser.ClickElement("input[value=Submit]");
+                Browser.WaitForPageLoad();
             }
         }
     }

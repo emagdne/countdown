@@ -26,6 +26,7 @@
             public static void ClickCancelButton()
             {
                 Browser.ClickElement("//div[@id = 'todo-edit-buttons']/button[contains(text(), 'Cancel')]", QueryMethod.Xpath);
+                Browser.WaitForPageLoad();
             }
 
             public static class CancelButton

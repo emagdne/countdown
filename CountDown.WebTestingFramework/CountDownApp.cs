@@ -51,16 +51,19 @@ namespace CountDown.WebTestingFramework
         public static void GoToHomePage()
         {
             Browser.GoToUrl(Routes.Home);
+            Browser.WaitForPageLoad();
         }
 
         public static void GoToRegistrationPage()
         {
             Browser.GoToUrl(Routes.Register);
+            Browser.WaitForPageLoad();
         }
 
         public static void GoToCreateToDoPage()
         {
             Browser.GoToUrl(Routes.CreateToDo);
+            Browser.WaitForPageLoad();
         }
     }
 }
