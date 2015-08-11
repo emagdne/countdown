@@ -4,7 +4,10 @@
     correctLabelPositions();
 
     function initDatePickers() {
-        $(".datepicker").datepicker();
+        $(".datepicker").datepicker({
+            orientation: 'top left',
+            autoclose: true
+        });
     }
     
     function assignListeners() {

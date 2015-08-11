@@ -4,64 +4,25 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-        <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/modernizr")
-        <script src="~/Scripts/bootstrap.min.js"></script>
-        <script src="~/Scripts/bootstrap-datepicker.js"></script>
+        @Scripts.Render("~/bundles/bootstrap")
     </head>
     <body>
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-                        <!-- Royalty-free image taken from: http://unrestrictedstock.com/ -->
-                        <img id="brand-image" src="~/Images/countdown.png" />
-                        <span id="brand-text">Count Down</span>
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <p class="navbar-text navbar-right">
+        @{ Html.RenderPartial("_Navbar"); }
 
-                    </p>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="navbar-text">
-                            @if (ViewBag.NavRight != null)
-                            {
-                                @ViewBag.NavRight
-                            }
-                            else if (User.Identity.IsAuthenticated)
-                            {
-                                @User.Identity.Name
-                            }
-                        </li>
-                        @if (ViewBag.NavRight == null && User.Identity.IsAuthenticated)
-                        {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options</a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a id="signout" href="@Url.Action("Login", "User")">Sign out</a></li>
-                                </ul>
-                            </li>
-                        }
-                    </ul>
+        <div id="navigation" class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @RenderSection("navigation", required: false)
                 </div>
             </div>
-        </nav>
-        <div id="navigation">
-            @RenderSection("navigation", required: false)
         </div>
 
         @RenderBody()
         @RenderSection("scripts", required: false)
 
-        <div id="footer">
-            <div class="container">
-                <p class="text-muted">&copy; 2014 Jordan Brown</p>
-            </div>
-        </div>
+        @{ Html.RenderPartial("_Footer"); }
     </body>
 </html>

@@ -107,7 +107,7 @@ namespace CountDown.WebTestingFramework
 
             public static void ClickLoginLink()
             {
-                Browser.ClickElement("#navigation > a");
+                Browser.ClickElement("#navigation a");
                 Browser.WaitForPageLoad();
             }
             

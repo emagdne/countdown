@@ -21,7 +21,6 @@
             <div id="index-options-pane">
                 <div id="index-options-pane-contents">
                     <div>@Html.ActionLink("Create To-Do Item", "Create", "ToDo", null, new {@id = "index-create-link"})</div>
-                    <div><a id="index-items-pending-link" href="#" onclick=" return false; ">@ViewData["TotalItemsPending"] Items Pending</a></div>
                     <div id="index-filter-options">
                         <strong>Show</strong>
                         <form action="@Url.Action("Index")" role="form">

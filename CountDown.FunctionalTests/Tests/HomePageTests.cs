@@ -70,13 +70,6 @@ namespace CountDown.FunctionalTests.Tests
 
         [Test]
         [Category("Functional UI Tests: Feature 6")]
-        public void Should_Have_A_Link_To_Items_Pending()
-        {
-            Assert.That(CountDownApp.HomePage.HasItemsPendingLink(), Is.True);
-        }
-
-        [Test]
-        [Category("Functional UI Tests: Feature 6")]
         public void By_Default_Should_Have_Owned_By_Me_Filter_Checked()
         {
             Assert.That(CountDownApp.HomePage.Filters.OwnedByMe.IsChecked, Is.True);
@@ -158,7 +151,8 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 6")]
         public void Should_Show_Items_Owned_By_Me_When_The_Owned_By_Me_Filter_Is_Applied()
         {
-            Assert.That(CountDownApp.HomePage.OnlyShowsItemsOwnedByTheCurrentUserWhenTheOwnedByMeFilterIsApplied(), Is.True);
+            Assert.That(CountDownApp.HomePage.OnlyShowsItemsOwnedByTheCurrentUserWhenTheOwnedByMeFilterIsApplied(),
+                Is.True);
         }
 
         [Test]
@@ -172,7 +166,8 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 6")]
         public void Should_Show_Items_Assigned_To_Others_When_The_Assigned_To_Others_Filter_Is_Applied()
         {
-            Assert.That(CountDownApp.HomePage.ShowsItemsAssignedToOthersWhenTheAssignedToOthersFilterIsApplied(), Is.True);
+            Assert.That(CountDownApp.HomePage.ShowsItemsAssignedToOthersWhenTheAssignedToOthersFilterIsApplied(),
+                Is.True);
         }
 
         [Test]
@@ -198,7 +193,9 @@ namespace CountDown.FunctionalTests.Tests
         {
             CountDownApp.HomePage.MarkUncompletedToDoItemAsComplete(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id);
             CountDownApp.HomePage.ConfirmMessageBox.ClickCancel();
-            Assert.That(CountDownApp.HomePage.CompleteCheckboxIsChecked(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id), Is.False);
+            Assert.That(
+                CountDownApp.HomePage.CompleteCheckboxIsChecked(TestToDoItems.AssignedToAndOwnedByPrimaryUser.Id),
+                Is.False);
         }
 
         [Test]

@@ -11,11 +11,6 @@ namespace CountDown.WebTestingFramework
                 return Browser.HasElement("#index-create-link");
             }
 
-            public static bool HasItemsPendingLink()
-            {
-                return Browser.HasElement("#index-items-pending-link");
-            }
-
             public static bool HasConfirmationMessageBoxOpen()
             {
                 return Browser.HasAlert();

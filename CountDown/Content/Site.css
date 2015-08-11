@@ -76,6 +76,7 @@ body {
 }
 
 #brand-image {
+    display: inline;
     position: relative;
     bottom: 3px;
 }
@@ -85,14 +86,12 @@ body {
 #navigation {
     font-size: 11pt;
     color: #777;
-    position: absolute;
-    left: 25px;
 }
 
 .top-buffer { margin-top: 30px; }
 
 .datepicker, .timepicker {
-    width: 200px;
+    width: 225px;
     text-align: center;
 }
 

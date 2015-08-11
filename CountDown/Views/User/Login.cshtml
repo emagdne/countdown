@@ -48,14 +48,11 @@
                     </div>
                 </div>
                 <div class="form-block-button">
-                    <input type="submit" class="btn btn-primary btn-block" value="Login" />
+                    <input id="login-button" type="submit" class="btn btn-primary btn-block" value="Login" />
                 </div>
             </form>
             <div class="form-block-button">
-                <button class="btn btn-default btn-block">Reset Password</button>
-            </div>
-            <div class="form-block-button">
-                <input type="button" class="btn btn-default btn-block" value="Register" onclick=" window.location.href = '@Url.Action("Register")' "/>
+                <a id="register-button" class="btn btn-default btn-block" href="@Url.Action("Register")">Register</a>
             </div>
         </div>
         <div class="col-md-4"></div>

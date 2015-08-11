@@ -6,19 +6,19 @@
         {
             public static bool HasRegisterButton
             {
-                get { return Browser.HasElement("input[value=Register]"); }
+                get { return Browser.HasElement("#register-button"); }
             }
 
             public static bool HasLoginButton
             {
-                get { return Browser.HasElement("input[value=Login]"); }
+                get { return Browser.HasElement("#login-button"); }
             }
 
             public static class RegisterButton
             {
                 public static void Click()
                 {
-                    Browser.ClickElement("input[value=Register]");
+                    Browser.ClickElement("#register-button");
                     Browser.WaitForPageLoad();
                 }
             }
@@ -68,7 +68,7 @@
 
             public static void ClickLogin()
             {
-                Browser.ClickElement("input[value=Login]");
+                Browser.ClickElement("#login-button");
                 Browser.WaitForPageLoad();
             }
         }

@@ -1,0 +1,30 @@
+﻿<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <!-- Royalty-free image taken from: http://unrestrictedstock.com/ -->
+                <img id="brand-image" src="~/Images/countdown.png" />
+                <span id="brand-text">CountDown</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <p class="navbar-text navbar-right"></p>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text">
+                    @if (ViewBag.NavRight != null)
+                    {
+                        @ViewBag.NavRight
+                    }
+                    else if (User.Identity.IsAuthenticated)
+                    {
+                        @User.Identity.Name
+                    }
+                </li>
+                @if (ViewBag.NavRight == null && User.Identity.IsAuthenticated)
+                {
+                    <li><a id="logout" href="@Url.Action("Login", "User")">Logout</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
