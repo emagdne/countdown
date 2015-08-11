@@ -1,0 +1,13 @@
+﻿@model IPagedList<CountDown.Models.Domain.ToDoItem>
+
+@if ((int) ViewData["TotalToDoItems"] > 10)
+{
+    <div class="mvc-pager">
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(
+            x => x.AddRouteValue("ownedByMe", Request["ownedByMe"] == null || Request["ownedByMe"].Equals("true") || Request["ownedByMe"].Equals("true,false") ? "true" : "false")
+                .AddRouteValue("ownedByOthers", Request["ownedByOthers"] == null || Request["ownedByOthers"].Equals("true") || Request["ownedByOthers"].Equals("true,false") ? "true" : "false")
+                .AddRouteValue("assignedToOthers", Request["assignedToOthers"] != null && (Request["assignedToOthers"].Equals("true") || Request["assignedToOthers"].Equals("true,false")) ? "true" : "false")
+                .AddRouteValue("completed", Request["completed"] != null && (Request["completed"].Equals("true") || Request["completed"].Equals("true,false")) ? "true" : "false")
+            )
+    </div>
+}

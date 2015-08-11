@@ -1,0 +1,54 @@
+﻿<div id="index-options-pane">
+    <div id="index-options-pane-contents">
+        <div>@Html.ActionLink("Create To-Do Item", "Create", "ToDo", null, new {@id = "index-create-link"})</div>
+        <div id="index-filter-options">
+            <strong>Show</strong>
+            <form action="@Url.Action("Index")" role="form">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input id="index-owned-by-me-checkbox" type="checkbox" name="ownedByMe" value="true"
+                                @if (Request["ownedByMe"] == null || Request["ownedByMe"].Equals("true") || Request["ownedByMe"].Equals("true,false"))
+                                {
+                                    @Html.Raw("checked=\"checked\"")
+                                } /><input type="hidden" value="false" name="ownedByMe" /> Owned by me
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input id="index-owned-by-others-checkbox" type="checkbox" name="ownedByOthers" value="true"
+                                @if (Request["ownedByOthers"] == null || Request["ownedByOthers"].Equals("true") || Request["ownedByOthers"].Equals("true,false"))
+                                {
+                                    @Html.Raw("checked=\"checked\"")
+                                }
+                                /><input type="hidden" value="false" name="ownedByOthers" /> Owned by others
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input id="index-assigned-to-others-checkbox" type="checkbox" name="assignedToOthers" value="true"
+                                @if (Request["assignedToOthers"] != null && (Request["assignedToOthers"].Equals("true") || Request["assignedToOthers"].Equals("true,false")))
+                                {
+                                    @Html.Raw("checked=\"checked\"")
+                                } /><input type="hidden" value="false" name="assignedToOthers" /> Assigned to others
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input id="index-filter-completed-checkbox" type="checkbox" name="completed" value="true"
+                                @if (Request["completed"] != null && (Request["completed"].Equals("true") || Request["completed"].Equals("true,false")))
+                                {
+                                    @Html.Raw("checked=\"checked\"")
+                                } /><input type="hidden" value="false" name="completed" /> Completed
+                        </label>
+                    </div>
+                </div>
+                @if (Request["page"] != null)
+                {
+                    <input type="hidden" value="@Request["page"]" name="page"/>
+                }
+                <input type="submit" class="btn-sm btn-primary text-right" value="Apply"/>
+            </form>
+        </div>
+    </div>
+</div>

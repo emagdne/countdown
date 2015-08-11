@@ -1,0 +1,54 @@
+﻿@model IPagedList<CountDown.Models.Domain.ToDoItem>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Time Left</th>
+            <th>Owner</th>
+            <th>Assigned to</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="index-table-row">
+                <td class="index-id-cell hide">@item.Id</td>
+                <td>@item.Title</td>
+                <td class="index-timeleft-cell">@{
+                                                    if (item.TimeLeft.HasValue)
+                                                    {
+                                                        TimeSpan timeLeft = item.TimeLeft.Value;
+
+                                                        if (timeLeft.TotalSeconds > 0)
+                                                        {
+                                                            var days = (timeLeft.Days > 0) ? timeLeft.Days + " day(s), " : "";
+                                                            var hours = (timeLeft.Hours > 0) ? timeLeft.Hours + " hour(s), " : "";
+                                                            @Html.Raw(days + hours + timeLeft.Minutes + " minute(s).")
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw("Passed due date.")
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw("Time left unknown.")
+                                                    }
+                                                }</td>
+                <td class="index-owner-cell">@Html.Raw((item.OwnerId == (Int64) ViewData["UserId"]) ? "Me" : item.Owner.FirstName)</td>
+                <td class="index-assignee-cell">@Html.Raw((item.AssigneeId == (Int64) ViewData["UserId"]) ? "Me" : item.Assignee.FirstName)</td>
+                <td class="index-completed-cell"><input type="checkbox" class="index-completed-checkbox"
+                                                     @if (item.Completed || item.AssigneeId != (Int64) ViewData["UserId"])
+                                                     {
+                                                         @Html.Raw(" disabled=\"disabled\"")
+                                                         if (item.Completed)
+                                                         {
+                                                             @Html.Raw(" checked=\"checked\"")
+                                                         }
+                                                     } /></td>
+            </tr>
+        }
+    </tbody>
+</table>
