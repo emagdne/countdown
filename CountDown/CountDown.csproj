@@ -290,7 +290,6 @@
     <Content Include="Images\system_error.png" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ToDo\create.js" />
     <Content Include="Scripts\ToDo\edit.js" />
     <Content Include="Scripts\User\registration.js" />
