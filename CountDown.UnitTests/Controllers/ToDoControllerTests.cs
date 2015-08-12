@@ -172,20 +172,6 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 12")]
-        public void Should_Mark_An_Existing_ToDo_Object_As_Completed_And_Save_Changes()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
-            _mockToDoItem.SetupSet(x => x.Completed = true).Verifiable();
-
-            _sut.Complete(_toDoItem.Id);
-
-            _mockToDoItemRepository.Verify(x => x.SaveChanges());
-            _mockToDoItem.VerifySet(x => x.Completed = true);
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 12")]
         public void Should_Not_Mark_A_NonExistant_ToDo_Object_As_Completed_And_Save_Changes()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -211,18 +197,6 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 12")]
-        public void Should_Return_Success_When_Marking_An_Existing_ToDo_Object_As_Completed()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
-
-            var result = _sut.Complete(_toDoItem.Id);
-
-            Assert.That(UnitTestHelper.GetStandardJsonStatus(result), Is.EqualTo("Success"));
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_When_Marking_A_NonExistant_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -233,21 +207,6 @@ namespace CountDown.UnitTests.Controllers
             Assert.That(UnitTestHelper.GetStandardJsonStatus(result), Is.EqualTo("Error"));
             Assert.That(UnitTestHelper.GetStandardJsonError(result),
                 Is.EqualTo("The To-Do item you specified does not exist."));
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 12")]
-        public void Should_Return_Error_When_Marking_A_Completed_ToDo_Object_As_Completed()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
-            _mockToDoItem.Setup(x => x.Completed).Returns(true);
-
-            var result = _sut.Complete(_toDoItem.Id);
-
-            Assert.That(UnitTestHelper.GetStandardJsonStatus(result), Is.EqualTo("Error"));
-            Assert.That(UnitTestHelper.GetStandardJsonError(result),
-                Is.EqualTo("The To-Do item you specified has already been marked as completed."));
         }
 
         [Test]
@@ -425,56 +384,6 @@ namespace CountDown.UnitTests.Controllers
             _sut.Update(_toDoItem);
 
             _mockToDoItemRepository.Verify(x => x.UpdateToDo(It.IsAny<ToDoItem>(), It.IsAny<ToDoItem>()), Times.Never);
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 14")]
-        public void Should_Return_The_Edit_View_If_The_Updated_ToDo_Object_Is_Invalid()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
-            _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
-
-            var result = _sut.Update(_toDoItem) as ViewResult;
-
-            Assert.That(result.ViewName, Is.EqualTo("Edit"));
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 14")]
-        public void Should_Update_A_Valid_ToDo_Object()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
-
-            _sut.Update(_toDoItem);
-
-            _mockToDoItemRepository.Verify(x => x.SaveChanges());
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 14")]
-        public void Should_Redirect_To_The_Index_Action_After_Successfully_Updating_A_ToDo_Object()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
-
-            var result = _sut.Update(_toDoItem) as RedirectToRouteResult;
-
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 14")]
-        public void Should_Return_A_Message_After_Successfully_Updating_A_ToDo_Object()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Returns(_toDoItem);
-
-            _sut.Update(_toDoItem);
-
-            Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("Item updated."));
         }
 
         [Test]

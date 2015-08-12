@@ -19,21 +19,21 @@ namespace CountDown.UnitTests
         {
             var mockIdentity = new Mock<IIdentity>();
             mockIdentity.Setup(x => x.IsAuthenticated).Returns(authenticated);
-            return CreateMockControllerContext(mockIdentity);
+            return CreateMockControllerContext(mockIdentity.Object);
         }
 
         public static ControllerContext GetMockControllerContextWithException()
         {
             var mockIdentity = new Mock<IIdentity>();
             mockIdentity.Setup(x => x.IsAuthenticated).Throws(new Exception());
-            return CreateMockControllerContext(mockIdentity);
+            return CreateMockControllerContext(mockIdentity.Object);
         }
 
-        private static ControllerContext CreateMockControllerContext(Mock<IIdentity> mockIdentity)
+        private static ControllerContext CreateMockControllerContext(IIdentity identity)
         {
             // Lots of mocking is required to fake the ControllerContext.
             var mockPrincipal = new Mock<IPrincipal>();
-            mockPrincipal.Setup(x => x.Identity).Returns(mockIdentity.Object);
+            mockPrincipal.Setup(x => x.Identity).Returns(identity);
 
             var mockHttpContext = new Mock<HttpContextBase>();
             var mockHttpRequest = new Mock<HttpRequestBase>();

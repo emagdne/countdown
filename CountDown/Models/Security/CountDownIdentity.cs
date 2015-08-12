@@ -33,6 +33,10 @@ namespace CountDown.Models.Security
 
         public bool IsAuthenticated { get { return Identity.IsAuthenticated; } }
 
+        public CountDownIdentity()
+        {
+        }
+
         public CountDownIdentity(IIdentity identity)
         {
             Identity = identity;
