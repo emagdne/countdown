@@ -128,25 +128,34 @@ namespace CountDown.Controllers
 
                 if (User.Identity.IsAuthenticated && originalItem != null)
                 {
-                    if (ModelState.IsValid)
+                    var identity = User.Identity as CountDownIdentity;
+                    if (identity.Id == originalItem.OwnerId)
                     {
-                        _toDoItemRepository.UpdateToDo(originalItem, updatedItem);
-                        _toDoItemRepository.SaveChanges();
-                        TempData["indexMessage"] = "Item updated.";
-                        response = RedirectToAction("Index", "Home");
+                        if (ModelState.IsValid)
+                        {
+                            _toDoItemRepository.UpdateToDo(originalItem, updatedItem);
+                            _toDoItemRepository.SaveChanges();
+                            TempData["indexMessage"] = "Item updated.";
+                            response = RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            // Manually give the updated item a reference to its owner -- it won't
+                            // have it since the object was not pulled from the database
+                            updatedItem.Owner = originalItem.Owner;
+
+                            ViewBag.AssigneeList =
+                                GetAssigneeList(updatedItem.AssigneeId.HasValue ? updatedItem.AssigneeId.Value : 0);
+
+                            // Open editing to allow user to correct changes
+                            ViewData["OpenEditing"] = true;
+                            response = View("Edit", updatedItem);
+                        }
                     }
                     else
                     {
-                        // Manually give the updated item a reference to its owner -- it won't
-                        // have it since the object was not pulled from the database
-                        updatedItem.Owner = originalItem.Owner;
-
-                        ViewBag.AssigneeList =
-                            GetAssigneeList(updatedItem.AssigneeId.HasValue ? updatedItem.AssigneeId.Value : 0);
-
-                        // Open editing to allow user to correct changes
-                        ViewData["OpenEditing"] = true;
-                        response = View("Edit", updatedItem);
+                        TempData["indexMessage"] = "You cannot update an item belonging to another user.";
+                        response = RedirectToAction("Index", "Home");
                     }
                 }
                 else
@@ -250,25 +259,33 @@ namespace CountDown.Controllers
                         var todoItem = _toDoItemRepository.FindById(id);
                         if (todoItem != null)
                         {
-                            if (!todoItem.Completed)
+                            var identity = User.Identity as CountDownIdentity;
+                            if (identity.Id == todoItem.AssigneeId)
                             {
-                                todoItem.Completed = true;
+                                if (!todoItem.Completed)
+                                {
+                                    todoItem.Completed = true;
 
-                                // Fill object with fake start/end dates/times to pass validation... it won't be persisted
-                                todoItem.StartDate = DateTime.Now;
-                                todoItem.StartTime = DateTime.Now;
-                                todoItem.DueDate = DateTime.Now.AddDays(1);
-                                todoItem.DueTime = DateTime.Now.AddDays(1);
+                                    // Fill object with fake start/end dates/times to pass validation... it won't be persisted
+                                    todoItem.StartDate = DateTime.Now;
+                                    todoItem.StartTime = DateTime.Now;
+                                    todoItem.DueDate = DateTime.Now.AddDays(1);
+                                    todoItem.DueTime = DateTime.Now.AddDays(1);
 
-                                _toDoItemRepository.SaveChanges();
-                                response = JsonSuccessResponse();
-                                TempData["indexMessage"] = "Item completed.";
+                                    _toDoItemRepository.SaveChanges();
+                                    response = JsonSuccessResponse();
+                                    TempData["indexMessage"] = "Item completed.";
+                                }
+                                else
+                                {
+                                    response =
+                                        JsonErrorResponse(
+                                            "The To-Do item you specified has already been marked as completed.");
+                                }
                             }
                             else
                             {
-                                response =
-                                    JsonErrorResponse(
-                                        "The To-Do item you specified has already been marked as completed.");
+                                response = JsonErrorResponse("The To-Do item you specified is not assigned to you.");
                             }
                         }
                         else
