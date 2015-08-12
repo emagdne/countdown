@@ -38,8 +38,8 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 5")]
         public void By_Default_Should_Have_The_Current_Time_As_The_Start_Time()
         {
-            Assert.That(CountDownApp.CreateToDoPage.StartTimeField.Value,
-                Is.EqualTo(String.Format("{0:" + TimeFormat + "}", DateTime.Now)));
+            Assert.That(Convert.ToDateTime(CountDownApp.CreateToDoPage.StartTimeField.Value),
+                Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
         }
 
         [Test]
