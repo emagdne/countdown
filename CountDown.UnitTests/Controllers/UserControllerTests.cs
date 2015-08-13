@@ -81,11 +81,11 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 1")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_Register_Action()
         {
             _mockRepository.Setup(r => r.InsertUser(It.IsAny<User>())).Throws<Exception>();
-            var result = _sut.Register(_user) as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Register(_user);
         }
 
         [Test]
@@ -127,21 +127,21 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 4")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Login_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
-            var result = _sut.Login() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Login();
         }
 
         [Test]
         [Category("Unit Tests: Feature 4")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Login_Action()
         {
             _mockAuthenticationService.Setup(x => x.ValidateUser(It.IsAny<string>(), It.IsAny<string>()))
                 .Throws(new Exception());
-            var result = _sut.Login(_loginAttempt) as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Login(_loginAttempt);
         }
     }
 }

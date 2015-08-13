@@ -92,20 +92,20 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 5")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_GET_Create_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
-            var result = _sut.Create() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Create();
         }
 
         [Test]
         [Category("Unit Tests: Feature 5")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Create_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
-            var result = _sut.Create(_toDoItem) as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Create(_toDoItem);
         }
 
         [Test]
@@ -160,14 +160,13 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 10")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_By_The_Edit_Action()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
-            var result = _sut.Edit(_toDoItem.Id) as ViewResult;
-
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Edit(_toDoItem.Id);
         }
 
         [Test]
@@ -224,16 +223,13 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 12")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_Error_If_An_Unexpected_Exception_Is_Thrown_While_Marking_A_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
-            var result = _sut.Complete(_toDoItem.Id);
-
-            Assert.That(UnitTestHelper.GetStandardJsonStatus(result), Is.EqualTo("Error"));
-            Assert.That(UnitTestHelper.GetStandardJsonError(result),
-                Is.EqualTo("An unexpected error occurred while processing your request."));
+            _sut.Complete(_toDoItem.Id);
         }
 
         [Test]
@@ -328,13 +324,12 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 13")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Deleting_A_ToDo_Item()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
 
-            var result = _sut.Delete(_toDoItem.Id) as ViewResult;
-
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Delete(_toDoItem.Id);
         }
 
         [Test]
@@ -388,15 +383,14 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 14")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Updating_A_ToDo_Object
             ()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
             _mockToDoItemRepository.Setup(x => x.FindById(It.IsAny<long>())).Throws(new Exception());
 
-            var result = _sut.Update(_toDoItem) as ViewResult;
-
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.Update(_toDoItem);
         }
 
         [Test]
@@ -436,13 +430,12 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 14")]
+        [ExpectedException(typeof(Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Canceling_An_Edit()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContextWithException();
 
-            var result = _sut.CancelEdit() as ViewResult;
-
-            Assert.That(result.ViewName, Is.EqualTo("SystemError"));
+            _sut.CancelEdit();
         }
     }
 }

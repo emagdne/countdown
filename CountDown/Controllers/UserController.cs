@@ -44,19 +44,12 @@ namespace CountDown.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _userRepository.InsertUser(user);
-                    _userRepository.SaveChanges();
-                    TempData["loginMessage"] = "You have successfully registered for the application.\n" +
-                                               "Use the form below to login.";
-                    TempData["registeredEmail"] = user.Email;
-                    return RedirectToAction("Login");
-                }
-                catch (Exception)
-                {
-                    return View("SystemError");
-                }
+                _userRepository.InsertUser(user);
+                _userRepository.SaveChanges();
+                TempData["loginMessage"] = "You have successfully registered for the application.\n" +
+                                           "Use the form below to login.";
+                TempData["registeredEmail"] = user.Email;
+                return RedirectToAction("Login");
             }
 
             return View("Registration");
@@ -65,48 +58,34 @@ namespace CountDown.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            try
+            if (User != null && User.Identity.IsAuthenticated)
             {
-                if (User != null && User.Identity.IsAuthenticated)
-                {
-                    TempData["loginMessage"] = "You have signed out of the application successfully.";
-                    FormsAuthentication.SignOut();
-                }
-                return View("Login");
+                TempData["loginMessage"] = "You have signed out of the application successfully.";
+                FormsAuthentication.SignOut();
             }
-            catch (Exception)
-            {
-                return View("SystemError");
-            }
+            return View("Login");
         }
 
         [HttpPost]
         public ActionResult Login(LoginAttempt attempt)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                if (_authenticationService.ValidateUser(attempt.Email, attempt.Password))
                 {
-                    if (_authenticationService.ValidateUser(attempt.Email, attempt.Password))
-                    {
-                        _authenticationService.HandleLoginRedirect(attempt.Email, false);
-                    }
-                    else
-                    {
-                        TempData["loginError"] = "The email address or password could not be verified.\n" +
-                                                 "Please enter a registered email and password.";
-                    }
+                    _authenticationService.HandleLoginRedirect(attempt.Email, false);
                 }
                 else
                 {
-                    TempData["loginError"] = "You must correct the errors below to login.";
+                    TempData["loginError"] = "The email address or password could not be verified.\n" +
+                                             "Please enter a registered email and password.";
                 }
-                return View("Login");
             }
-            catch (Exception)
+            else
             {
-                return View("SystemError");
+                TempData["loginError"] = "You must correct the errors below to login.";
             }
+            return View("Login");
         }
     }
 }

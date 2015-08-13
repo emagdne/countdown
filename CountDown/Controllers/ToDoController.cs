@@ -45,270 +45,221 @@ namespace CountDown.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
-                if (User.Identity.IsAuthenticated)
-                {
-                    ViewBag.AssigneeList = GetAssigneeList();
-                    return View("Create");
-                }
-                return RedirectToAction("Index", "Home");
+                ViewBag.AssigneeList = GetAssigneeList();
+                return View("Create");
             }
-            catch (Exception)
-            {
-                return View("SystemError");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult Create(ToDoItem item)
         {
-            try
+            if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
-                if (ModelState.IsValid && User.Identity.IsAuthenticated)
-                {
-                    var identity = User.Identity as CountDownIdentity;
-                    item.OwnerId = identity != null ? identity.Id : 0;
+                var identity = User.Identity as CountDownIdentity;
+                item.OwnerId = identity != null ? identity.Id : 0;
 
-                    _toDoItemRepository.InsertToDo(item);
-                    _toDoItemRepository.SaveChanges();
+                _toDoItemRepository.InsertToDo(item);
+                _toDoItemRepository.SaveChanges();
 
-                    TempData["indexMessage"] = "Item created.";
-                    return RedirectToAction("Index", "Home");
-                }
-                ViewBag.AssigneeList = GetAssigneeList();
-                return View("Create");
+                TempData["indexMessage"] = "Item created.";
+                return RedirectToAction("Index", "Home");
             }
-            catch (Exception)
-            {
-                return View("SystemError");
-            }
+            ViewBag.AssigneeList = GetAssigneeList();
+            return View("Create");
         }
 
         public ActionResult Edit(long? toDoItemId)
         {
-            try
-            {
-                ActionResult response;
+            ActionResult response;
 
-                if (toDoItemId.HasValue && User.Identity.IsAuthenticated)
+            if (toDoItemId.HasValue && User.Identity.IsAuthenticated)
+            {
+                var id = toDoItemId.Value;
+                var toDoItem = _toDoItemRepository.FindById(id);
+                if (toDoItem != null && toDoItem.AssigneeId.HasValue)
                 {
-                    var id = toDoItemId.Value;
-                    var toDoItem = _toDoItemRepository.FindById(id);
-                    if (toDoItem != null && toDoItem.AssigneeId.HasValue)
-                    {
-                        ViewBag.AssigneeList = GetAssigneeList(toDoItem.AssigneeId.Value);
-                        response = View("Edit", toDoItem);
-                    }
-                    else
-                    {
-                        response = RedirectToAction("Index", "Home");
-                    }
+                    ViewBag.AssigneeList = GetAssigneeList(toDoItem.AssigneeId.Value);
+                    response = View("Edit", toDoItem);
                 }
                 else
                 {
                     response = RedirectToAction("Index", "Home");
                 }
-
-                return response;
             }
-            catch (Exception)
+            else
             {
-                return View("SystemError");
+                response = RedirectToAction("Index", "Home");
             }
+
+            return response;
         }
 
         [HttpPost]
         public ActionResult Update(ToDoItem updatedItem)
         {
-            try
+            ActionResult response;
+            var originalItem = _toDoItemRepository.FindById(updatedItem.Id);
+
+            if (User.Identity.IsAuthenticated && originalItem != null)
             {
-                ActionResult response;
-                var originalItem = _toDoItemRepository.FindById(updatedItem.Id);
-
-                if (User.Identity.IsAuthenticated && originalItem != null)
+                var identity = User.Identity as CountDownIdentity;
+                if (identity.Id == originalItem.OwnerId)
                 {
-                    var identity = User.Identity as CountDownIdentity;
-                    if (identity.Id == originalItem.OwnerId)
+                    if (ModelState.IsValid)
                     {
-                        if (ModelState.IsValid)
-                        {
-                            _toDoItemRepository.UpdateToDo(originalItem, updatedItem);
-                            _toDoItemRepository.SaveChanges();
-                            TempData["indexMessage"] = "Item updated.";
-                            response = RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            // Manually give the updated item a reference to its owner -- it won't
-                            // have it since the object was not pulled from the database
-                            updatedItem.Owner = originalItem.Owner;
-
-                            ViewBag.AssigneeList =
-                                GetAssigneeList(updatedItem.AssigneeId.HasValue ? updatedItem.AssigneeId.Value : 0);
-
-                            // Open editing to allow user to correct changes
-                            ViewData["OpenEditing"] = true;
-                            response = View("Edit", updatedItem);
-                        }
+                        _toDoItemRepository.UpdateToDo(originalItem, updatedItem);
+                        _toDoItemRepository.SaveChanges();
+                        TempData["indexMessage"] = "Item updated.";
+                        response = RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        TempData["indexMessage"] = "You cannot update an item belonging to another user.";
-                        response = RedirectToAction("Index", "Home");
+                        // Manually give the updated item a reference to its owner -- it won't
+                        // have it since the object was not pulled from the database
+                        updatedItem.Owner = originalItem.Owner;
+
+                        ViewBag.AssigneeList =
+                            GetAssigneeList(updatedItem.AssigneeId.HasValue ? updatedItem.AssigneeId.Value : 0);
+
+                        // Open editing to allow user to correct changes
+                        ViewData["OpenEditing"] = true;
+                        response = View("Edit", updatedItem);
                     }
                 }
                 else
                 {
-                    if (originalItem == null)
-                    {
-                        TempData["indexMessage"] = "Update item failed.";
-                    }
+                    TempData["indexMessage"] = "You cannot update an item belonging to another user.";
                     response = RedirectToAction("Index", "Home");
                 }
-
-                return response;
             }
-            catch (Exception)
+            else
             {
-                return View("SystemError");
+                if (originalItem == null)
+                {
+                    TempData["indexMessage"] = "Update item failed.";
+                }
+                response = RedirectToAction("Index", "Home");
             }
+
+            return response;
         }
 
         public ActionResult CancelEdit()
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
-                if (User.Identity.IsAuthenticated)
-                {
-                    TempData["indexMessage"] = "No item was updated.";
-                }
-                return RedirectToAction("Index", "Home");
+                TempData["indexMessage"] = "No item was updated.";
             }
-            catch (Exception)
-            {
-                return View("SystemError");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult Delete(long? toDoItemId)
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
-                if (User.Identity.IsAuthenticated)
+                if (toDoItemId.HasValue)
                 {
-                    if (toDoItemId.HasValue)
+                    long id = toDoItemId.Value;
+                    var toDoItem = _toDoItemRepository.FindById(id);
+
+                    if (toDoItem != null)
                     {
-                        long id = toDoItemId.Value;
-                        var toDoItem = _toDoItemRepository.FindById(id);
-
-                        if (toDoItem != null)
+                        if (!toDoItem.Completed)
                         {
-                            if (!toDoItem.Completed)
-                            {
-                                var identity = User.Identity as CountDownIdentity;
+                            var identity = User.Identity as CountDownIdentity;
 
-                                if (identity.Id == toDoItem.OwnerId)
-                                {
-                                    _toDoItemRepository.DeleteToDo(toDoItem);
-                                    _toDoItemRepository.SaveChanges();
-                                    TempData["indexMessage"] = "Item deleted.";
-                                }
-                                else
-                                {
-                                    TempData["indexMessage"] = "You cannot delete an item belonging to another user.";
-                                }
+                            if (identity.Id == toDoItem.OwnerId)
+                            {
+                                _toDoItemRepository.DeleteToDo(toDoItem);
+                                _toDoItemRepository.SaveChanges();
+                                TempData["indexMessage"] = "Item deleted.";
                             }
                             else
                             {
-                                TempData["indexMessage"] = "You cannot delete a completed item.";
+                                TempData["indexMessage"] = "You cannot delete an item belonging to another user.";
                             }
                         }
                         else
                         {
-                            TempData["indexMessage"] = "Delete item failed.";
+                            TempData["indexMessage"] = "You cannot delete a completed item.";
                         }
                     }
                     else
                     {
-                        TempData["indexMessage"] = "You must specify a To-Do item to delete.";
+                        TempData["indexMessage"] = "Delete item failed.";
                     }
                 }
+                else
+                {
+                    TempData["indexMessage"] = "You must specify a To-Do item to delete.";
+                }
+            }
 
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception)
-            {
-                return View("SystemError");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public JsonResult Complete(long? toDoItemId)
         {
-            try
+            JsonResult response;
+
+            if (User.Identity.IsAuthenticated)
             {
-                JsonResult response;
-
-                if (User.Identity.IsAuthenticated)
+                if (toDoItemId.HasValue)
                 {
-                    if (toDoItemId.HasValue)
+                    long id = toDoItemId.Value;
+                    var todoItem = _toDoItemRepository.FindById(id);
+                    if (todoItem != null)
                     {
-                        long id = toDoItemId.Value;
-                        var todoItem = _toDoItemRepository.FindById(id);
-                        if (todoItem != null)
+                        var identity = User.Identity as CountDownIdentity;
+                        if (identity.Id == todoItem.AssigneeId)
                         {
-                            var identity = User.Identity as CountDownIdentity;
-                            if (identity.Id == todoItem.AssigneeId)
+                            if (!todoItem.Completed)
                             {
-                                if (!todoItem.Completed)
-                                {
-                                    todoItem.Completed = true;
+                                todoItem.Completed = true;
 
-                                    // Fill object with fake start/end dates/times to pass validation... it won't be persisted
-                                    todoItem.StartDate = DateTime.Now;
-                                    todoItem.StartTime = DateTime.Now;
-                                    todoItem.DueDate = DateTime.Now.AddDays(1);
-                                    todoItem.DueTime = DateTime.Now.AddDays(1);
+                                // Fill object with fake start/end dates/times to pass validation... it won't be persisted
+                                todoItem.StartDate = DateTime.Now;
+                                todoItem.StartTime = DateTime.Now;
+                                todoItem.DueDate = DateTime.Now.AddDays(1);
+                                todoItem.DueTime = DateTime.Now.AddDays(1);
 
-                                    _toDoItemRepository.SaveChanges();
-                                    response = JsonSuccessResponse();
-                                    TempData["indexMessage"] = "Item completed.";
-                                }
-                                else
-                                {
-                                    response =
-                                        JsonErrorResponse(
-                                            "The To-Do item you specified has already been marked as completed.");
-                                }
+                                _toDoItemRepository.SaveChanges();
+                                response = JsonSuccessResponse();
+                                TempData["indexMessage"] = "Item completed.";
                             }
                             else
                             {
-                                response = JsonErrorResponse("The To-Do item you specified is not assigned to you.");
+                                response =
+                                    JsonErrorResponse(
+                                        "The To-Do item you specified has already been marked as completed.");
                             }
                         }
                         else
                         {
-                            response = JsonErrorResponse("The To-Do item you specified does not exist.");
+                            response = JsonErrorResponse("The To-Do item you specified is not assigned to you.");
                         }
                     }
                     else
                     {
-                        response = JsonErrorResponse("Missing argument: toDoItemId.");
+                        response = JsonErrorResponse("The To-Do item you specified does not exist.");
                     }
                 }
                 else
                 {
-                    response = JsonErrorResponse("You must be logged in to mark a To-Do item as completed.");
+                    response = JsonErrorResponse("Missing argument: toDoItemId.");
                 }
-
-                return response;
             }
-            catch (Exception)
+            else
             {
-                return JsonErrorResponse();
+                response = JsonErrorResponse("You must be logged in to mark a To-Do item as completed.");
             }
+
+            return response;
         }
 
         private IEnumerable<SelectListItem> GetAssigneeList()

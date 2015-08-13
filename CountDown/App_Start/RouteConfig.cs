@@ -17,11 +17,12 @@ namespace CountDown
             routes.MapRoute("Login", "login", new {controller = "User", action = "Login"});
             routes.MapRoute("Register", "register", new {controller = "User", action = "Register"});
             routes.MapRoute("CreateToDo", "todo/create", new {controller = "ToDo", action = "Create"});
-            routes.MapRoute("CompleteToDo", "todo/complete", new { controller = "ToDo", action = "Complete" });
-            routes.MapRoute("EditToDo", "todo/edit", new { controller = "ToDo", action = "Edit" });
-            routes.MapRoute("UpdateToDo", "todo/update", new { controller = "ToDo", action = "Update" });
+            routes.MapRoute("CompleteToDo", "todo/complete", new {controller = "ToDo", action = "Complete"});
+            routes.MapRoute("EditToDo", "todo/edit", new {controller = "ToDo", action = "Edit"});
+            routes.MapRoute("UpdateToDo", "todo/update", new {controller = "ToDo", action = "Update"});
             routes.MapRoute("EditToDoCancel", "todo/edit/cancel", new {controller = "ToDo", action = "CancelEdit"});
-            routes.MapRoute("DeleteToDo", "todo/delete", new { controller = "ToDo", action = "Delete" });
+            routes.MapRoute("DeleteToDo", "todo/delete", new {controller = "ToDo", action = "Delete"});
+            routes.MapRoute("Error", "error", new {controller = "Error", action = "Index"});
         }
     }
 }
