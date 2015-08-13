@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using CountDown.FunctionalTests.Data.TestData;
 using CountDown.WebTestingFramework;
 using NUnit.Framework;
 
@@ -46,20 +48,23 @@ namespace CountDown.FunctionalTests.Tests
         [Category("Functional UI Tests: Feature 5")]
         public void By_Default_Should_Have_Self_Selected_In_The_Assign_To_Dropdown()
         {
-            Assert.That(CountDownApp.CreateToDoPage.AssignToDropdown.Value, Is.EqualTo("Self"));
+            Assert.That(CountDownApp.CreateToDoPage.AssignToDropdown.Value,
+                Is.EqualTo(String.Format("{0}, {1}", TestUsers.PrimaryUser.LastName, TestUsers.PrimaryUser.FirstName)));
         }
 
         [Test]
         [Category("Functional UI Tests: Feature 5")]
-        public void Should_Have_Self_Listed_First_In_The_Assign_To_Dropdown_Followed_By_Users_Sorted_Alphabetically()
+        public void Should_Sort_Users_By_Last_Name_First_Name_In_The_Assign_To_Dropdown()
         {
-            var options = CountDownApp.CreateToDoPage.AssignToDropdown.Options;
-            Assert.That(options[0], Is.EqualTo("Self"));
-            for (int i = 2; i < options.Count; i++)
-            {
-                Assert.That(String.Compare(options[i], options[i - 1], StringComparison.Ordinal),
-                    Is.GreaterThanOrEqualTo(0));
-            }
+            var orderedTestUsers =
+                TestUsers.Users.OrderBy(x => x.LastName)
+                    .ThenBy(x => x.FirstName)
+                    .Select(x => String.Format("{0}, {1}", x.LastName, x.FirstName))
+                    .ToList();
+            var dropDownOptions = CountDownApp.CreateToDoPage.AssignToDropdown.Options;
+            // Remove non-test users from dropdown list, otherwise the test will fail.
+            dropDownOptions.RemoveAll(x => !orderedTestUsers.Contains(x));
+            Assert.That(orderedTestUsers, Is.EquivalentTo(dropDownOptions));
         }
 
         [Test]

@@ -8,7 +8,7 @@ namespace CountDown.Controllers
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 5/1/14</para>
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : ApplicationController
     {
         public const int PageSize = 10;
         private readonly IToDoItemRepository _toDoItemRepository;
@@ -26,7 +26,7 @@ namespace CountDown.Controllers
         public ActionResult Index(int? page, bool? ownedByMe, bool? ownedByOthers, bool? assignedToOthers,
             bool? completed)
         {
-            if (User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
                 var identity = User.Identity as CountDownIdentity;
                 var myId = (identity != null) ? identity.Id : 0;

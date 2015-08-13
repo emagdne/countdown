@@ -34,6 +34,17 @@ namespace CountDown.IntegrationTests.Controllers
         }
 
         [Test]
+        [Category("Unit Tests: Feature 5")]
+        public void Should_Return_The_Create_View_When_The_User_Is_Logged_In_And_The_Create_Action_Is_Fired()
+        {
+            var countDownIdentity = new CountDownIdentity();
+            _sut.ControllerContext =
+                IntegrationTestHelper.GetMockControllerContextWithCountDownIdentity(countDownIdentity, true);
+            var result = _sut.Create() as ViewResult;
+            Assert.That(result.ViewName, Is.EqualTo("Create"));
+        }
+
+        [Test]
         [Category("Integration Tests: Feature 5")]
         public void Should_Save_A_Valid_ToDo_Object()
         {
@@ -56,7 +67,9 @@ namespace CountDown.IntegrationTests.Controllers
         [Category("Integration Tests: Feature 5")]
         public void Should_Not_Save_An_Invalid_ToDo_Object()
         {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
+            var countDownIdentity = new CountDownIdentity();
+            _sut.ControllerContext =
+                IntegrationTestHelper.GetMockControllerContextWithCountDownIdentity(countDownIdentity, true);
             _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
             _sut.Create(_toDoItem);
             _mockToDoItemRepository.Verify(x => x.SaveChanges(), Times.Never());
@@ -66,7 +79,9 @@ namespace CountDown.IntegrationTests.Controllers
         [Category("Integration Tests: Feature 5")]
         public void Should_Stay_On_The_Create_Page_For_An_Invalid_ToDo_Object()
         {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
+            var countDownIdentity = new CountDownIdentity();
+            _sut.ControllerContext =
+                IntegrationTestHelper.GetMockControllerContextWithCountDownIdentity(countDownIdentity, true);
             _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
             var result = _sut.Create(_toDoItem) as ViewResult;
             Assert.That(result.ViewName, Is.EqualTo("Create"));
@@ -74,7 +89,7 @@ namespace CountDown.IntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 5")]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof (Exception))]
         public void Should_Return_The_SystemError_Page_If_An_Unexpected_Exception_Is_Thrown_By_The_POST_Create_Action()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContextWithException();
@@ -121,7 +136,7 @@ namespace CountDown.IntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 10")]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof (Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_By_The_Edit_Action()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
@@ -242,7 +257,7 @@ namespace CountDown.IntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 12")]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof (Exception))]
         public void Should_Return_Error_If_An_Unexpected_Exception_Is_Thrown_While_Marking_A_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
@@ -320,7 +335,7 @@ namespace CountDown.IntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 13")]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof (Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Deleting_A_ToDo_Item()
         {
             _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContextWithException();
@@ -479,7 +494,7 @@ namespace CountDown.IntegrationTests.Controllers
 
         [Test]
         [Category("Integration Tests: Feature 14")]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof (Exception))]
         public void Should_Return_The_SystemError_View_If_An_Unexpected_Exception_Is_Thrown_While_Updating_A_ToDo_Object
             ()
         {

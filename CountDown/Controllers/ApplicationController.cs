@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CountDown.Models.Security;
 
 namespace CountDown.Controllers
 {
@@ -10,9 +11,19 @@ namespace CountDown.Controllers
     {
         private const string DefaultErrorMessage = "An unexpected error occurred while processing your request.";
 
+        protected CountDownIdentity AuthenticatedUser
+        {
+            get { return User != null ? User.Identity as CountDownIdentity : null; }
+        }
+
+        protected bool IsUserAuthenticated()
+        {
+            return User != null && User.Identity.IsAuthenticated;
+        }
+
         protected JsonResult JsonSuccessResponse()
         {
-            return Json(new { Status = "Success" });            
+            return Json(new {Status = "Success"});
         }
 
         protected JsonResult JsonSuccessResponse(object data)
@@ -22,7 +33,7 @@ namespace CountDown.Controllers
 
         protected JsonResult JsonErrorResponse()
         {
-            return Json(new { Status = "Error", Error = DefaultErrorMessage });            
+            return Json(new {Status = "Error", Error = DefaultErrorMessage});
         }
 
         protected JsonResult JsonErrorResponse(string error)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 using CountDown.Models.Domain;
 using CountDown.Models.Repository;
@@ -11,7 +10,7 @@ namespace CountDown.Controllers
     /// <para>Author: Jordan Brown</para>
     /// <para>Version: 5/1/14</para>
     /// </summary>
-    public class UserController : Controller
+    public class UserController : ApplicationController
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthenticationService _authenticationService;
@@ -58,7 +57,7 @@ namespace CountDown.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if (User != null && User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
                 TempData["loginMessage"] = "You have signed out of the application successfully.";
                 FormsAuthentication.SignOut();

@@ -12,7 +12,7 @@ namespace CountDown.Models.Repository
     public interface IUserRepository
     {
         void InsertUser(User user);
-        IEnumerable<User> AllUsers();
+        IEnumerable<User> AllUsersByLastNameFirstName();
         void SaveChanges();
     }
 
@@ -38,9 +38,9 @@ namespace CountDown.Models.Repository
             _db.Users.Add(user);
         }
 
-        public IEnumerable<User> AllUsers()
+        public IEnumerable<User> AllUsersByLastNameFirstName()
         {
-            return _db.Users.ToList();
+            return _db.Users.OrderBy(x => x.LastName).ThenBy(x => x.FirstName).ToList();
         }
 
         public void SaveChanges()

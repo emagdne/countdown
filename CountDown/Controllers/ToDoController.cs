@@ -45,7 +45,7 @@ namespace CountDown.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
                 ViewBag.AssigneeList = GetAssigneeList();
                 return View("Create");
@@ -56,7 +56,7 @@ namespace CountDown.Controllers
         [HttpPost]
         public ActionResult Create(ToDoItem item)
         {
-            if (ModelState.IsValid && User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated() && ModelState.IsValid) 
             {
                 var identity = User.Identity as CountDownIdentity;
                 item.OwnerId = identity != null ? identity.Id : 0;
@@ -75,7 +75,7 @@ namespace CountDown.Controllers
         {
             ActionResult response;
 
-            if (toDoItemId.HasValue && User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated() && toDoItemId.HasValue)
             {
                 var id = toDoItemId.Value;
                 var toDoItem = _toDoItemRepository.FindById(id);
@@ -103,10 +103,9 @@ namespace CountDown.Controllers
             ActionResult response;
             var originalItem = _toDoItemRepository.FindById(updatedItem.Id);
 
-            if (User.Identity.IsAuthenticated && originalItem != null)
+            if (IsUserAuthenticated() && originalItem != null)
             {
-                var identity = User.Identity as CountDownIdentity;
-                if (identity.Id == originalItem.OwnerId)
+                if (AuthenticatedUser.Id == originalItem.OwnerId)
                 {
                     if (ModelState.IsValid)
                     {
@@ -149,7 +148,7 @@ namespace CountDown.Controllers
 
         public ActionResult CancelEdit()
         {
-            if (User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
                 TempData["indexMessage"] = "No item was updated.";
             }
@@ -159,7 +158,7 @@ namespace CountDown.Controllers
         [HttpPost]
         public ActionResult Delete(long? toDoItemId)
         {
-            if (User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
                 if (toDoItemId.HasValue)
                 {
@@ -170,9 +169,7 @@ namespace CountDown.Controllers
                     {
                         if (!toDoItem.Completed)
                         {
-                            var identity = User.Identity as CountDownIdentity;
-
-                            if (identity.Id == toDoItem.OwnerId)
+                            if (AuthenticatedUser.Id == toDoItem.OwnerId)
                             {
                                 _toDoItemRepository.DeleteToDo(toDoItem);
                                 _toDoItemRepository.SaveChanges();
@@ -207,7 +204,7 @@ namespace CountDown.Controllers
         {
             JsonResult response;
 
-            if (User.Identity.IsAuthenticated)
+            if (IsUserAuthenticated())
             {
                 if (toDoItemId.HasValue)
                 {
@@ -215,8 +212,7 @@ namespace CountDown.Controllers
                     var todoItem = _toDoItemRepository.FindById(id);
                     if (todoItem != null)
                     {
-                        var identity = User.Identity as CountDownIdentity;
-                        if (identity.Id == todoItem.AssigneeId)
+                        if (AuthenticatedUser.Id == todoItem.AssigneeId)
                         {
                             if (!todoItem.Completed)
                             {
@@ -264,39 +260,19 @@ namespace CountDown.Controllers
 
         private IEnumerable<SelectListItem> GetAssigneeList()
         {
-            var identity = User.Identity as CountDownIdentity;
-            long currentUserId = identity != null
-                ? (User.Identity as CountDownIdentity).Id
-                : 0;
-
-            return GetAssigneeList(currentUserId);
+            return GetAssigneeList(IsUserAuthenticated() ? AuthenticatedUser.Id : 0);
         }
 
         private IEnumerable<SelectListItem> GetAssigneeList(long selectedId)
         {
-            List<SelectListItem> users = _userRepository.AllUsers()
+            return _userRepository.AllUsersByLastNameFirstName()
                 .Select(x => new SelectListItem
                 {
-                    Text =
-                        (x.Id == selectedId)
-                            ? "Self"
-                            : (x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName),
+                    Text = x.LastName != null ? (x.LastName + ", " + x.FirstName) : x.FirstName,
                     Value = x.Id.ToString(CultureInfo.InvariantCulture),
                     Selected = (x.Id == selectedId)
                 })
                 .ToList();
-
-            // Sort by last, first name, but Self should appear first in the list.
-            users.Sort(Comparer<SelectListItem>.Create((x, y) =>
-            {
-                if (x.Text.Equals("Self"))
-                    return -1;
-                if (y.Text.Equals("Self"))
-                    return 1;
-                return String.Compare(x.Text, y.Text, StringComparison.InvariantCulture);
-            }));
-
-            return users;
         }
     }
 }

@@ -34,15 +34,6 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 5")]
-        public void Should_Return_The_Create_View_When_The_User_Is_Logged_In_And_The_Create_Action_Is_Fired()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            var result = _sut.Create() as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("Create"));
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 5")]
         public void Should_Redirect_To_The_Index_Action_When_The_User_Is_Not_Logged_In_And_The_Create_Action_Is_Fired()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(false);
@@ -68,26 +59,6 @@ namespace CountDown.UnitTests.Controllers
             var result = _sut.Create(_toDoItem) as RedirectToRouteResult;
             Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 5")]
-        public void Should_Not_Save_An_Invalid_ToDo_Object()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
-            _sut.Create(_toDoItem);
-            _mockToDoItemRepository.Verify(x => x.SaveChanges(), Times.Never());
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 5")]
-        public void Should_Stay_On_The_Create_Page_For_An_Invalid_ToDo_Object()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _sut.ModelState.AddModelError(String.Empty, It.IsAny<String>());
-            var result = _sut.Create(_toDoItem) as ViewResult;
-            Assert.That(result.ViewName, Is.EqualTo("Create"));
         }
 
         [Test]
