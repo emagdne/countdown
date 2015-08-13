@@ -162,8 +162,11 @@ namespace CountDown.IntegrationTests.Controllers
         [Category("Integration Tests: Feature 12")]
         public void Should_Not_Mark_A_Completed_ToDo_Object_As_Completed_And_Save_Changes()
         {
-            _sut.ControllerContext = IntegrationTestHelper.GetMockControllerContext(true);
+            var countDownIdentity = new CountDownIdentity {Id = 1};
+            _sut.ControllerContext =
+                IntegrationTestHelper.GetMockControllerContextWithCountDownIdentity(countDownIdentity, true);
             _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
+            _toDoItem.AssigneeId = 1;
             _toDoItem.Completed = true;
 
             _sut.Complete(_toDoItem.Id);

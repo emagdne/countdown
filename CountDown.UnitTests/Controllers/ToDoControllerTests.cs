@@ -183,19 +183,6 @@ namespace CountDown.UnitTests.Controllers
 
         [Test]
         [Category("Unit Tests: Feature 12")]
-        public void Should_Not_Mark_A_Completed_ToDo_Object_As_Completed_And_Save_Changes()
-        {
-            _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
-            _mockToDoItemRepository.Setup(x => x.FindById(_toDoItem.Id)).Returns(_toDoItem);
-            _mockToDoItem.Setup(x => x.Completed).Returns(true);
-
-            _sut.Complete(_toDoItem.Id);
-
-            _mockToDoItemRepository.Verify(x => x.SaveChanges(), Times.Never);
-        }
-
-        [Test]
-        [Category("Unit Tests: Feature 12")]
         public void Should_Return_Error_When_Marking_A_NonExistant_ToDo_Object_As_Completed()
         {
             _sut.ControllerContext = UnitTestHelper.GetMockControllerContext(true);
@@ -292,35 +279,6 @@ namespace CountDown.UnitTests.Controllers
 
             Assert.That(_sut.TempData["indexMessage"], Is.EqualTo("You cannot delete a completed item."));
         }
-
-//        [TestCase(1, 2)]
-//        [Category("Unit Tests: Feature 13")]
-//        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
-//        public void Should_Return_Error_If_The_User_Attempts_To_Delete_A_ToDo_Item_That_He_Does_Not_Own(int userId,
-//            int ownerId)
-//        {
-//        }
-//
-//        [Test]
-//        [Category("Unit Tests: Feature 13")]
-//        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
-//        public void Should_Delete_A_Valid_ToDo_Item()
-//        {
-//        }
-//
-//        [Test]
-//        [Category("Unit Tests: Feature 13")]
-//        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
-//        public void Should_A_Message_After_Deleting_A_Valid_ToDo_Item()
-//        {
-//        }
-//
-//        [Test]
-//        [Category("Unit Tests: Feature 13")]
-//        [Ignore("Can only be verified in integration testing due to dependency on CountDownIdentity.")]
-//        public void Should_Redirect_To_The_Index_Action_After_Deleting_A_ToDo_Item()
-//        {
-//        }
 
         [Test]
         [Category("Unit Tests: Feature 13")]
