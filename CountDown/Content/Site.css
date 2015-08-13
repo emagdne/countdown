@@ -137,6 +137,17 @@ textarea { resize: vertical; }
 
 .mvc-pager a:hover { background-color: #c7d1d6; }
 
+/* System Error */
+
+#system-error-wrapper {
+    margin-top: 80px;
+    text-align: center;
+}
+
+#system-error-wrapper > h2 {
+    margin-top: 50px;
+}
+
 /* Index */
 
 #index-message-wrapper {
