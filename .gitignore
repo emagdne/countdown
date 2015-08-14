@@ -149,5 +149,4 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
-CountDown/App_Data/*
 .nuget/*
