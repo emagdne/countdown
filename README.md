@@ -18,21 +18,26 @@ This .NET solution uses NUnit, Moq, Ninject, and Selenium to run automated unit,
 Before installing, ensure that the following technologies are available on your machine:
 
  - .NET Framework 4.5
- - Visual Studio 2013 (other versions may work but have not been tested)
+ - Visual Studio 2013 or equivalent
  - Chrome (required for Selenium to run)
  - SQLite 3 (optional but recommended)
+ - Resharper (optional but recommended)
 
 To begin, download the repository by clicking "Download ZIP" on GitHub or by using a Git client to run the following:
 
 `git clone https://github.com/emagdne/countdown` 
 
-Next, open `CountDown.sln` in Visual Studio. Right-click on the solution in the Solution Explorer pane and select `Enable NuGet Package Restore`. Click `Yes` on the dialog that appears. After Visual Studio configures package restore, rebuild the solution. NuGet should download the project's dependencies automatically.
+Next, open `CountDown.sln` in Visual Studio. Right-click on the solution in the Solution Explorer pane and select `Enable NuGet Package Restore`. Click `Yes` on the dialog that appears.
+
+After Visual Studio configures package restore, rebuild the solution. NuGet should download the project's dependencies automatically.
+
+**Note**: You may have to rebuild the solution twice. I have seen instances where NuGet does not download all dependencies on the first rebuild.
 
 # Usage
 
 Run the `CountDown` project to launch the site in IIS. The site should become available at `http://localhost:50212/countdown/`. Register an account, then login to browse the rest of the site.
 
-To run all test cases, launch the site, then use a test runner to run test cases within the `CountDown.UnitTests`, `CountDown.IntegrationTests`, and `CountDown.FunctionalTests` projects. Resharper's `Unit Test Sessions` window is recommended, but any test runner from NuGet capable of running NUnit tests should work.
+To run test cases, launch the site, then use a test runner to run test cases within the `CountDown.UnitTests`, `CountDown.IntegrationTests`, and `CountDown.FunctionalTests` projects. Resharper's `Unit Test Sessions` window is recommended, but any test runner capable of running NUnit tests should work.
 
 # FAQ
 
