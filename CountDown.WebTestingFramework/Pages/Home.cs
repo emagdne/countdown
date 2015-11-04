@@ -326,7 +326,6 @@ namespace CountDown.WebTestingFramework
                                 "/input[@class = 'index-completed-checkbox' and @type = 'checkbox' and not(@checked)]",
                                 id), QueryMethod.Xpath))
                     {
-                        Browser.WaitForPageLoad();
                         break;
                     }
                 } while (PaginationControl.TryNextPage());
